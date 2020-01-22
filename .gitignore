@@ -1,0 +1,7 @@
+# This is the .gitignore file for the ASEN5128 Repository
+
+# Ignore the Lectures Folder
+Lectures/*
+
+# Ignore the ClassDocs Folder
+ClassDocs/*
