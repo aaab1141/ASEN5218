@@ -5,3 +5,6 @@ Lectures/*
 
 # Ignore the ClassDocs Folder
 ClassDocs/*
+
+# Ignore the HomeworkDocs Folder
+HomeworkDocs/*
