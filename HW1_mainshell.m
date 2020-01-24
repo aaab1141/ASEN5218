@@ -11,7 +11,39 @@ clear
 close all
 
 % Run Problem 1
+% Build a function that creates the A matrix from nodes and bars matrices.
+testnodes = [0  0  1  0 0 0;
+             -1 0  0  1 1 1;
+             0  -1 0  1 1 1;
+             1  0  0  1 1 1;
+             0  1  0  1 1 1];
+testbars = [1 2;1 3;1 4;1 5];
 
+A = equilibrium_matrix(testnodes,testbars);
+
+testnodes2 = [0 0 0 1 1 1;
+              1 0 0 1 1 1;
+              0 1 0 0 0 1;
+              1 1 0 0 0 1];
+testbars2 = [1 3;3 4;4 1;4 2];
+
+A = equilibrium_matrix(testnodes2,testbars2);
+
+testnodes3 = [0 0 0 1 1 1;
+              1 0 0 1 1 1;
+              0 1 0 0 0 1;
+              1 1 0 0 0 1];
+testbars3 = [1 3;3 4;4 1;4 2;2 3];
+
+A = equilibrium_matrix(testnodes3,testbars3);
+
+testnodes4 = [0 0 0 1 1 1;
+              1 0 0 1 1 1;
+              0 1 0 0 0 1;
+              1 1 0 0 0 1];
+testbars4 = [1 3;3 4;4 2];
+
+A = equilibrium_matrix(testnodes4,testbars4);
 
 % Run Problem 2
 
