@@ -9,40 +9,40 @@ close all
 
 % Problem 1
 % Build a function that creates the A matrix from nodes and bars matrices.
-%{
-testnodes = [0  0  1  0 0 0;
+test.case1.nodes = [0  0  1  0 0 0;
              -1 0  0  1 1 1;
              0  -1 0  1 1 1;
              1  0  0  1 1 1;
              0  1  0  1 1 1];
-testbars = [1 2;1 4;1 3;1 5];
+test.case1.bars = [1 2;1 4;1 3;1 5];
 
-test.case1.A = equilibrium_matrix(testnodes,testbars);
+test.case1.A = equilibrium_matrix(test.case1.nodes,test.case1.bars);
+plotmytruss(test.case1.nodes,test.case1.bars,'Test Case 1 Truss','m')
 
-testnodes2 = [0 0 0 1 1 1;
+test.case2.nodes = [0 0 0 1 1 1;
               1 0 0 1 1 1;
               0 1 0 0 0 1;
               1 1 0 0 0 1];
-testbars2 = [1 3;3 4;4 1;4 2];
+test.case2.bars = [1 3;3 4;4 1;4 2];
 
-test.case2.A = equilibrium_matrix(testnodes2,testbars2);
+test.case2.A = equilibrium_matrix(test.case2.nodes,test.case2.bars);
+plotmytruss(test.case2.nodes,test.case2.bars,'Test Case 2 Truss','m')
 
-testnodes3 = [0 0 0 1 1 1;
+test.case3.nodes = [0 0 0 1 1 1;
               1 0 0 1 1 1;
               0 1 0 0 0 1;
               1 1 0 0 0 1];
-testbars3 = [1 3;3 4;4 1;4 2;2 3];
+test.case3.bars = [1 3;3 4;4 1;4 2;2 3];
 
-test.case3.A = equilibrium_matrix(testnodes3,testbars3);
+test.case3.A = equilibrium_matrix(test.case3.nodes,test.case3.bars);
 
-testnodes4 = [0 0 0 1 1 1;
+test.case4.nodes = [0 0 0 1 1 1;
               1 0 0 1 1 1;
               0 1 0 0 0 1;
               1 1 0 0 0 1];
-testbars4 = [1 3;3 4;4 2];
+test.case4.bars = [1 3;3 4;4 2];
 
-test.case4.A = equilibrium_matrix(testnodes4,testbars4);
-%}
+test.case4.A = equilibrium_matrix(test.case4.nodes,test.case4.bars);
 
 % Problem 2
 % Equilateral Triangle case 1
@@ -107,7 +107,7 @@ twobay.a45.bars = twobay.a0.bars;
      
 twobay.a45.A = equilibrium_matrix(twobay.a45.nodes,twobay.a45.bars);
 [twobay.a45.U,twobay.a45.V,twobay.a45.W] = svd(twobay.a45.A);
-plotmytruss(twobay.a45.nodes,twobay.a0.bars,'Two-bay Truss','m')
+plotmytruss(twobay.a45.nodes,twobay.a0.bars,'Twisted Two-bay Truss','m')
 
 % Tracking th singluar values over variation in alpha
 alph = -45:.1:45;
@@ -163,9 +163,10 @@ iso.bars = [9 5;1 9;5 1;8 1;8 2;
             9 6;4 6;12 3;12 5;12 6;5 2;
             2 3;11 3;3 6;3 7;11 7;10 7;7 6;11 8];
          
-plotmytruss(iso.nodes,iso.bars,'T','m')
+plotmytruss(iso.nodes,iso.bars,'Icosahedron','m')
                    
 iso.A = equilibrium_matrix(iso.nodes,iso.bars);
+[iso.U,iso.V,iso.W] = svd(iso.A);
 sum(iso.A,1)
 
 % Problem 5

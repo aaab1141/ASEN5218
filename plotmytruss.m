@@ -38,12 +38,12 @@ for i = 1:size(bars,1)
     midz = mean(z);
     
     % Add the text on the plot
-    text(midx,midy,midz,num2str(i))
+    text(midx,midy,midz,num2str(i),'fontsize',14,'fontangle','italic','color','b')
 end
 
 % Add the node numbers
 for i = 1:size(nodes,1)
-    text(nodes(i,1),nodes(i,2),nodes(i,3),num2str(i))
+    text(nodes(i,1),nodes(i,2),nodes(i,3),num2str(i),'fontsize',14,'fontweight','bold','color','k')
 end
 
 % Label the plot and change the viewing angle
@@ -53,5 +53,6 @@ ylabel(['Y, ',units])
 zlabel(['Z, ',units])
 view(45,35.264)
 axis equal
+grid on
 end
 

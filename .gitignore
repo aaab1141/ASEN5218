@@ -14,3 +14,6 @@ HomeworkDocs/*
 
 # Ignore the Textbooks folder
 Textbooks/*
+
+# Ignore the Figures folder
+Figures/*
