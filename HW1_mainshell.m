@@ -147,6 +147,26 @@ title('Number of Mechanisms and Surface Stresses over \alpha');grid on
 xlabel('\alpha, ^o');ylabel('Count'),legend('Mechanisms','Surface Stresses')
     
 % Problem 4
+gr = (1+sqrt(5))/2;
+iso.coordinates = [-gr/2 -.5 0;gr/2 -.5 0;gr/2  .5 0;-gr/2  .5 0;
+         0 -gr/2  -.5;0  gr/2  -.5;0  gr/2   .5;0 -gr/2   .5;
+         -.5 0 -gr/2;-.5 0  gr/2;.5 0  gr/2;.5 0 -gr/2];
+iso.nodes = zeros(length(iso.coordinates),6);
+a = pi/2 - atan(1/gr);
+Rx = [1 0 0;0 cos(a) -sin(a); 0 sin(a) cos(a)];
+for i = 1:length(iso.coordinates)
+    iso.nodes(i,1:3) = (Rx*iso.coordinates(i,:)')';
+end
+iso.bars = [9 5;1 9;5 1;8 1;8 2;
+            2 12;2 11;11 10;10 8;10 1;
+            10 4;4 9;4 7;4 1;8 5;9 12;
+            9 6;4 6;12 3;12 5;12 6;5 2;
+            2 3;11 3;3 6;3 7;11 7;10 7;7 6;11 8];
+         
+plotmytruss(iso.nodes,iso.bars,'T','m')
+                   
+iso.A = equilibrium_matrix(iso.nodes,iso.bars);
+sum(iso.A,1)
 
 % Problem 5
 
