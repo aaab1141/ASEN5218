@@ -110,7 +110,7 @@ twobay.a45.A = equilibrium_matrix(twobay.a45.nodes,twobay.a45.bars);
 plotmytruss(twobay.a45.nodes,twobay.a0.bars,'Twisted Two-bay Truss','m')
 
 % Tracking th singluar values over variation in alpha
-alph = -45:.1:45;
+alph = -pi/4:.01:pi/4;
 bars = [3 6;3 7;2 5;2 6;
         1 8;1 5;4 7;4 8;
         7 12;7 11;6 11;6 10;
@@ -168,8 +168,12 @@ plotmytruss(iso.nodes,iso.bars,'Icosahedron','m')
 iso.A = equilibrium_matrix(iso.nodes,iso.bars);
 [iso.U,iso.V,iso.W] = svd(iso.A);
 sum(iso.A,1)
+size(iso.A)' - rank(iso.V)'
 
 % Problem 5
-
+line.nodes = [0 0 1 0 0 0; 0 0 2 0 0 0; 0 0 3 0 0 0];
+line.bars = [1 2;2 3];
+line.A = equilibrium_matrix(line.nodes,line.bars);
+plotmytruss(line.nodes,line.bars,'Line','m')
 
 % End of Script
