@@ -90,7 +90,10 @@ twobay.a0.A = equilibrium_matrix(twobay.a0.nodes,twobay.a0.bars);
 [twobay.a0.U,twobay.a0.V,twobay.a0.W] = svd(twobay.a0.A);
 plotmytruss(twobay.a0.nodes,twobay.a0.bars,'Two-bay Truss','m')
 
-a = pi/4; %case where alpha-45 or -45 degrees
+node_num = 1:1:12;
+node_num = node_num';
+node_num = repelem(node_num,3);
+a = pi/4; %case where alpha = 45 degrees
 twobay.a45.nodes = [.5  .5  0 1 1 1;
          -.5 .5  0 1 1 1;
          -.5 -.5 0 1 1 1;
@@ -109,8 +112,60 @@ twobay.a45.A = equilibrium_matrix(twobay.a45.nodes,twobay.a45.bars);
 [twobay.a45.U,twobay.a45.V,twobay.a45.W] = svd(twobay.a45.A);
 plotmytruss(twobay.a45.nodes,twobay.a0.bars,'Twisted Two-bay Truss','m')
 
-% Tracking th singluar values over variation in alpha
-alph = -pi/4:.01:pi/4;
+% make a table for the node displacments
+node_num = 5:1:12;
+node_num = node_num';
+node_num = repelem(node_num,3);
+direction = ['x';'y';'z';'x';'y';'z';'x';'y';'z';'x';'y';'z';'x';'y';'z';'x';'y';'z';'x';'y';'z';'x';'y';'z'];
+disp_1 = twobay.a45.U(:,end);
+p45distab = table(node_num,direction,disp_1);
+disp('45 Degree Twist Node Displacements');disp(p45distab)
+
+%make a table for the bar stresses
+bar_num = 1:1:size(twobay.a0.bars,1);
+bar_num = bar_num';
+stress_1 = twobay.a45.W(end,:)';
+p45strtab = table(bar_num,stress_1);
+disp('45 Degree Twist Bar Stresses');disp(p45strtab)
+
+a = -pi/4; %case where alpha = -45 degrees
+twobay.na45.nodes = [.5  .5  0 1 1 1;
+         -.5 .5  0 1 1 1;
+         -.5 -.5 0 1 1 1;
+         .5  -.5 0 1 1 1;
+         (cos(a)*.5-sin(a)*.5)   (sin(a)*.5+cos(a)*.5)   1 0 0 0;
+         (cos(a)*-.5-sin(a)*.5)  (sin(a)*-.5+cos(a)*.5)  1 0 0 0;
+         (cos(a)*-.5-sin(a)*-.5) (sin(a)*-.5+cos(a)*-.5) 1 0 0 0;
+         (cos(a)*.5-sin(a)*-.5)  (sin(a)*.5+cos(a)*-.5)  1 0 0 0;
+         .5  .5  2 0 0 0;
+         -.5 .5  2 0 0 0;
+         -.5 -.5 2 0 0 0;
+         .5  -.5 2 0 0 0];
+twobay.na45.bars = twobay.a0.bars;
+     
+twobay.na45.A = equilibrium_matrix(twobay.na45.nodes,twobay.na45.bars);
+[twobay.na45.U,twobay.na45.V,twobay.na45.W] = svd(twobay.na45.A);
+
+% make a table for the node displacments
+node_num = 5:1:12;
+node_num = node_num';
+node_num = repelem(node_num,3);
+direction = ['x';'y';'z';'x';'y';'z';'x';'y';'z';'x';'y';'z';'x';'y';'z';'x';'y';'z';'x';'y';'z';'x';'y';'z'];
+disp_1 = twobay.na45.U(:,end-1);
+disp_2 = twobay.na45.U(:,end);
+n45distab = table(node_num,direction,disp_1,disp_2);
+disp('-45 Degree Twist Node Displacements');disp(n45distab)
+
+%make a table for the bar stresses
+bar_num = 1:1:size(twobay.a0.bars,1);
+bar_num = bar_num';
+stress_1 = twobay.na45.W(end-1,:)';
+stress_2 = twobay.na45.W(end,:)';
+n45strtab = table(bar_num,stress_1,stress_2);
+disp('-45 Degree Twist Bar Stresses');disp(n45strtab)
+
+% Tracking the singluar values over variation in alpha
+alph = -pi/4:pi/180:pi/4;
 bars = [3 6;3 7;2 5;2 6;
         1 8;1 5;4 7;4 8;
         7 12;7 11;6 11;6 10;
@@ -137,12 +192,13 @@ for i = 1:length(alph)
 end
 
 figure
-plot(alph,evol)
+plot(alph*180/pi,evol,'-o')
 title('Variation of Singular Values over \alpha')
 xlabel('\alpha, ^o');ylabel('Singular Value');grid on
 
-figure
-plot(alph,ms)
+figure; hold on
+plot(alph*180/pi,ms(1,:),'b-o','linewidth',2)
+plot(alph*180/pi,ms(2,:),'r-o')
 title('Number of Mechanisms and Surface Stresses over \alpha');grid on
 xlabel('\alpha, ^o');ylabel('Count'),legend('Mechanisms','Surface Stresses')
     
@@ -171,8 +227,8 @@ sum(iso.A,1)
 size(iso.A)' - rank(iso.V)'
 
 % Problem 5
-line.nodes = [0 0 1 0 0 0; 0 0 2 0 0 0; 0 0 3 0 0 0];
-line.bars = [1 2;2 3];
+line.nodes = [0 0 1 0 0 0; 0 0 2 0 0 0; 0 0 3 0 0 0; 0 0 4 0 0 0];
+line.bars = [1 2;2 3;3 4;4 3];
 line.A = equilibrium_matrix(line.nodes,line.bars);
 plotmytruss(line.nodes,line.bars,'Line','m')
 
