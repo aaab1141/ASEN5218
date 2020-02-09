@@ -1,0 +1,140 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      3994,        132]
+NotebookOptionsPosition[      3225,        109]
+NotebookOutlinePosition[      3568,        124]
+CellTagsIndexPosition[      3525,        121]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Homework #2", "Title",
+ CellChangeTimes->{{3.79025975284991*^9, 
+  3.790259771966859*^9}},ExpressionUUID->"f54759fd-6ce6-4008-88f6-\
+5f730d250f76"],
+
+Cell[" ASEN 5218 | Aaron Aboaf | 2020-02-18", "Text",
+ CellChangeTimes->{{3.7902597778796463`*^9, 
+  3.7902598185853124`*^9}},ExpressionUUID->"9a55a913-504b-4c57-a35d-\
+c0cae6f83855"],
+
+Cell[CellGroupData[{
+
+Cell["Question 1", "Section",
+ CellChangeTimes->{{3.790259825470153*^9, 
+  3.790259829313775*^9}},ExpressionUUID->"a97e192a-9cde-47b1-ae33-\
+ccda234e1dd8"],
+
+Cell[CellGroupData[{
+
+Cell["Express the linear density of the arbitrary truss where:", \
+"Subsubsection",
+ CellChangeTimes->{{3.7902598369845257`*^9, 
+  3.7902598661018667`*^9}},ExpressionUUID->"10f87474-467e-4f6c-9a24-\
+c3b3f25137d8"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"E", "="}], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "ef9772ca-6fb1-4258-8ca6-4edc8d2e69de"],
+ " Stiffness\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Rho]", "="}], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "11d5c68e-dfe4-4da6-99b4-14d351164367"],
+ " Density\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["l", "l"], "="}], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "20493d69-2155-4508-8968-e26986bf2891"],
+ " Length of the longeron\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["r", "l"], "="}], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "40986f7b-698c-4d5e-886d-f03cd1bf234d"],
+ " radius of the longeron\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["l", "d"], "="}], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "bb2daa6c-938f-43ba-a085-43639d0e1fd0"],
+ " length of the diagonal\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["r", "d"], "="}], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "b30e583a-3bb6-4090-ae97-676beb7a3b97"],
+ " radius of the diagonal\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Theta]", "="}], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "88ac6531-0ef9-4657-a7ce-e837c62b9607"],
+ " Angle between the diagonal and longeron\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"P", "="}], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "238a7215-e492-4b44-998f-00b631d66024"],
+ " Global equally distributed axial load on the boom"
+}], "Text",
+ CellChangeTimes->{{3.790259879828012*^9, 3.7902601954814014`*^9}, {
+  3.790260230473645*^9, 
+  3.790260261509286*^9}},ExpressionUUID->"a638a521-cb4e-4a15-b40b-\
+edd9e9b01669"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{759, 833},
+WindowMargins->{{Automatic, 572}, {64, Automatic}},
+FrontEndVersion->"12.0 for Microsoft Windows (64-bit) (April 8, 2019)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 153, 3, 96, "Title",ExpressionUUID->"f54759fd-6ce6-4008-88f6-5f730d250f76"],
+Cell[736, 27, 183, 3, 34, "Text",ExpressionUUID->"9a55a913-504b-4c57-a35d-c0cae6f83855"],
+Cell[CellGroupData[{
+Cell[944, 34, 155, 3, 67, "Section",ExpressionUUID->"a97e192a-9cde-47b1-ae33-ccda234e1dd8"],
+Cell[CellGroupData[{
+Cell[1124, 41, 213, 4, 44, "Subsubsection",ExpressionUUID->"10f87474-467e-4f6c-9a24-c3b3f25137d8"],
+Cell[1340, 47, 1845, 57, 188, "Text",ExpressionUUID->"a638a521-cb4e-4a15-b40b-edd9e9b01669"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
