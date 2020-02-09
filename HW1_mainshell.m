@@ -1,8 +1,7 @@
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 % This is the main shell script for ASEN 5218 Homework #1. It facilitates
-% running the problems in the homework. For each problem a single script
-% file is used. To check this homework, the only thing that is required is
-% to run this script.
+% running the problems in the homework. To check this homework, the only 
+% thing that is required is to run this script.
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 clear
 close all
