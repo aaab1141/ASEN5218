@@ -17,3 +17,6 @@ Textbooks/*
 
 # Ignore the Figures folder
 Figures/*
+
+# Ignore the Documents folder inside the FinalProject folder
+FinalProject/Documents/*
