@@ -8,6 +8,15 @@ close all
 
 % Question 1 & 2 are derivations
 
+figure
+hold on
+theta = pi/40:.01:pi/2;
+for n = 2:1:6
+    temp = (sin(pi/n)^2*cos(theta)) ./ ((n^2*cos(pi/2-theta).^2));
+    plot(theta,temp)
+end
+
+
 % Question 3
 % Looking to plot the linear density of both truss designs
 E = 110e9; %Pa
