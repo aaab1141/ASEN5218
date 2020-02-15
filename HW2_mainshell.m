@@ -10,16 +10,30 @@ close all
 figure
 hold on
 theta = pi/40:.01:pi/2;
+num_longerons = 2:1:16;
+num_longerons = num_longerons';
 for n = 2:1:16
     temp = (sin(pi/n)/n)^(1/2) * (5*sqrt(2*cot(theta)) + sqrt(5./sin(theta)).*1./cos(theta));
+    [value_of_mu(n-1),i] = min(temp);
+    optimal_theta(n-1,1) = theta(i);
     plot(theta,temp)
 end
+% table of min thetas
+table(num_longerons,optimal_theta)
+
+%finish plot
+optimal_theta = [optimal_theta;optimal_theta(1)];
+value_of_mu = [value_of_mu,50];
+plot(optimal_theta',value_of_mu,'r','linewidth',2);
 axis([0,pi/2,0,50]); grid on
 title('$\mu_n \mu_{\theta}$ for Increasing Number of Longerons','interpreter','latex')
 ylabel('\mu_n \mu_{\theta}');xlabel('\theta, radians')
-legend('n = 2','n = 3','n = 4','n = 5','n = 6','n = 7','location','northwest')
+legend('n = 2','n = 3','n = 4','n = 5','n = 6','n = 7','Minimum \theta','location','northwest')
+h = text(optimal_theta(1)+.03,30,['Minimum \theta = ',num2str(optimal_theta(1)*180/pi),'^o'],'horizontalalignment','center');
+set(h,'Rotation',90)
 
 % Question 2
+
 
 % Question 3
 % Looking to plot the linear density of both truss designs
