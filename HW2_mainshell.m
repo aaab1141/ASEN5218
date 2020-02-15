@@ -18,15 +18,20 @@ for n = 2:1:7
     optimal_theta(n-1,1) = theta(i);
     plot(theta,temp)
 end
+% table of min thetas
+table(num_longerons,optimal_theta)
+
+%finish plot
+optimal_theta = [optimal_theta;optimal_theta(1)];
+value_of_mu = [value_of_mu,50];
 plot(optimal_theta',value_of_mu,'r','linewidth',2);
 axis([0,pi/2,0,50]); grid on
 title('$\mu_n \mu_{\theta}$ for Increasing Number of Longerons','interpreter','latex')
 ylabel('\mu_n \mu_{\theta}');xlabel('\theta, radians')
 legend('n = 2','n = 3','n = 4','n = 5','n = 6','n = 7','Minimum \theta','location','north')
-
-% table of min thetas
-table(num_longerons,optimal_theta)
-% 
+h = text(optimal_theta(1)+.03,30,['Minimum \theta = ',num2str(optimal_theta(1)*180/pi),'^o'],'horizontalalignment','center');
+set(h,'Rotation',90)
+ 
 % % Question 2
 % figure
 % hold on
