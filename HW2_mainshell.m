@@ -13,7 +13,7 @@ theta = pi/40:.01:pi/2;
 num_longerons = 2:1:7;
 num_longerons = num_longerons';
 for n = 2:1:7
-    temp = (sin(pi/n)/sqrt(n)) * (10*cot(theta)) + sqrt(10)./sin(theta).*1./cos(theta);
+    temp = (sin(pi/n)/sqrt(n)) * ((10*cot(theta)) + sqrt(10)./sin(theta).*1./cos(theta));
     [value_of_mu(n-1),i] = min(temp);
     optimal_theta(n-1,1) = theta(i);
     plot(theta,temp)
@@ -26,9 +26,27 @@ legend('n = 2','n = 3','n = 4','n = 5','n = 6','n = 7','Minimum \theta','locatio
 
 % table of min thetas
 table(num_longerons,optimal_theta)
-
-% Question 2
-
+% 
+% % Question 2
+% figure
+% hold on
+% theta = pi/40:.01:pi/2;
+% num_longerons = 2:1:7;
+% num_longerons = num_longerons';
+% for n = 2:1:7
+%     temp = sin(pi/n)^(2/3)/n^(1/3) * (5*2^(2/3)*cot(theta) + 
+%     [value_of_mu(n-1),i] = min(temp);
+%     optimal_theta(n-1,1) = theta(i);
+%     plot(theta,temp)
+% end
+% plot(optimal_theta',value_of_mu,'r','linewidth',2);
+% axis([0,pi/2,0,50]); grid on
+% title('$\mu_n \mu_{\theta}$ for Increasing Number of Longerons','interpreter','latex')
+% ylabel('\mu_n \mu_{\theta}');xlabel('\theta, radians')
+% legend('n = 2','n = 3','n = 4','n = 5','n = 6','n = 7','Minimum \theta','location','north')
+% 
+% % table of min thetas
+% table(num_longerons,optimal_theta)
 
 % Question 3
 % Looking to plot the linear density of both truss designs
