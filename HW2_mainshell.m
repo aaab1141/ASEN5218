@@ -6,16 +6,20 @@
 clear
 close all
 
-% Question 1 & 2 are derivations
-
+% Question 1 Plot
 figure
 hold on
 theta = pi/40:.01:pi/2;
-for n = 2:1:6
-    temp = (sin(pi/n)^2*cos(theta)) ./ ((n^2*cos(pi/2-theta).^2));
+for n = 2:1:16
+    temp = (sin(pi/n)/n)^(1/2) * (5*sqrt(2*cot(theta)) + sqrt(5./sin(theta)).*1./cos(theta));
     plot(theta,temp)
 end
+axis([0,pi/2,0,50]); grid on
+title('$\mu_n \mu_{\theta}$ for Increasing Number of Longerons','interpreter','latex')
+ylabel('\mu_n \mu_{\theta}');xlabel('\theta, radians')
+legend('n = 2','n = 3','n = 4','n = 5','n = 6','n = 7','location','northwest')
 
+% Question 2
 
 % Question 3
 % Looking to plot the linear density of both truss designs

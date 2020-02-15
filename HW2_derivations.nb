@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     21708,        606]
-NotebookOptionsPosition[     17833,        530]
-NotebookOutlinePosition[     18206,        546]
-CellTagsIndexPosition[     18163,        543]
+NotebookDataLength[     22825,        635]
+NotebookOptionsPosition[     18796,        560]
+NotebookOutlinePosition[     19169,        576]
+CellTagsIndexPosition[     19126,        573]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -21,7 +21,8 @@ Notebook[{
 Cell[BoxData[
  RowBox[{"Clear", "[", "\"\<Global`*\>\"", "]"}]], "Input",
  CellChangeTimes->{{3.790262574068816*^9, 3.790262642652083*^9}},
- CellLabel->"In[1]:=",ExpressionUUID->"cec635d2-dcec-4992-8305-a1211609de7f"],
+ CellLabel->
+  "In[212]:=",ExpressionUUID->"cec635d2-dcec-4992-8305-a1211609de7f"],
 
 Cell[CellGroupData[{
 
@@ -56,94 +57,80 @@ c3b3f25137d8"],
 Cell[TextData[{
  Cell[BoxData[
   FormBox[
-   RowBox[{"EE", "="}], TraditionalForm]],
-  FormatType->"TraditionalForm",ExpressionUUID->
+   RowBox[{"EE", "="}], TraditionalForm]],ExpressionUUID->
   "ef9772ca-6fb1-4258-8ca6-4edc8d2e69de"],
  " Stiffness\n",
  Cell[BoxData[
   FormBox[
-   RowBox[{"\[Rho]", "="}], TraditionalForm]],
-  FormatType->"TraditionalForm",ExpressionUUID->
+   RowBox[{"\[Rho]", "="}], TraditionalForm]],ExpressionUUID->
   "11d5c68e-dfe4-4da6-99b4-14d351164367"],
  " Density\n",
  Cell[BoxData[
   FormBox[
    RowBox[{
-    SubscriptBox["l", "l"], "="}], TraditionalForm]],
-  FormatType->"TraditionalForm",ExpressionUUID->
+    SubscriptBox["l", "l"], "="}], TraditionalForm]],ExpressionUUID->
   "20493d69-2155-4508-8968-e26986bf2891"],
  " Length of the longeron\n",
  Cell[BoxData[
   FormBox[
    RowBox[{
-    SubscriptBox["r", "l"], "="}], TraditionalForm]],
-  FormatType->"TraditionalForm",ExpressionUUID->
+    SubscriptBox["r", "l"], "="}], TraditionalForm]],ExpressionUUID->
   "40986f7b-698c-4d5e-886d-f03cd1bf234d"],
  " radius of the longeron\n",
  Cell[BoxData[
   FormBox[
    RowBox[{
-    SubscriptBox["l", "d"], "="}], TraditionalForm]],
-  FormatType->"TraditionalForm",ExpressionUUID->
+    SubscriptBox["l", "d"], "="}], TraditionalForm]],ExpressionUUID->
   "bb2daa6c-938f-43ba-a085-43639d0e1fd0"],
  " length of the diagonal\n",
  Cell[BoxData[
   FormBox[
    RowBox[{
-    SubscriptBox["r", "d"], "="}], TraditionalForm]],
-  FormatType->"TraditionalForm",ExpressionUUID->
+    SubscriptBox["r", "d"], "="}], TraditionalForm]],ExpressionUUID->
   "b30e583a-3bb6-4090-ae97-676beb7a3b97"],
  " radius of the diagonal\n",
  Cell[BoxData[
   FormBox[
-   RowBox[{"\[Theta]", "="}], TraditionalForm]],
-  FormatType->"TraditionalForm",ExpressionUUID->
+   RowBox[{"\[Theta]", "="}], TraditionalForm]],ExpressionUUID->
   "88ac6531-0ef9-4657-a7ce-e837c62b9607"],
  " Angle between the diagonal and longeron\n",
  Cell[BoxData[
   FormBox[
-   RowBox[{"P", "="}], TraditionalForm]],
-  FormatType->"TraditionalForm",ExpressionUUID->
+   RowBox[{"P", "="}], TraditionalForm]],ExpressionUUID->
   "238a7215-e492-4b44-998f-00b631d66024"],
  " Global equally distributed axial load on the boom\n",
  Cell[BoxData[
   FormBox[
-   RowBox[{"n", "="}], TraditionalForm]],
-  FormatType->"TraditionalForm",ExpressionUUID->
+   RowBox[{"n", "="}], TraditionalForm]],ExpressionUUID->
   "e7535e8f-427b-4fdf-832c-77e4f642de07"],
  " number of longerons\n",
  Cell[BoxData[
   FormBox[
-   RowBox[{"K", "="}], TraditionalForm]],
-  FormatType->"TraditionalForm",ExpressionUUID->
+   RowBox[{"K", "="}], TraditionalForm]],ExpressionUUID->
   "f6dd8f13-a275-41dd-804b-ee08fd3381ae"],
  " some arbitrary prefactor\n",
  Cell[BoxData[
   FormBox[
    RowBox[{
-    FractionBox["M", "L"], "="}], TraditionalForm]],
-  FormatType->"TraditionalForm",ExpressionUUID->
+    FractionBox["M", "L"], "="}], TraditionalForm]],ExpressionUUID->
   "161a8807-f6a9-462b-90fd-8c504841ca8c"],
  "Linear density of the truss\n",
  Cell[BoxData[
   FormBox[
-   RowBox[{"R", "="}], TraditionalForm]],
-  FormatType->"TraditionalForm",ExpressionUUID->
+   RowBox[{"R", "="}], TraditionalForm]],ExpressionUUID->
   "1da77110-f92f-4876-9af7-0ce1cc87756f"],
- " Global radius\n\nOther Notes: Boom is designed so that longerons do not \
-Euler-buckle with the global axial load ",
+ " Global truss radius\n\nOther Notes: Boom is designed so that longerons do \
+not Euler-buckle with the global axial load ",
  Cell[BoxData[
   FormBox[
-   FractionBox["P", "n"], TraditionalForm]],
-  FormatType->"TraditionalForm",ExpressionUUID->
+   FractionBox["P", "n"], TraditionalForm]],ExpressionUUID->
   "7903d2ae-8358-4078-98fc-d3bb7bf1118f"],
  "and the diagonals must not buckle when experiencing a load of 1/10th of \
 that on a longeron meaning ",
  Cell[BoxData[
   FormBox[
    FractionBox["P", 
-    RowBox[{"10", "n"}]], TraditionalForm]],
-  FormatType->"TraditionalForm",ExpressionUUID->
+    RowBox[{"10", "n"}]], TraditionalForm]],ExpressionUUID->
   "e1c7e5d9-2b4d-4c8b-9829-48c3d39423ad"],
  "."
 }], "Text",
@@ -151,119 +138,204 @@ that on a longeron meaning ",
   3.790260230473645*^9, 3.790260261509286*^9}, {3.790261857576628*^9, 
   3.790262001390686*^9}, {3.790262051730694*^9, 3.7902621264889603`*^9}, {
   3.7902626940083795`*^9, 3.7902627027056837`*^9}, {3.7902655112810717`*^9, 
-  3.790265517168744*^9}},ExpressionUUID->"a638a521-cb4e-4a15-b40b-\
+  3.790265517168744*^9}, {3.790773041831108*^9, 
+  3.790773042798512*^9}},ExpressionUUID->"a638a521-cb4e-4a15-b40b-\
 edd9e9b01669"],
 
 Cell[CellGroupData[{
 
-Cell["Need the moment of inertia of the solid cylindrical bar", \
-"Subsubsection",
+Cell["Moments of Inertia", "Subsubsection",
  CellChangeTimes->{{3.790262222670621*^9, 3.790262223858448*^9}, {
-  3.7902622551837397`*^9, 
-  3.790262272836808*^9}},ExpressionUUID->"6adcfb19-a205-444a-8b91-\
+  3.7902622551837397`*^9, 3.790262272836808*^9}, {3.790776590887703*^9, 
+  3.7907765974883137`*^9}},ExpressionUUID->"6adcfb19-a205-444a-8b91-\
 4c6e5a398a73"],
 
 Cell[BoxData[{
  RowBox[{
-  RowBox[{"Il", "=", 
-   RowBox[{
-    FractionBox["\[Pi]", "4"], 
-    SuperscriptBox["rl", "4"]}]}], ";"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"Il", "=", 
+    RowBox[{
+     FractionBox["\[Pi]", "4"], 
+     SuperscriptBox["rl", "4"]}]}], ";"}], 
+  RowBox[{"(*", "longeron", "*)"}]}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"Id", "=", 
    RowBox[{
     FractionBox["\[Pi]", "4"], 
-    SuperscriptBox["rd", "4"]}]}], ";"}]}], "Input",
+    SuperscriptBox["rd", "4"]}]}], ";", 
+  RowBox[{"(*", "diagonal", "*)"}]}]}], "Input",
  CellChangeTimes->{{3.7902622760632043`*^9, 3.7902622817224736`*^9}, {
   3.7902623453668613`*^9, 3.7902624693458776`*^9}, {3.7902625051416335`*^9, 
-  3.790262564079299*^9}, {3.7902733750932026`*^9, 3.7902733891945596`*^9}},
- CellLabel->"In[2]:=",ExpressionUUID->"f8257d0a-bb9e-47b5-8b01-5de649a9bbc8"]
+  3.790262564079299*^9}, {3.7902733750932026`*^9, 3.7902733891945596`*^9}, {
+  3.7907766178704557`*^9, 3.7907766256083937`*^9}},
+ CellLabel->
+  "In[213]:=",ExpressionUUID->"f8257d0a-bb9e-47b5-8b01-5de649a9bbc8"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell["The local buckling for a longeron is given by", "Subsubsection",
+Cell["Local Euler Buckling", "Subsubsection",
  CellChangeTimes->{{3.7902640283076878`*^9, 3.7902640434246364`*^9}, {
-  3.7902739479952135`*^9, 
-  3.7902739520105357`*^9}},ExpressionUUID->"2ec08c32-75f3-4197-b539-\
+  3.7902739479952135`*^9, 3.7902739520105357`*^9}, {3.790776602908852*^9, 
+  3.7907766150583363`*^9}},ExpressionUUID->"2ec08c32-75f3-4197-b539-\
 c4609167ed86"],
 
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{"Pl", "=", 
-  FractionBox[
-   RowBox[{"n", "*", 
-    SuperscriptBox["\[Pi]", "2"], "EE", "*", "Il"}], "ll"]}]], "Input",
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"Pl", "=", 
+    FractionBox[
+     RowBox[{"n", "*", 
+      SuperscriptBox["\[Pi]", "2"], "EE", "*", "Il"}], "ll"]}], ";"}], " ", 
+  RowBox[{"(*", "longeron", "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Pd", "=", 
+   FractionBox[
+    RowBox[{"10", "n", "*", 
+     SuperscriptBox["\[Pi]", "2"], "EE", "*", "Id"}], 
+    SuperscriptBox[
+     RowBox[{"(", 
+      RowBox[{"K", "*", "ld"}], ")"}], "2"]]}], ";", 
+  RowBox[{"(*", "diagonal", "*)"}]}]}], "Input",
  CellChangeTimes->{{3.790264052745222*^9, 3.7902641184041367`*^9}, 
    3.790264153034603*^9, {3.7902642016325054`*^9, 3.7902642334132915`*^9}, {
    3.79026492025436*^9, 3.790264928004899*^9}, {3.7902653500625114`*^9, 
    3.7902653608072615`*^9}, {3.790265412456849*^9, 3.7902654150289764`*^9}, {
    3.79026544996516*^9, 3.7902654504546275`*^9}, {3.7902654823380766`*^9, 
    3.790265507943343*^9}, 3.7902726338088026`*^9, {3.790273323063306*^9, 
-   3.790273384790271*^9}, {3.7903604419410744`*^9, 3.7903604501367936`*^9}},
- CellLabel->"In[4]:=",ExpressionUUID->"88ec9346-ac1e-491f-8ba5-356b742e19e5"],
-
-Cell[BoxData[
- FractionBox[
-  RowBox[{"EE", " ", "n", " ", 
-   SuperscriptBox["\[Pi]", "3"], " ", 
-   SuperscriptBox["rl", "4"]}], 
-  RowBox[{"4", " ", "ll"}]]], "Output",
- CellChangeTimes->{{3.790273356698519*^9, 3.790273385313933*^9}, 
-   3.790275139676033*^9, 3.7902752222437873`*^9, 3.790360452337678*^9, 
-   3.7903606389229584`*^9, 3.7904298723436813`*^9, 3.79069219698647*^9},
- CellLabel->"Out[4]=",ExpressionUUID->"59fd8d1e-d258-4b2f-b6e6-a1096363ddbc"]
-}, Open  ]]
+   3.790273384790271*^9}, {3.7903604419410744`*^9, 3.7903604501367936`*^9}, 
+   3.79077463121392*^9, {3.7907746989887304`*^9, 3.790774735545187*^9}, {
+   3.790774807347*^9, 3.7907748359944515`*^9}, {3.790776632215308*^9, 
+   3.7907766602057686`*^9}},
+ CellLabel->
+  "In[215]:=",ExpressionUUID->"88ec9346-ac1e-491f-8ba5-356b742e19e5"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell["And the local buckling of the diagonals is given by", "Subsubsection",
- CellChangeTimes->{{3.7902641256935883`*^9, 
-  3.7902641361516457`*^9}},ExpressionUUID->"cf3f0332-b801-4b48-a258-\
-95dafa473055"],
+Cell["Mass of the Truss Elements", "Subsubsection",
+ CellChangeTimes->{{3.790776794440127*^9, 3.790776835303907*^9}, 
+   3.7907775763501062`*^9},ExpressionUUID->"d41020a9-5269-4b47-89fd-\
+5dcbb1ca41af"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Ml", "=", 
+   RowBox[{"\[Pi]", "*", 
+    SuperscriptBox["rl", "2"], "*", "\[Rho]", "*", "Ll"}]}], ";", 
+  RowBox[{"(*", "longeron", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"Md", "=", 
+   RowBox[{"\[Pi]", "*", 
+    SuperscriptBox["rd", "2"], "*", "\[Rho]", "*", "Ld"}]}], ";", 
+  RowBox[{"(*", "diagonal", "*)"}]}]], "Input",
+ CellChangeTimes->{{3.7907743723660965`*^9, 3.790774506096386*^9}, 
+   3.790777472363102*^9},
+ CellLabel->
+  "In[217]:=",ExpressionUUID->"d47e6598-35ff-41af-8f12-dcce4286f2d0"],
+
+Cell[TextData[{
+ "Solve the Euler-Buckling loads for ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["rd", "2"], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "f2fdacad-d9be-499b-a84c-1c3d6a728e17"],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["rl", "2"], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "98024797-ce35-4432-a145-0303f3653630"],
+ " so that we can substitute that into the mass equations"
+}], "Text",
+ InitializationCell->True,
+ CellChangeTimes->{{3.790776950583*^9, 3.7907769827306023`*^9}, {
+  3.790777169692499*^9, 3.790777176091379*^9}, {3.790777210227768*^9, 
+  3.790777259097034*^9}},ExpressionUUID->"c90d5ef9-0217-4fbe-bcdb-\
+05dc481ef1d6"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"rl2", "=", 
+   SuperscriptBox[
+    RowBox[{"(", 
+     FractionBox[
+      RowBox[{"4", "P", "*", "ll"}], 
+      RowBox[{"n", "*", 
+       SuperscriptBox["\[Pi]", "3"], "EE"}]], ")"}], 
+    RowBox[{"1", "/", "2"}]]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"rd2", "=", 
+   SuperscriptBox[
+    RowBox[{"(", 
+     FractionBox[
+      RowBox[{"4", "P", "*", "ld"}], 
+      RowBox[{"10", "*", "n", "*", 
+       SuperscriptBox["\[Pi]", "3"], "EE"}]], ")"}], 
+    RowBox[{"1", "/", "2"}]]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.790777263498273*^9, 3.790777355758731*^9}, {
+  3.7907774061039934`*^9, 3.790777409782754*^9}, {3.7907780757554817`*^9, 
+  3.790778106326167*^9}},
+ CellLabel->
+  "In[218]:=",ExpressionUUID->"e9433b1c-7472-4bb3-85e4-6790fcc1d772"],
+
+Cell["Substitute into Mass equations", "Text",
+ CellChangeTimes->{{3.790777423818672*^9, 
+  3.7907774457244864`*^9}},ExpressionUUID->"63f0b3ce-d793-46cc-9593-\
+0dc408b63e1b"],
 
 Cell[CellGroupData[{
 
-Cell[BoxData[
- RowBox[{"Pd", "=", 
-  FractionBox[
-   RowBox[{"10", "n", "*", 
-    SuperscriptBox["\[Pi]", "2"], "EE", "*", "Id"}], 
-   SuperscriptBox[
-    RowBox[{"(", 
-     RowBox[{"K", "*", "ld"}], ")"}], "2"]]}]], "Input",
- CellChangeTimes->{{3.7902642293451653`*^9, 3.7902642298149405`*^9}, {
-   3.7902649033568015`*^9, 3.790264949935661*^9}, {3.7902653563028593`*^9, 
-   3.790265374707494*^9}, {3.7902654518848166`*^9, 3.790265452421384*^9}, 
-   3.790265503478987*^9, {3.790273285675597*^9, 3.790273319198638*^9}, {
-   3.7902733945322924`*^9, 3.7902734000944214`*^9}},
- CellLabel->"In[5]:=",ExpressionUUID->"2835aa44-1e01-4b99-b3c5-7ce478b8b04e"],
+Cell[BoxData[{
+ RowBox[{"Ml", "=", 
+  RowBox[{
+  "\[Pi]", "*", "rl2", "*", "\[Rho]", "*", "Ll"}]}], "\[IndentingNewLine]", 
+ RowBox[{"Md", "=", 
+  RowBox[{"\[Pi]", "*", "rd2", "*", "\[Rho]", "*", "Ld"}]}]}], "Input",
+ CellChangeTimes->{{3.790777448698658*^9, 3.7907775010875273`*^9}},
+ CellLabel->
+  "In[220]:=",ExpressionUUID->"9e976229-bbd5-4efe-93a0-4601e6d6c1c7"],
 
 Cell[BoxData[
  FractionBox[
-  RowBox[{"5", " ", "EE", " ", "n", " ", 
-   SuperscriptBox["\[Pi]", "3"], " ", 
-   SuperscriptBox["rd", "4"]}], 
-  RowBox[{"2", " ", 
-   SuperscriptBox["K", "2"], " ", 
-   SuperscriptBox["ld", "2"]}]]], "Output",
- CellChangeTimes->{3.790273400448475*^9, 3.7902751397059903`*^9, 
-  3.790275222272745*^9, 3.7903606393015985`*^9, 3.790429872406649*^9, 
-  3.790692197042469*^9},
- CellLabel->"Out[5]=",ExpressionUUID->"0b220d18-6c28-4452-ab6b-f2141d5a0650"]
+  RowBox[{"2", " ", "Ll", " ", 
+   SqrtBox[
+    FractionBox[
+     RowBox[{"ll", " ", "P"}], 
+     RowBox[{"EE", " ", "n"}]]], " ", "\[Rho]"}], 
+  SqrtBox["\[Pi]"]]], "Output",
+ CellChangeTimes->{{3.7907774961316648`*^9, 3.790777508633629*^9}, 
+   3.790778020426339*^9, 3.7907780567568483`*^9, 3.7907781092672873`*^9, 
+   3.7907782977223544`*^9, 3.7907783330036907`*^9},
+ CellLabel->
+  "Out[220]=",ExpressionUUID->"100c7344-1e97-476e-959b-a4d87eaaa70f"],
+
+Cell[BoxData[
+ RowBox[{"Ld", " ", 
+  SqrtBox[
+   FractionBox[
+    RowBox[{"ld", " ", "P"}], 
+    RowBox[{"EE", " ", "n"}]]], " ", 
+  SqrtBox[
+   FractionBox["2", 
+    RowBox[{"5", " ", "\[Pi]"}]]], " ", "\[Rho]"}]], "Output",
+ CellChangeTimes->{{3.7907774961316648`*^9, 3.790777508633629*^9}, 
+   3.790778020426339*^9, 3.7907780567568483`*^9, 3.7907781092672873`*^9, 
+   3.7907782977223544`*^9, 3.7907783330106735`*^9},
+ CellLabel->
+  "Out[221]=",ExpressionUUID->"7f49f0bd-ee84-45eb-a736-dc9589968877"]
 }, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["\<\
-Now we need to find an expression for the length of the diagonal in terms of \
-\[Theta] and the radius of the truss R\
+Express the Length of Truss Elements in Terms of Truss Radius R and Diagonal \
+Angle \[Theta]\
 \>", "Subsubsection",
- CellChangeTimes->{{3.7902738814615507`*^9, 
-  3.7902739218581114`*^9}},ExpressionUUID->"fbbb368e-bd14-4b2d-ace2-\
+ CellChangeTimes->{{3.7902738814615507`*^9, 3.7902739218581114`*^9}, {
+  3.790776419772701*^9, 3.7907764247469425`*^9}, {3.79077684441231*^9, 
+  3.7907768693181515`*^9}},ExpressionUUID->"fbbb368e-bd14-4b2d-ace2-\
 45f559ac8704"],
 
 Cell["\<\
@@ -276,256 +348,214 @@ given by:\
   3.790274119647044*^9}},ExpressionUUID->"33aeb58f-5cf3-42ce-8622-\
 398d91086c8b"],
 
-Cell[BoxData[
- RowBox[{
-  RowBox[{"ld", "=", 
-   FractionBox[
-    RowBox[{"2", "R", "*", 
-     RowBox[{"Sin", "[", 
-      FractionBox["\[Pi]", "n"], "]"}]}], 
-    RowBox[{"Cos", "[", 
-     RowBox[{
-      FractionBox["\[Pi]", "4"], "-", "\[Theta]"}], "]"}]]}], ";"}]], "Input",
- CellChangeTimes->{{3.7902741231676316`*^9, 3.790274182943132*^9}, {
-  3.7903604865713587`*^9, 3.7903604881753793`*^9}, {3.7903605812786355`*^9, 
-  3.79036061785868*^9}},
- CellLabel->"In[6]:=",ExpressionUUID->"c36285f4-8db9-43ca-a5fd-bbfa8439378c"],
-
-Cell["\<\
-and thus substituting this in we arrive at the following formula for the \
-local buckling load of the diagonals\
-\>", "Text",
- CellChangeTimes->{{3.790274187863028*^9, 
-  3.7902742157267933`*^9}},ExpressionUUID->"deecfc9e-7bc6-41c2-8ecd-\
-c64b3327d47b"],
-
 Cell[CellGroupData[{
-
-Cell[BoxData["Pd"], "Input",
- CellChangeTimes->{{3.7902742212450933`*^9, 3.790274224970109*^9}},
- CellLabel->"In[7]:=",ExpressionUUID->"a0dd2819-15ac-41bd-a5dc-161749b59994"],
-
-Cell[BoxData[
- FractionBox[
-  RowBox[{"5", " ", "EE", " ", "n", " ", 
-   SuperscriptBox["\[Pi]", "3"], " ", 
-   SuperscriptBox["rd", "4"], " ", 
-   SuperscriptBox[
-    RowBox[{"Cos", "[", 
-     RowBox[{
-      FractionBox["\[Pi]", "4"], "-", "\[Theta]"}], "]"}], "2"], " ", 
-   SuperscriptBox[
-    RowBox[{"Csc", "[", 
-     FractionBox["\[Pi]", "n"], "]"}], "2"]}], 
-  RowBox[{"8", " ", 
-   SuperscriptBox["K", "2"], " ", 
-   SuperscriptBox["R", "2"]}]]], "Output",
- CellChangeTimes->{3.7902742263494544`*^9, 3.7902751397468815`*^9, 
-  3.790275222310609*^9, 3.790360640088893*^9, 3.7904298725366783`*^9, 
-  3.7906921971521034`*^9},
- CellLabel->"Out[7]=",ExpressionUUID->"0235fb43-ef79-4639-9c77-e10e2ee8238a"]
-}, Open  ]]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell["Determining the weight as a function of \[Mu] constants", \
-"Subsubsection",
- CellChangeTimes->{{3.790364180137179*^9, 
-  3.790364201977391*^9}},ExpressionUUID->"1ab0349c-956f-4487-88af-\
-2d9eb3c2a8a1"],
-
-Cell["\<\
-Since we are considering only the local buckling of the longeron and the \
-diagonal and because the buckling load is defined meaning they don\
-\[CloseCurlyQuote]t necessarily buckle at the same load, we can consider the \
-weight function separately for the longeron and the diagonal.\
-\>", "Text",
- CellChangeTimes->{{3.7903639229315596`*^9, 3.7903639320312157`*^9}, {
-  3.790364092395749*^9, 
-  3.7903641709246683`*^9}},ExpressionUUID->"6371d3e3-892a-4fe3-8496-\
-c1c13f972516"],
-
-Cell[TextData[{
- "For the longerons ",
- Cell[BoxData[
-  FormBox[
-   RowBox[{"w", "=", 
-    RowBox[{
-     FractionBox["M", "L"], "=", 
-     RowBox[{
-      RowBox[{"\[Rho]2\[Pi]", "*", 
-       SuperscriptBox[
-        SubscriptBox["r", "l"], "2"]}], "=", 
-      RowBox[{
-       RowBox[{"2", "\[Pi]", "*", 
-        SubscriptBox["A", "l"]}], "=", 
-       RowBox[{"\[Rho]", "*", 
-        FractionBox[
-         SubscriptBox["P", "l"], 
-         SubscriptBox["\[Sigma]", "fail"]]}]}]}]}]}], TraditionalForm]],
-  FormatType->"TraditionalForm",ExpressionUUID->
-  "d3835997-080c-4b77-bad2-bb5c120e6311"],
- "since ",
- Cell[BoxData[
-  FormBox[
-   RowBox[{
-    SubscriptBox["P", "l"], "=", 
-    RowBox[{
-     SubscriptBox["\[Sigma]", "fail"], "*", 
-     SubscriptBox["A", "l"]}]}], TraditionalForm]],
-  FormatType->"TraditionalForm",ExpressionUUID->
-  "e3a28ce6-b88d-483f-9a9e-0825b3f84490"]
-}], "Text",
- CellChangeTimes->{{3.790365089497266*^9, 
-  3.7903653010355015`*^9}},ExpressionUUID->"e543ac23-452a-4d04-b79e-\
-a71483126425"],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{"wl", "=", 
-  RowBox[{"\[Rho]", "*", 
-   FractionBox["Pl", "\[Sigma]"]}]}]], "Input",
- CellChangeTimes->{{3.790365310667206*^9, 3.790365353809931*^9}},
- CellLabel->"In[8]:=",ExpressionUUID->"fa04ba42-0cfa-4d78-b3f0-5d94893f8bde"],
-
-Cell[BoxData[
- FractionBox[
-  RowBox[{"EE", " ", "n", " ", 
-   SuperscriptBox["\[Pi]", "3"], " ", 
-   SuperscriptBox["rl", "4"], " ", "\[Rho]"}], 
-  RowBox[{"4", " ", "ll", " ", "\[Sigma]"}]]], "Output",
- CellChangeTimes->{3.7903653557318287`*^9, 3.7904298726212163`*^9, 
-  3.7906921972173634`*^9},
- CellLabel->"Out[8]=",ExpressionUUID->"0482e1cb-42b8-40ec-a327-0460c0e08b77"]
-}, Open  ]],
-
-Cell["\<\
-Then we can find the \[Mu] constants by separating related variables in the \
-above equation:\
-\>", "Text",
- CellChangeTimes->{{3.7903642127435193`*^9, 3.790364246779585*^9}, {
-  3.7903642987902164`*^9, 3.7903643773980465`*^9}, {3.7903653775547304`*^9, 
-  3.790365411445437*^9}},ExpressionUUID->"cc35fb87-d58b-4b92-919d-\
-80e62942b3ae"],
 
 Cell[BoxData[{
  RowBox[{
-  RowBox[{
-   RowBox[{"\[Mu]lR", "=", 
+  RowBox[{"ld", "=", 
+   RowBox[{"Simplify", "[", 
     FractionBox[
-     SuperscriptBox["rl", "4"], "ll"]}], ";"}], " ", 
-  RowBox[{"(*", 
-   RowBox[{
-   "geometric", " ", "Properties", " ", "of", " ", "the", " ", "longeron"}], 
-   "*)"}]}], "\[IndentingNewLine]", 
+     RowBox[{"2", "R", "*", 
+      RowBox[{"Sin", "[", 
+       FractionBox["\[Pi]", "n"], "]"}]}], 
+     RowBox[{"Cos", "[", 
+      RowBox[{
+       FractionBox["\[Pi]", "2"], "-", "\[Theta]"}], "]"}]], "]"}]}], 
+  RowBox[{"(*", "diagonal", "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{"ll", "=", 
+  RowBox[{"ld", "*", 
+   RowBox[{"Cos", "[", "\[Theta]", "]"}], 
+   RowBox[{"(*", "longeron", "*)"}]}]}]}], "Input",
+ CellChangeTimes->{{3.7902741231676316`*^9, 3.790274182943132*^9}, {
+   3.7903604865713587`*^9, 3.7903604881753793`*^9}, {3.7903605812786355`*^9, 
+   3.79036061785868*^9}, 3.790776450859048*^9, {3.790776881251849*^9, 
+   3.790776903304302*^9}, {3.790778008594367*^9, 3.790778048035262*^9}},
+ CellLabel->
+  "In[225]:=",ExpressionUUID->"c36285f4-8db9-43ca-a5fd-bbfa8439378c"],
+
+Cell[BoxData[
+ RowBox[{"2", " ", "R", " ", 
+  RowBox[{"Csc", "[", "\[Theta]", "]"}], " ", 
+  RowBox[{"Sin", "[", 
+   FractionBox["\[Pi]", "n"], "]"}]}]], "Output",
+ CellChangeTimes->{{3.790778025143318*^9, 3.7907780568446493`*^9}, 
+   3.7907781093440742`*^9, 3.7907782937975063`*^9, {3.7907783372807407`*^9, 
+   3.7907783650458865`*^9}},
+ CellLabel->
+  "Out[225]=",ExpressionUUID->"9780f1d8-20ff-48a4-b33f-ae6be1920129"],
+
+Cell[BoxData[
+ RowBox[{"2", " ", "R", " ", 
+  RowBox[{"Cot", "[", "\[Theta]", "]"}], " ", 
+  RowBox[{"Sin", "[", 
+   FractionBox["\[Pi]", "n"], "]"}]}]], "Output",
+ CellChangeTimes->{{3.790778025143318*^9, 3.7907780568446493`*^9}, 
+   3.7907781093440742`*^9, 3.7907782937975063`*^9, {3.7907783372807407`*^9, 
+   3.7907783650509076`*^9}},
+ CellLabel->
+  "Out[226]=",ExpressionUUID->"b9e53fe9-8ec9-4d77-91f8-1ca1da51fa97"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Total Mass of the Truss", "Subsubsection",
+ CellChangeTimes->{{3.7907775948167825`*^9, 
+  3.7907775982040253`*^9}},ExpressionUUID->"10c2ab5d-990a-4603-ba9c-\
+fd04ae138355"],
+
+Cell["\<\
+The total mass of the truss is given by the addition of the mass of the \
+diagonal and the mass of the longeron per truss unit\
+\>", "Text",
+ CellChangeTimes->{{3.790777617683124*^9, 
+  3.7907776367278185`*^9}},ExpressionUUID->"dac38831-6446-4967-975a-\
+3c79db43c027"],
+
+Cell[BoxData[
  RowBox[{
-  RowBox[{
-   RowBox[{"\[Mu]lP", "=", 
-    FractionBox[
-     RowBox[{
-      SuperscriptBox["\[Pi]", "3"], "P"}], "4"]}], ";"}], 
-  RowBox[{"(*", 
-   RowBox[{"Load", " ", "properties"}], "*)"}]}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"\[Mu]lm", "=", 
-    FractionBox[
-     RowBox[{"EE", "*", "\[Rho]"}], "\[Sigma]"]}], ";"}], 
-  RowBox[{"(*", 
-   RowBox[{"material", " ", "properties"}], "*)"}]}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"\[Mu]ln", "=", "n"}], ";"}], 
-  RowBox[{"(*", 
-   RowBox[{"number", " ", "of", " ", "longerons"}], 
-   "*)"}]}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"\[Mu]l\[Theta]", "=", "1"}], ";"}], 
-  RowBox[{"(*", 
-   RowBox[{"diagonal", " ", "angle"}], "*)"}]}]}], "Input",
- CellChangeTimes->{{3.790364386170806*^9, 3.7903643918783846`*^9}, {
-  3.790364723421856*^9, 3.790364752625619*^9}, {3.79036479558212*^9, 
-  3.790364827154709*^9}, {3.7903654377968206`*^9, 3.7903656209084234`*^9}},
- CellLabel->"In[9]:=",ExpressionUUID->"99af75e6-2d4d-4fe0-9ddf-8cfa5c9cdaab"],
+  RowBox[{"M", "=", 
+   RowBox[{"Ml", "+", "Md"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.790777604318248*^9, 3.790777612982956*^9}},
+ CellLabel->
+  "In[227]:=",ExpressionUUID->"f685a04d-ecce-4e3c-8bbc-95a608480c16"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Weight of the Truss", "Subsubsection",
+ CellChangeTimes->{{3.7907776488869333`*^9, 
+  3.7907776752995186`*^9}},ExpressionUUID->"16499767-9f8d-4447-8145-\
+3b27f79a909f"],
+
+Cell[TextData[{
+ "The weight of the truss is the per unit truss cell which is length ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["l", "l"], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "253b1e68-d8e1-4b8a-b29e-1ed9f27ac452"]
+}], "Text",
+ CellChangeTimes->{{3.7907776969352407`*^9, 
+  3.7907777321047225`*^9}},ExpressionUUID->"337d2e58-b2b2-49f0-aad2-\
+7056748c7014"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
- RowBox[{"\[Mu]lR", "*", "\[Mu]lP", "*", "\[Mu]lm", "*", "\[Mu]ln", "*", 
-  "\[Mu]l\[Theta]"}]], "Input",
- CellChangeTimes->{{3.7903656394744415`*^9, 3.7903656752450657`*^9}},
- CellLabel->"In[14]:=",ExpressionUUID->"eb0cc83c-bfce-42a5-a2e8-c5b6c82e92c3"],
+ RowBox[{"w", "=", 
+  FractionBox["M", "ll"]}]], "Input",
+ CellChangeTimes->{{3.7907776776452446`*^9, 3.7907776931329947`*^9}, {
+  3.790777781082031*^9, 3.7907777874542665`*^9}, {3.790778116105584*^9, 
+  3.790778119702679*^9}},
+ CellLabel->
+  "In[228]:=",ExpressionUUID->"2b77e88f-70e4-42d5-a50d-9f4079c2b70c"],
 
 Cell[BoxData[
  FractionBox[
-  RowBox[{"EE", " ", "n", " ", "P", " ", 
-   SuperscriptBox["\[Pi]", "3"], " ", 
-   SuperscriptBox["rl", "4"], " ", "\[Rho]"}], 
-  RowBox[{"4", " ", "ll", " ", "\[Sigma]"}]]], "Output",
- CellChangeTimes->{3.79036567659684*^9, 3.7904298727062807`*^9, 
-  3.790692197285364*^9},
- CellLabel->"Out[14]=",ExpressionUUID->"cc15d507-e8ce-44d3-ba2a-e69413b2515c"]
+  RowBox[{
+   RowBox[{"Csc", "[", 
+    FractionBox["\[Pi]", "n"], "]"}], " ", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"2", " ", "Ll", " ", 
+      SqrtBox[
+       FractionBox["2", "\[Pi]"]], " ", "\[Rho]", " ", 
+      SqrtBox[
+       FractionBox[
+        RowBox[{"P", " ", "R", " ", 
+         RowBox[{"Cot", "[", "\[Theta]", "]"}], " ", 
+         RowBox[{"Sin", "[", 
+          FractionBox["\[Pi]", "n"], "]"}]}], 
+        RowBox[{"EE", " ", "n"}]]]}], "+", 
+     FractionBox[
+      RowBox[{"2", " ", "Ld", " ", "\[Rho]", " ", 
+       SqrtBox[
+        FractionBox[
+         RowBox[{"P", " ", "R", " ", 
+          RowBox[{"Csc", "[", "\[Theta]", "]"}], " ", 
+          RowBox[{"Sin", "[", 
+           FractionBox["\[Pi]", "n"], "]"}]}], 
+         RowBox[{"EE", " ", "n"}]]]}], 
+      SqrtBox[
+       RowBox[{"5", " ", "\[Pi]"}]]]}], ")"}], " ", 
+   RowBox[{"Tan", "[", "\[Theta]", "]"}]}], 
+  RowBox[{"2", " ", "R"}]]], "Output",
+ CellChangeTimes->{
+  3.790777736972355*^9, 3.7907777882232313`*^9, 3.7907780205540276`*^9, 
+   3.790778056941393*^9, {3.790778109426861*^9, 3.790778121480748*^9}, 
+   3.7907783747499*^9},
+ CellLabel->
+  "Out[228]=",ExpressionUUID->"ea638f9f-6456-4950-8d70-19c3e58bc63f"]
 }, Open  ]],
 
-Cell[TextData[{
- "Questions: Where does the load go? is it right to consider the longerons \
-separately from the diagonals? Should there be a big R in the longerons one \
-cause it is in the diagonals one, if yes though then what about the ",
- Cell[BoxData[
-  FormBox[
-   SubscriptBox["r", "l"], TraditionalForm]],
-  FormatType->"TraditionalForm",ExpressionUUID->
-  "0ca488e4-9b0a-4d27-a1a9-b647e607f6c8"],
- "?"
-}], "Text",
- CellChangeTimes->{{3.7903665621588984`*^9, 
-  3.790366653561163*^9}},ExpressionUUID->"4b03f5d1-9d32-4645-a35a-\
-4d978d7c6505"]
-}, Open  ]]
-}, Open  ]]
-}, Open  ]],
+Cell["\<\
+Now that is super nasty so lets see if we can make it a bit nicer...\
+\>", "Text",
+ CellChangeTimes->{{3.7907784094312534`*^9, 
+  3.7907784311202674`*^9}},ExpressionUUID->"0eb69352-0c7e-4080-90d0-\
+d1cc98bc3400"],
 
 Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Together", "[", "w", "]"}]], "Input",
+ CellChangeTimes->{{3.790777745404689*^9, 3.7907777548248687`*^9}, {
+  3.790777791918329*^9, 3.790777793672447*^9}, {3.7907782777099075`*^9, 
+  3.7907782796885567`*^9}},
+ CellLabel->
+  "In[203]:=",ExpressionUUID->"69f3da5d-da07-454d-9b6c-c2dc19485e5b"],
+
+Cell[BoxData[
+ FractionBox[
+  RowBox[{
+   RowBox[{"Csc", "[", 
+    FractionBox["\[Pi]", "n"], "]"}], " ", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"5", " ", 
+      SqrtBox["2"], " ", "Ll", " ", "\[Rho]", " ", 
+      SqrtBox[
+       FractionBox[
+        RowBox[{"P", " ", "R", " ", 
+         RowBox[{"Cot", "[", "\[Theta]", "]"}], " ", 
+         RowBox[{"Sin", "[", 
+          FractionBox["\[Pi]", "n"], "]"}]}], 
+        RowBox[{"EE", " ", "n"}]]]}], "+", 
+     RowBox[{
+      SqrtBox["5"], " ", "Ld", " ", "\[Rho]", " ", 
+      SqrtBox[
+       FractionBox[
+        RowBox[{"P", " ", "R", " ", 
+         RowBox[{"Csc", "[", "\[Theta]", "]"}], " ", 
+         RowBox[{"Sin", "[", 
+          FractionBox["\[Pi]", "n"], "]"}]}], 
+        RowBox[{"EE", " ", "n"}]]]}]}], ")"}], " ", 
+   RowBox[{"Tan", "[", "\[Theta]", "]"}]}], 
+  RowBox[{"5", " ", 
+   SqrtBox["\[Pi]"], " ", "R"}]]], "Output",
+ CellChangeTimes->{
+  3.7907777564801607`*^9, 3.7907777947373376`*^9, 3.7907780209150314`*^9, 
+   3.7907780573712397`*^9, {3.7907781095016594`*^9, 3.790778124210946*^9}, 
+   3.7907782807796745`*^9},
+ CellLabel->
+  "Out[203]=",ExpressionUUID->"39653a74-a17e-4f95-9795-d1b5a2c623d5"]
+}, Open  ]],
+
+Cell["\<\
+And after some more massaging we can express the thing above as\
+\>", "Text",
+ CellChangeTimes->{{3.790778436305604*^9, 
+  3.790778460748444*^9}},ExpressionUUID->"3e00672f-861b-41e5-824e-\
+8b6454af9caf"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
 
 Cell["Question 2", "Section",
  CellChangeTimes->{{3.7902738537946577`*^9, 
   3.790273865636368*^9}},ExpressionUUID->"f3e8d4e5-840f-44d1-8ba5-\
-9e41c4d0f6bd"],
-
-Cell[CellGroupData[{
-
-Cell[TextData[{
- "Knowing that the buckling load ",
- Cell[BoxData[
-  FormBox[
-   RowBox[{"P", "=", 
-    RowBox[{
-     SubscriptBox["\[Sigma]", "fail"], "A"}]}], TraditionalForm]],
-  FormatType->"TraditionalForm",ExpressionUUID->
-  "efae381c-28c1-4329-bdf1-3dfda2f97205"],
- " then we can relate the failure load to the geometrical parameters of the \
-solid cylindrical bars"
-}], "Subsubsection",
- CellChangeTimes->{{3.7902735235515146`*^9, 
-  3.7902735975046244`*^9}},ExpressionUUID->"2fee38bb-0edb-4ec3-939a-\
-a293ab0af93e"],
-
-Cell[BoxData[{
- RowBox[{
-  RowBox[{"Al", "=", 
-   RowBox[{"\[Pi]", "*", 
-    SuperscriptBox["rl", "2"]}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"Ad", "=", 
-   RowBox[{"\[Pi]", "*", 
-    SuperscriptBox["rd", "2"]}]}], ";"}]}], "Input",
- CellChangeTimes->{{3.7902736150059605`*^9, 3.7902736841626835`*^9}},
- CellLabel->"In[15]:=",ExpressionUUID->"4c500883-1efb-48ee-808f-59546ffcfe89"]
-}, Open  ]]
-}, Open  ]]
+9e41c4d0f6bd"]
 }, Open  ]]
 },
 WindowSize->{1920, 997},
@@ -545,68 +575,67 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[558, 20, 217, 3, 35, "Input",ExpressionUUID->"cec635d2-dcec-4992-8305-a1211609de7f"],
+Cell[558, 20, 222, 4, 35, "Input",ExpressionUUID->"cec635d2-dcec-4992-8305-a1211609de7f"],
 Cell[CellGroupData[{
-Cell[800, 27, 153, 3, 116, "Title",ExpressionUUID->"f54759fd-6ce6-4008-88f6-5f730d250f76"],
-Cell[956, 32, 183, 3, 41, "Text",ExpressionUUID->"9a55a913-504b-4c57-a35d-c0cae6f83855"],
+Cell[805, 28, 153, 3, 116, "Title",ExpressionUUID->"f54759fd-6ce6-4008-88f6-5f730d250f76"],
+Cell[961, 33, 183, 3, 41, "Text",ExpressionUUID->"9a55a913-504b-4c57-a35d-c0cae6f83855"],
 Cell[CellGroupData[{
-Cell[1164, 39, 155, 3, 80, "Section",ExpressionUUID->"a97e192a-9cde-47b1-ae33-ccda234e1dd8"],
+Cell[1169, 40, 155, 3, 80, "Section",ExpressionUUID->"a97e192a-9cde-47b1-ae33-ccda234e1dd8"],
 Cell[CellGroupData[{
-Cell[1344, 46, 295, 7, 65, "Subsection",ExpressionUUID->"10f87474-467e-4f6c-9a24-c3b3f25137d8"],
-Cell[1642, 55, 3381, 99, 398, "Text",ExpressionUUID->"a638a521-cb4e-4a15-b40b-edd9e9b01669"],
+Cell[1349, 47, 295, 7, 65, "Subsection",ExpressionUUID->"10f87474-467e-4f6c-9a24-c3b3f25137d8"],
+Cell[1647, 56, 2974, 86, 398, "Text",ExpressionUUID->"a638a521-cb4e-4a15-b40b-edd9e9b01669"],
 Cell[CellGroupData[{
-Cell[5048, 158, 259, 5, 53, "Subsubsection",ExpressionUUID->"6adcfb19-a205-444a-8b91-4c6e5a398a73"],
-Cell[5310, 165, 587, 14, 85, "Input",ExpressionUUID->"f8257d0a-bb9e-47b5-8b01-5de649a9bbc8"]
+Cell[4646, 146, 268, 4, 53, "Subsubsection",ExpressionUUID->"6adcfb19-a205-444a-8b91-4c6e5a398a73"],
+Cell[4917, 152, 736, 19, 85, "Input",ExpressionUUID->"f8257d0a-bb9e-47b5-8b01-5de649a9bbc8"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[5934, 184, 253, 4, 53, "Subsubsection",ExpressionUUID->"2ec08c32-75f3-4197-b539-c4609167ed86"],
+Cell[5690, 176, 276, 4, 53, "Subsubsection",ExpressionUUID->"2ec08c32-75f3-4197-b539-c4609167ed86"],
+Cell[5969, 182, 1291, 28, 104, "Input",ExpressionUUID->"88ec9346-ac1e-491f-8ba5-356b742e19e5"]
+}, Open  ]],
 Cell[CellGroupData[{
-Cell[6212, 192, 743, 12, 54, "Input",ExpressionUUID->"88ec9346-ac1e-491f-8ba5-356b742e19e5"],
-Cell[6958, 206, 460, 9, 59, "Output",ExpressionUUID->"59fd8d1e-d258-4b2f-b6e6-a1096363ddbc"]
+Cell[7297, 215, 202, 3, 53, "Subsubsection",ExpressionUUID->"d41020a9-5269-4b47-89fd-5dcbb1ca41af"],
+Cell[7502, 220, 538, 13, 60, "Input",ExpressionUUID->"d47e6598-35ff-41af-8f12-dcce4286f2d0"],
+Cell[8043, 235, 717, 19, 41, "Text",ExpressionUUID->"c90d5ef9-0217-4fbe-bcdb-05dc481ef1d6",
+ InitializationCell->True],
+Cell[8763, 256, 799, 23, 99, "Input",ExpressionUUID->"e9433b1c-7472-4bb3-85e4-6790fcc1d772"],
+Cell[9565, 281, 174, 3, 41, "Text",ExpressionUUID->"63f0b3ce-d793-46cc-9593-0dc408b63e1b"],
+Cell[CellGroupData[{
+Cell[9764, 288, 367, 8, 60, "Input",ExpressionUUID->"9e976229-bbd5-4efe-93a0-4601e6d6c1c7"],
+Cell[10134, 298, 480, 12, 93, "Output",ExpressionUUID->"100c7344-1e97-476e-959b-a4d87eaaa70f"],
+Cell[10617, 312, 502, 13, 69, "Output",ExpressionUUID->"7f49f0bd-ee84-45eb-a736-dc9589968877"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[7467, 221, 206, 3, 53, "Subsubsection",ExpressionUUID->"cf3f0332-b801-4b48-a258-95dafa473055"],
+Cell[11168, 331, 354, 7, 53, "Subsubsection",ExpressionUUID->"fbbb368e-bd14-4b2d-ace2-45f559ac8704"],
+Cell[11525, 340, 387, 8, 41, "Text",ExpressionUUID->"33aeb58f-5cf3-42ce-8622-398d91086c8b"],
 Cell[CellGroupData[{
-Cell[7698, 228, 651, 13, 59, "Input",ExpressionUUID->"2835aa44-1e01-4b99-b3c5-7ce478b8b04e"],
-Cell[8352, 243, 481, 11, 61, "Output",ExpressionUUID->"0b220d18-6c28-4452-ab6b-f2141d5a0650"]
+Cell[11937, 352, 878, 21, 102, "Input",ExpressionUUID->"c36285f4-8db9-43ca-a5fd-bbfa8439378c"],
+Cell[12818, 375, 420, 9, 52, "Output",ExpressionUUID->"9780f1d8-20ff-48a4-b33f-ae6be1920129"],
+Cell[13241, 386, 420, 9, 52, "Output",ExpressionUUID->"b9e53fe9-8ec9-4d77-91f8-1ca1da51fa97"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[8882, 260, 280, 6, 53, "Subsubsection",ExpressionUUID->"fbbb368e-bd14-4b2d-ace2-45f559ac8704"],
-Cell[9165, 268, 387, 8, 41, "Text",ExpressionUUID->"33aeb58f-5cf3-42ce-8622-398d91086c8b"],
-Cell[9555, 278, 525, 13, 73, "Input",ExpressionUUID->"c36285f4-8db9-43ca-a5fd-bbfa8439378c"],
-Cell[10083, 293, 263, 6, 41, "Text",ExpressionUUID->"deecfc9e-7bc6-41c2-8ecd-c64b3327d47b"],
-Cell[CellGroupData[{
-Cell[10371, 303, 174, 2, 35, "Input",ExpressionUUID->"a0dd2819-15ac-41bd-a5dc-161749b59994"],
-Cell[10548, 307, 708, 18, 67, "Output",ExpressionUUID->"0235fb43-ef79-4639-9c77-e10e2ee8238a"]
-}, Open  ]]
+Cell[13710, 401, 178, 3, 53, "Subsubsection",ExpressionUUID->"10c2ab5d-990a-4603-ba9c-fd04ae138355"],
+Cell[13891, 406, 278, 6, 41, "Text",ExpressionUUID->"dac38831-6446-4967-975a-3c79db43c027"],
+Cell[14172, 414, 242, 6, 35, "Input",ExpressionUUID->"f685a04d-ecce-4e3c-8bbc-95a608480c16"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[11305, 331, 208, 4, 53, "Subsubsection",ExpressionUUID->"1ab0349c-956f-4487-88af-2d9eb3c2a8a1"],
-Cell[11516, 337, 488, 9, 68, "Text",ExpressionUUID->"6371d3e3-892a-4fe3-8496-c1c13f972516"],
-Cell[12007, 348, 1017, 33, 52, "Text",ExpressionUUID->"e543ac23-452a-4d04-b79e-a71483126425"],
+Cell[14451, 425, 174, 3, 53, "Subsubsection",ExpressionUUID->"16499767-9f8d-4447-8145-3b27f79a909f"],
+Cell[14628, 430, 392, 10, 41, "Text",ExpressionUUID->"337d2e58-b2b2-49f0-aad2-7056748c7014"],
 Cell[CellGroupData[{
-Cell[13049, 385, 252, 5, 51, "Input",ExpressionUUID->"fa04ba42-0cfa-4d78-b3f0-5d94893f8bde"],
-Cell[13304, 392, 376, 8, 59, "Output",ExpressionUUID->"0482e1cb-42b8-40ec-a327-0460c0e08b77"]
+Cell[15045, 444, 324, 7, 51, "Input",ExpressionUUID->"2b77e88f-70e4-42d5-a50d-9f4079c2b70c"],
+Cell[15372, 453, 1231, 35, 131, "Output",ExpressionUUID->"ea638f9f-6456-4950-8d70-19c3e58bc63f"]
 }, Open  ]],
-Cell[13695, 403, 346, 7, 41, "Text",ExpressionUUID->"cc35fb87-d58b-4b92-919d-80e62942b3ae"],
-Cell[14044, 412, 1338, 39, 215, "Input",ExpressionUUID->"99af75e6-2d4d-4fe0-9ddf-8cfa5c9cdaab"],
+Cell[16618, 491, 222, 5, 41, "Text",ExpressionUUID->"0eb69352-0c7e-4080-90d0-d1cc98bc3400"],
 Cell[CellGroupData[{
-Cell[15407, 455, 268, 4, 35, "Input",ExpressionUUID->"eb0cc83c-bfce-42a5-a2e8-c5b6c82e92c3"],
-Cell[15678, 461, 382, 8, 59, "Output",ExpressionUUID->"cc15d507-e8ce-44d3-ba2a-e69413b2515c"]
+Cell[16865, 500, 314, 6, 35, "Input",ExpressionUUID->"69f3da5d-da07-454d-9b6c-c2dc19485e5b"],
+Cell[17182, 508, 1174, 33, 101, "Output",ExpressionUUID->"39653a74-a17e-4f95-9795-d1b5a2c623d5"]
 }, Open  ]],
-Cell[16075, 472, 550, 13, 41, "Text",ExpressionUUID->"4b03f5d1-9d32-4645-a35a-4d978d7c6505"]
+Cell[18371, 544, 213, 5, 41, "Text",ExpressionUUID->"3e00672f-861b-41e5-824e-8b6454af9caf"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
-Cell[CellGroupData[{
-Cell[16686, 492, 157, 3, 80, "Section",ExpressionUUID->"f3e8d4e5-840f-44d1-8ba5-9e41c4d0f6bd"],
-Cell[CellGroupData[{
-Cell[16868, 499, 524, 14, 53, "Subsubsection",ExpressionUUID->"2fee38bb-0edb-4ec3-939a-a293ab0af93e"],
-Cell[17395, 515, 398, 10, 60, "Input",ExpressionUUID->"4c500883-1efb-48ee-808f-59546ffcfe89"]
-}, Open  ]]
-}, Open  ]]
+Cell[18623, 554, 157, 3, 80, "Section",ExpressionUUID->"f3e8d4e5-840f-44d1-8ba5-9e41c4d0f6bd"]
 }, Open  ]]
 }
 ]
