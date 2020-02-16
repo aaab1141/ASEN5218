@@ -57,7 +57,7 @@ ylabel('\mu_n \mu_{\theta}');xlabel('\theta, radians')
 legend('n = 2','n = 3','n = 4','n = 5','n = 6','n = 7','Minimum \theta','location','north')
 h = text(optimal_theta.tube(1)+.03,30,['Minimum \theta = ',num2str(optimal_theta.tube(1)*180/pi,3),'^o'],'horizontalalignment','center');
 set(h,'Rotation',90)
-
+%%
 % Question 3
 E = 110e9; %Pa
 rho = 1500; %kg/m^3
@@ -82,8 +82,36 @@ for n = [3 6 12]
         muN.cyl = sin(pi/n)/sqrt(n);
         muTheta.cyl = 10*cot(theta_solid) + sqrt(10)/(sin(theta_solid)*cos(theta_solid));
         store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]) = K.cyl*muR.cyl*muP.cyl*muM.cyl*muN.cyl*muTheta.cyl;
-        plot(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linewidth',2,'color','g')
-        text(.7*loadP_max,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)])(round(.7*loadP_max)),['Cyl R=',num2str(R),' n=',num2str(n)],'horizontalalignment','center')
+        switch n
+            case 3
+                switch R
+                    case 0.1
+                        plot(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','-','color','c','linewidth',2)
+                    case 0.3
+                        plot(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','--','color','c','linewidth',2)
+                    case 1
+                        plot(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle',':','color','c','linewidth',2)
+                end
+            case 6
+                switch R
+                    case 0.1
+                        plot(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','-','color','#4DBEEE','linewidth',2)
+                    case 0.3
+                        plot(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','--','color','#4DBEEE','linewidth',2)
+                    case 1
+                        plot(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle',':','color','#4DBEEE','linewidth',2)
+                end
+            case 12
+                switch R
+                    case 0.1
+                        plot(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','-','color','#0072BD','linewidth',2)
+                    case 0.
+                        plot(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','--','color','#0072BD','linewidth',2)
+                    case 1
+                        plot(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle',':','color','#0072BD','linewidth',2)
+                end
+        end
+        %text(.7*loadP_max,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)])(round(.7*loadP_max)),['Cyl R=',num2str(R),' n=',num2str(n)],'horizontalalignment','center')
         
         % For hollow tube
         K.tube = 1/5;
@@ -93,8 +121,36 @@ for n = [3 6 12]
         muN.tube = sin(pi/n)^(2/3)/n^(1/3);
         mutheta_tube.tube = (5*2^(2/3)*cot(theta_tube) + (2^(1/3)*5^(2/3))/(sin(theta_tube)^(2/3)*cos(theta_tube)));
         store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]) = K.tube*muR.tube*muP.tube*muM.tube*muN.tube*mutheta_tube.tube;
-        plot(P,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linewidth',2,'color','b')
-        text(.5*loadP_max,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)])(round(.5*loadP_max)),['tube R=',num2str(R),' n=',num2str(n)],'horizontalalignment','center')
+        switch n
+            case 3
+                switch R
+                    case 0.1
+                        plot(P,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','-','color','r','linewidth',2)
+                    case 0.3
+                        plot(P,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','--','color','r','linewidth',2)
+                    case 1
+                        plot(P,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle',':','color','r','linewidth',2)
+                end
+            case 6
+                switch R
+                    case 0.1
+                        plot(P,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','-','color','#D95319','linewidth',2)
+                    case 0.3
+                        plot(P,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','--','color','#D95319','linewidth',2)
+                    case 1
+                        plot(P,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle',':','color','#D95319','linewidth',2)
+                end
+            case 12
+                switch R
+                    case 0.1
+                        plot(P,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','-','color','#A2142F','linewidth',2)
+                    case 0.3
+                        plot(P,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','--','color','#A2142F','linewidth',2)
+                    case 1
+                        plot(P,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle',':','color','#A2142F','linewidth',2)
+                end
+        end
+        %text(.5*loadP_max,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)])(round(.5*loadP_max)),['tube R=',num2str(R),' n=',num2str(n)],'horizontalalignment','center')
         
         % Find the value of M/L where these two lines cross
         [store.intersects.(['longeron',num2str(n)]).(['R',num2str(10*R)]).x,store.intersects.(['longeron',num2str(n)]).(['R',num2str(10*R)]).y] = polyxpoly(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),P,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]));
@@ -102,7 +158,7 @@ for n = [3 6 12]
         
     end
 end
-
+%%
 % Question 4 is a derivation
 
 % Question 5
