@@ -13,7 +13,7 @@ theta = pi/40:.01:pi/2;
 num_longerons = 2:1:7;
 num_longerons = num_longerons';
 for n = 2:1:7
-    temp = (sin(pi/n)/sqrt(n)) * ((10*cot(theta)) + sqrt(10)./sin(theta).*1./cos(theta));
+    temp = (sin(pi/n)/sqrt(n)) * tan(theta).*(5*cot(theta).^2 + sqrt(10)*csc(theta).^2);%((5*cot(theta)) + sqrt(10)./sin(theta).*1./cos(theta));
     [value_of_mu.cyl(n-1),i] = min(temp);
     optimal_theta.cyl(n-1,1) = theta(i);
     plot(theta,temp)
@@ -39,7 +39,7 @@ theta = pi/40:.01:pi/2;
 num_longerons = 2:1:7;
 num_longerons = num_longerons';
 for n = 2:1:7
-    temp = sin(pi/n)^(2/3)/n^(1/3) * (5*2^(2/3)*cot(theta) + (2^(1/3)*5^(2/3))./(sin(theta).^(2/3).*cos(theta)));
+    temp = sin(pi/n)^(2/3)/n^(1/3) * tan(theta).*(5*2^(2/3)*cot(theta).^(5/3) + 2^(4/3)*5^(2/3).*csc(theta).^5/3);%(5*2^(2/3)*cot(theta) + (2^(4/3)*5^(2/3))./(sin(theta).^(2/3).*cos(theta)));
     [value_of_mu.tube(n-1),i] = min(temp);
     optimal_theta.tube(n-1,1) = theta(i);
     plot(theta,temp)
@@ -54,7 +54,7 @@ plot(optimal_theta.tube',value_of_mu.tube,'r','linewidth',2);
 axis([0,pi/2,0,50]); grid on
 title('Hollow Tube $\mu_n \mu_{\theta}$ for Increasing Number of Longerons','interpreter','latex')
 ylabel('\mu_n \mu_{\theta}');xlabel('\theta, radians')
-legend('n = 2','n = 3','n = 4','n = 5','n = 6','n = 7','Minimum \theta','location','north')
+legend('n = 2','n = 3','n = 4','n = 5','n = 6','n = 7','Minimum \theta','location','southwest')
 h = text(optimal_theta.tube(1)+.03,30,['Minimum \theta = ',num2str(optimal_theta.tube(1)*180/pi,3),'^o'],'horizontalalignment','center');
 set(h,'Rotation',90)
 %%
@@ -81,7 +81,7 @@ for n = [3 6 12]
         muP.cyl = sqrt(P);
         muM.cyl = rho/E^(1/2);
         muN.cyl = sin(pi/n)/sqrt(n);
-        muTheta.cyl = 10*cot(theta_solid) + sqrt(10)/(sin(theta_solid)*cos(theta_solid));
+        muTheta.cyl = 5*cot(theta_solid) + sqrt(10)/(sin(theta_solid)*cos(theta_solid));
         store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]) = K.cyl*muR.cyl*muP.cyl*muM.cyl*muN.cyl*muTheta.cyl;
         switch n
             case 3
@@ -120,8 +120,8 @@ for n = [3 6 12]
         muP.tube = P.^(1/3);
         muM.tube = rho*t_min^(2/3)/E^(1/3);
         muN.tube = sin(pi/n)^(2/3)/n^(1/3);
-        mutheta_tube.tube = (5*2^(2/3)*cot(theta_tube) + (2^(1/3)*5^(2/3))/(sin(theta_tube)^(2/3)*cos(theta_tube)));
-        store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]) = K.tube*muR.tube*muP.tube*muM.tube*muN.tube*mutheta_tube.tube;
+        muTheta.tube = (5*2^(2/3)*cot(theta_tube) + (2^(4/3)*5^(2/3))/(sin(theta_tube)^(2/3)*cos(theta_tube)));
+        store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]) = K.tube*muR.tube*muP.tube*muM.tube*muN.tube*muTheta.tube;
         switch n
             case 3
                 switch R
@@ -166,37 +166,45 @@ set(gca, 'XScale', 'log', 'YScale', 'log')
 figure
 hold on
 grid on
-xlabel('Global Trus Radius R, m');ylabel('Load P, N');
+xlabel('Global Truss Radius R, m');ylabel('Load P, N');
 title('Maximum Load as a Function of Global Truss Radius')
 w = store.intersects.y;
 w(w == 0) = [];
 R = 0.01:0.01:1;
 % For n=3 & R=0.1
 n = 3;
-P = (5*sqrt(pi*E*n)*w(1)) ./ (4*R*rho*sin(pi/n)*(10*cot(theta_solid) + sqrt(10)/(sin(theta_solid)*cos(theta_solid)))).^2;
+P = (w(1)./K.cyl./R./muM.cyl./muN.cyl./muTheta.cyl).^2;
+% P = (5*sqrt(pi*E*n)*w(1)) ./ (4*R*rho*sin(pi/n)*(10*cot(theta_solid) + sqrt(10)/(sin(theta_solid)*cos(theta_solid)))).^2;
 plot(R,P,'linestyle','-')
-P = (5*(E*n)^(1/3)*w(1)) ./ (2*(R*t_min*sin(pi/n)).^(2/3)*(5*2^(2/3)*cot(theta_tube) + (2^(1/3)*5^(2/3))/(sin(theta_tube)^(2/3)*cos(theta_tube)))).^3;
+P = (w(1)./K.tube./(R.^(2/3))./muM.tube./muN.tube./muTheta.tube).^3;
+% P = (5*(E*n)^(1/3)*w(1)) ./ (2*(R*t_min*sin(pi/n)).^(2/3)*(5*2^(2/3)*cot(theta_tube) + (2^(1/3)*5^(2/3))/(sin(theta_tube)^(2/3)*cos(theta_tube)))).^3;
 plot(R,P,'linestyle','--')
 
 % For n=6 & R=0.1
 n = 6;
-P = (5*sqrt(pi*E*n)*w(2)) ./ (4*R*rho*sin(pi/n)*(10*cot(theta_solid) + sqrt(10)/(sin(theta_solid)*cos(theta_solid)))).^2;
+P = (w(2)./K.cyl./R./muM.cyl./muN.cyl./muTheta.cyl).^2;
+% P = (5*sqrt(pi*E*n)*w(1)) ./ (4*R*rho*sin(pi/n)*(10*cot(theta_solid) + sqrt(10)/(sin(theta_solid)*cos(theta_solid)))).^2;
 plot(R,P,'linestyle','-')
-P = (5*(E*n)^(1/3)*w(2)) ./ (2*(R*t_min*sin(pi/n)).^(2/3)*(5*2^(2/3)*cot(theta_tube) + (2^(1/3)*5^(2/3))/(sin(theta_tube)^(2/3)*cos(theta_tube)))).^3;
+P = (w(2)./K.tube./(R.^(2/3))./muM.tube./muN.tube./muTheta.tube).^3;
+% P = (5*(E*n)^(1/3)*w(1)) ./ (2*(R*t_min*sin(pi/n)).^(2/3)*(5*2^(2/3)*cot(theta_tube) + (2^(1/3)*5^(2/3))/(sin(theta_tube)^(2/3)*cos(theta_tube)))).^3;
 plot(R,P,'linestyle','--')
 
 % For n=12 & R=0.1
 n = 12;
-P = (5*sqrt(pi*E*n)*w(3)) ./ (4*R*rho*sin(pi/n)*(10*cot(theta_solid) + sqrt(10)/(sin(theta_solid)*cos(theta_solid)))).^2;
+P = (w(3)./K.cyl./R./muM.cyl./muN.cyl./muTheta.cyl).^2;
+% P = (5*sqrt(pi*E*n)*w(1)) ./ (4*R*rho*sin(pi/n)*(10*cot(theta_solid) + sqrt(10)/(sin(theta_solid)*cos(theta_solid)))).^2;
 plot(R,P,'linestyle','-')
-P = (5*(E*n)^(1/3)*w(3)) ./ (2*(R*t_min*sin(pi/n)).^(2/3)*(5*2^(2/3)*cot(theta_tube) + (2^(1/3)*5^(2/3))/(sin(theta_tube)^(2/3)*cos(theta_tube)))).^3;
+P = (w(3)./K.tube./(R.^(2/3))./muM.tube./muN.tube./muTheta.tube).^3;
+% P = (5*(E*n)^(1/3)*w(1)) ./ (2*(R*t_min*sin(pi/n)).^(2/3)*(5*2^(2/3)*cot(theta_tube) + (2^(1/3)*5^(2/3))/(sin(theta_tube)^(2/3)*cos(theta_tube)))).^3;
 plot(R,P,'linestyle','--')
 
 % For n=12 & R=0.1
 n = 12;
-P = (5*sqrt(pi*E*n)*w(4)) ./ (4*R*rho*sin(pi/n)*(10*cot(theta_solid) + sqrt(10)/(sin(theta_solid)*cos(theta_solid)))).^2;
+P = (w(4)./K.cyl./R./muM.cyl./muN.cyl./muTheta.cyl).^2;
+% P = (5*sqrt(pi*E*n)*w(1)) ./ (4*R*rho*sin(pi/n)*(10*cot(theta_solid) + sqrt(10)/(sin(theta_solid)*cos(theta_solid)))).^2;
 plot(R,P,'linestyle','-')
-P = (5*(E*n)^(1/3)*w(4)) ./ (2*(R*t_min*sin(pi/n)).^(2/3)*(5*2^(2/3)*cot(theta_tube) + (2^(1/3)*5^(2/3))/(sin(theta_tube)^(2/3)*cos(theta_tube)))).^3;
+P = (w(4)./K.tube./(R.^(2/3))./muM.tube./muN.tube./muTheta.tube).^3;
+% P = (5*(E*n)^(1/3)*w(1)) ./ (2*(R*t_min*sin(pi/n)).^(2/3)*(5*2^(2/3)*cot(theta_tube) + (2^(1/3)*5^(2/3))/(sin(theta_tube)^(2/3)*cos(theta_tube)))).^3;
 plot(R,P,'linestyle','--')
 set(gca, 'XScale', 'log', 'YScale', 'log')
 
