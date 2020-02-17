@@ -106,8 +106,8 @@ for n = [3 6 12]
                 switch R
                     case 0.1
                         plot(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','-','color','#4363d8','marker','none','markerfacecolor','#7E2F8E','linewidth',1.5)
-                    case 0.
-                        plot(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','-','color','#9113b4','marker','none','markerfacecolor','#7E2F8E','linewidth',1.5)
+                    case 0.3
+                        plot(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','-','color','#911eb4','marker','none','markerfacecolor','#7E2F8E','linewidth',1.5)
                     case 1
                         plot(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','-','color','#f032e6','marker','none','markerfacecolor','#7E2F8E','linewidth',1.5)
                 end
