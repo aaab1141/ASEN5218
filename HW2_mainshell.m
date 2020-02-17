@@ -63,12 +63,13 @@ E = 110e9; %Pa
 rho = 1500; %kg/m^3
 t_min = 0.5e-3; %m minimum thickness of the tube
 loadP_min = 0; %N
-loadP_max = 55; %N
+loadP_max = 1000; %N
 theta_solid = optimal_theta.cyl(1); %radians
 theta_tube = optimal_theta.tube(1); %radians
 
 % Plot M/L as a function of the load P for fied parameters
 P = loadP_min:1:loadP_max;
+i = 1;
 figure; hold on; grid on
 xlabel('Load P, N');ylabel('M/L, kg/m')
 title('Truss Efficiency as a Function of Loading P')
@@ -86,29 +87,29 @@ for n = [3 6 12]
             case 3
                 switch R
                     case 0.1
-                        plot(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','-','color','#0072BD','marker','s','markerfacecolor','#0072BD')
+                        plot(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','-','color','#e6194b','marker','none','markerfacecolor','#0072BD','linewidth',1.5)
                     case 0.3
-                        plot(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','-','color','#0072BD','marker','o','markerfacecolor','#0072BD')
+                        plot(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','-','color','#f58231','marker','none','markerfacecolor','#0072BD','linewidth',1.5)
                     case 1
-                        plot(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','-','color','#0072BD','marker','d','markerfacecolor','#0072BD')
+                        plot(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','-','color','#ffe119','marker','none','markerfacecolor','#0072BD','linewidth',1.5)
                 end
             case 6
                 switch R
                     case 0.1
-                        plot(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','-','color','#D95319','marker','s','markerfacecolor','#D95319')
+                        plot(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','-','color','#bfef45','marker','none','markerfacecolor','#D95319','linewidth',1.5)
                     case 0.3
-                        plot(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','-','color','#D95319','marker','o','markerfacecolor','#D95319')
+                        plot(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','-','color','#3cb44b','marker','none','markerfacecolor','#D95319','linewidth',1.5)
                     case 1
-                        plot(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','-','color','#D95319','marker','d','markerfacecolor','#D95319')
+                        plot(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','-','color','#42d4f4','marker','none','markerfacecolor','#D95319','linewidth',1.5)
                 end
             case 12
                 switch R
                     case 0.1
-                        plot(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','-','color','#7E2F8E','marker','s','markerfacecolor','#7E2F8E')
+                        plot(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','-','color','#4363d8','marker','none','markerfacecolor','#7E2F8E','linewidth',1.5)
                     case 0.
-                        plot(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','-','color','#7E2F8E','marker','o','markerfacecolor','#7E2F8E')
+                        plot(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','-','color','#9113b4','marker','none','markerfacecolor','#7E2F8E','linewidth',1.5)
                     case 1
-                        plot(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','-','color','#7E2F8E','marker','d','markerfacecolor','#7E2F8E')
+                        plot(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','-','color','#f032e6','marker','none','markerfacecolor','#7E2F8E','linewidth',1.5)
                 end
         end
         %text(.7*loadP_max,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)])(round(.7*loadP_max)),['Cyl R=',num2str(R),' n=',num2str(n)],'horizontalalignment','center')
@@ -125,40 +126,41 @@ for n = [3 6 12]
             case 3
                 switch R
                     case 0.1
-                        plot(P,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','--','color','#0072BD','marker','s','markerfacecolor','#0072BD')
+                        plot(P,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','--','color','#e6194b','marker','none','markerfacecolor','#0072BD','linewidth',1.5)
                     case 0.3
-                        plot(P,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','--','color','#0072BD','marker','o','markerfacecolor','#0072BD')
+                        plot(P,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','--','color','#f58231','marker','none','markerfacecolor','#0072BD','linewidth',1.5)
                     case 1
-                        plot(P,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','--','color','#0072BD','marker','d','markerfacecolor','#0072BD')
+                        plot(P,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','--','color','#ffe119','marker','none','markerfacecolor','#0072BD','linewidth',1.5)
                 end
             case 6
                 switch R
                     case 0.1
-                        plot(P,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','--','color','#D95319','marker','s','markerfacecolor','#D95319')
+                        plot(P,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','--','color','#bfef45','marker','none','markerfacecolor','#D95319','linewidth',1.5)
                     case 0.3
-                        plot(P,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','--','color','#D95319','marker','o','markerfacecolor','#D95319')
+                        plot(P,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','--','color','#3cb44b','marker','none','markerfacecolor','#D95319','linewidth',1.5)
                     case 1
-                        plot(P,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','--','color','#D95319','marker','d','markerfacecolor','#D95319')
+                        plot(P,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','--','color','#42d4f4','marker','none','markerfacecolor','#D95319','linewidth',1.5)
                 end
             case 12
                 switch R
                     case 0.1
-                        plot(P,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','--','color','#7E2F8E','marker','s','markerfacecolor','#7E2F8E')
+                        plot(P,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','--','color','#4363d8','marker','none','markerfacecolor','#7E2F8E','linewidth',1.5)
                     case 0.3
-                        plot(P,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','--','color','#7E2F8E','marker','o','markerfacecolor','#7E2F8E')
+                        plot(P,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','--','color','#911eb4','marker','none','markerfacecolor','#7E2F8E','linewidth',1.5)
                     case 1
-                        plot(P,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','--','color','#7E2F8E','marker','d','markerfacecolor','#7E2F8E')
+                        plot(P,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','--','color','#f032e6','marker','none','markerfacecolor','#7E2F8E','linewidth',1.5)
                 end
         end
         %text(.5*loadP_max,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)])(round(.5*loadP_max)),['tube R=',num2str(R),' n=',num2str(n)],'horizontalalignment','center')
         
         % Find the value of M/L where these two lines cross
-        [store.intersects.(['longeron',num2str(n)]).(['R',num2str(10*R)]).x,store.intersects.(['longeron',num2str(n)]).(['R',num2str(10*R)]).y] = polyxpoly(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),P,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]));
-        
-        
+        [t1,t2] = polyxpoly(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),P,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]));
+        store.intersects.x(i) = max(t1);
+        store.intersects.y(i) = max(t2);
+        i = i + 1;
     end
 end
-axis([loadP_min,loadP_max,0,.016])
+set(gca, 'XScale', 'log', 'YScale', 'log')
 %%
 % Question 4 is a derivation
 
