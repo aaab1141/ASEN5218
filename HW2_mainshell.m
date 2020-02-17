@@ -86,29 +86,29 @@ for n = [3 6 12]
             case 3
                 switch R
                     case 0.1
-                        plot(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','-','color','c','linewidth',2)
+                        plot(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','--','color','c','linewidth',2)
                     case 0.3
                         plot(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','--','color','c','linewidth',2)
                     case 1
-                        plot(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle',':','color','c','linewidth',2)
+                        plot(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','--','color','c','linewidth',2)
                 end
             case 6
                 switch R
                     case 0.1
-                        plot(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','-','color','#4DBEEE','linewidth',2)
+                        plot(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','--','color','#4DBEEE','linewidth',2)
                     case 0.3
                         plot(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','--','color','#4DBEEE','linewidth',2)
                     case 1
-                        plot(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle',':','color','#4DBEEE','linewidth',2)
+                        plot(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','--','color','#4DBEEE','linewidth',2)
                 end
             case 12
                 switch R
                     case 0.1
-                        plot(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','-','color','#0072BD','linewidth',2)
+                        plot(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','--','color','#0072BD','linewidth',2)
                     case 0.
                         plot(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','--','color','#0072BD','linewidth',2)
                     case 1
-                        plot(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle',':','color','#0072BD','linewidth',2)
+                        plot(P,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','--','color','#0072BD','linewidth',2)
                 end
         end
         %text(.7*loadP_max,store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)])(round(.7*loadP_max)),['Cyl R=',num2str(R),' n=',num2str(n)],'horizontalalignment','center')
@@ -127,27 +127,27 @@ for n = [3 6 12]
                     case 0.1
                         plot(P,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','-','color','r','linewidth',2)
                     case 0.3
-                        plot(P,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','--','color','r','linewidth',2)
+                        plot(P,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','-','color','r','linewidth',2)
                     case 1
-                        plot(P,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle',':','color','r','linewidth',2)
+                        plot(P,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','-','color','r','linewidth',2)
                 end
             case 6
                 switch R
                     case 0.1
                         plot(P,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','-','color','#D95319','linewidth',2)
                     case 0.3
-                        plot(P,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','--','color','#D95319','linewidth',2)
+                        plot(P,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','-','color','#D95319','linewidth',2)
                     case 1
-                        plot(P,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle',':','color','#D95319','linewidth',2)
+                        plot(P,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','-','color','#D95319','linewidth',2)
                 end
             case 12
                 switch R
                     case 0.1
                         plot(P,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','-','color','#A2142F','linewidth',2)
                     case 0.3
-                        plot(P,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','--','color','#A2142F','linewidth',2)
+                        plot(P,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','-','color','#A2142F','linewidth',2)
                     case 1
-                        plot(P,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle',':','color','#A2142F','linewidth',2)
+                        plot(P,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]),'linestyle','-','color','#A2142F','linewidth',2)
                 end
         end
         %text(.5*loadP_max,store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)])(round(.5*loadP_max)),['tube R=',num2str(R),' n=',num2str(n)],'horizontalalignment','center')
