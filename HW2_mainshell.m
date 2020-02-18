@@ -199,7 +199,11 @@ legend('Cyl, n=3','Tube, n=3','Cyl, n=6','Tube, n=6','Cyl, n=12','Tube, n=12')
 % Plot of the longeron and diagonal radius as a function of P or R
 % For this we know the load from the first plot and we know the Euler
 % buckling equation based on the radius of the longerons/diagonals.
-
+% cylinder truss
+% P = 
+% n = 3;
+% rl = ((16*R.^2*P) / (E*n*pi^3*csc(pi/n)^2*tan(theta_solid)^2)).^(1/4);
+% rd = ((8*R.^2*P) / (5*E*n*pi^3*csc(pi/n)^2*sin(theta_solid)^2)).^(1/4);
 %%
 % Question 4 is a derivation
 
@@ -216,7 +220,7 @@ A = A1 + A2
 
 % Polar Plot
 theta = 0:0.01:2*pi;
-R = 1/2*(cos(theta).^4 + sin(theta).^4);
+R = 4/9*(cos(theta).^4 + sin(theta).^4);
 figure
 polarplot(theta,R)
 title('Equivalent Modulus for a Square Lattice')
@@ -233,7 +237,7 @@ A = A1 + A2 + A3
 
 % Polar Plot
 theta = 0:0.01:2*pi;
-R = 2.25*sqrt(3)/6; R = repelem(R,length(theta));
+R = 1/3; R = repelem(R,length(theta));
 figure
 polarplot(theta,R)
 title('Equivalent Modulus for a Equilateral Triangle Lattice')
