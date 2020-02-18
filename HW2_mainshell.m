@@ -76,12 +76,12 @@ title('Truss Efficiency as a Function of Loading P')
 for n = [3 6 12]
     for R = [0.1 0.3 1] %m global truss radius
         % For solid cylinder
-        K.cyl = 2/5/sqrt(pi);
+        K.cyl = 4/5/sqrt(pi);
         muR.cyl = R;
         muP.cyl = sqrt(P);
         muM.cyl = rho/E^(1/2);
         muN.cyl = sin(pi/n)/sqrt(n);
-        muTheta.cyl = 5*cot(theta_solid) + sqrt(10)/(sin(theta_solid)*cos(theta_solid));
+        muTheta.cyl = tan(theta_solid).*(5*cot(theta_solid).^2 + sqrt(10)*csc(theta_solid).^2);%5*cot(theta_solid) + sqrt(10)/(sin(theta_solid)*cos(theta_solid));
         store.cyl.(['longeron',num2str(n)]).(['R',num2str(10*R)]) = K.cyl*muR.cyl*muP.cyl*muM.cyl*muN.cyl*muTheta.cyl;
         switch n
             case 3
@@ -120,7 +120,7 @@ for n = [3 6 12]
         muP.tube = P.^(1/3);
         muM.tube = rho*t_min^(2/3)/E^(1/3);
         muN.tube = sin(pi/n)^(2/3)/n^(1/3);
-        muTheta.tube = (5*2^(2/3)*cot(theta_tube) + (2^(4/3)*5^(2/3))/(sin(theta_tube)^(2/3)*cos(theta_tube)));
+        muTheta.tube = tan(theta_tube).*(5*2^(2/3)*cot(theta_tube).^(5/3) + 2^(4/3)*5^(2/3).*csc(theta_tube).^5/3);%(5*2^(2/3)*cot(theta_tube) + (2^(4/3)*5^(2/3))/(sin(theta_tube)^(2/3)*cos(theta_tube)));
         store.tube.(['longeron',num2str(n)]).(['R',num2str(10*R)]) = K.tube*muR.tube*muP.tube*muM.tube*muN.tube*muTheta.tube;
         switch n
             case 3
@@ -179,33 +179,33 @@ plot(R,P,'linestyle','-')
 P = (w(1)./K.tube./(R.^(2/3))./muM.tube./muN.tube./muTheta.tube).^3;
 % P = (5*(E*n)^(1/3)*w(1)) ./ (2*(R*t_min*sin(pi/n)).^(2/3)*(5*2^(2/3)*cot(theta_tube) + (2^(1/3)*5^(2/3))/(sin(theta_tube)^(2/3)*cos(theta_tube)))).^3;
 plot(R,P,'linestyle','--')
-
-% For n=6 & R=0.1
-n = 6;
-P = (w(2)./K.cyl./R./muM.cyl./muN.cyl./muTheta.cyl).^2;
-% P = (5*sqrt(pi*E*n)*w(1)) ./ (4*R*rho*sin(pi/n)*(10*cot(theta_solid) + sqrt(10)/(sin(theta_solid)*cos(theta_solid)))).^2;
-plot(R,P,'linestyle','-')
-P = (w(2)./K.tube./(R.^(2/3))./muM.tube./muN.tube./muTheta.tube).^3;
-% P = (5*(E*n)^(1/3)*w(1)) ./ (2*(R*t_min*sin(pi/n)).^(2/3)*(5*2^(2/3)*cot(theta_tube) + (2^(1/3)*5^(2/3))/(sin(theta_tube)^(2/3)*cos(theta_tube)))).^3;
-plot(R,P,'linestyle','--')
-
-% For n=12 & R=0.1
-n = 12;
-P = (w(3)./K.cyl./R./muM.cyl./muN.cyl./muTheta.cyl).^2;
-% P = (5*sqrt(pi*E*n)*w(1)) ./ (4*R*rho*sin(pi/n)*(10*cot(theta_solid) + sqrt(10)/(sin(theta_solid)*cos(theta_solid)))).^2;
-plot(R,P,'linestyle','-')
-P = (w(3)./K.tube./(R.^(2/3))./muM.tube./muN.tube./muTheta.tube).^3;
-% P = (5*(E*n)^(1/3)*w(1)) ./ (2*(R*t_min*sin(pi/n)).^(2/3)*(5*2^(2/3)*cot(theta_tube) + (2^(1/3)*5^(2/3))/(sin(theta_tube)^(2/3)*cos(theta_tube)))).^3;
-plot(R,P,'linestyle','--')
-
-% For n=12 & R=0.1
-n = 12;
-P = (w(4)./K.cyl./R./muM.cyl./muN.cyl./muTheta.cyl).^2;
-% P = (5*sqrt(pi*E*n)*w(1)) ./ (4*R*rho*sin(pi/n)*(10*cot(theta_solid) + sqrt(10)/(sin(theta_solid)*cos(theta_solid)))).^2;
-plot(R,P,'linestyle','-')
-P = (w(4)./K.tube./(R.^(2/3))./muM.tube./muN.tube./muTheta.tube).^3;
-% P = (5*(E*n)^(1/3)*w(1)) ./ (2*(R*t_min*sin(pi/n)).^(2/3)*(5*2^(2/3)*cot(theta_tube) + (2^(1/3)*5^(2/3))/(sin(theta_tube)^(2/3)*cos(theta_tube)))).^3;
-plot(R,P,'linestyle','--')
+% 
+% % For n=6 & R=0.1
+% n = 6;
+% P = (w(2)./K.cyl./R./muM.cyl./muN.cyl./muTheta.cyl).^2;
+% % P = (5*sqrt(pi*E*n)*w(1)) ./ (4*R*rho*sin(pi/n)*(10*cot(theta_solid) + sqrt(10)/(sin(theta_solid)*cos(theta_solid)))).^2;
+% plot(R,P,'linestyle','-')
+% P = (w(2)./K.tube./(R.^(2/3))./muM.tube./muN.tube./muTheta.tube).^3;
+% % P = (5*(E*n)^(1/3)*w(1)) ./ (2*(R*t_min*sin(pi/n)).^(2/3)*(5*2^(2/3)*cot(theta_tube) + (2^(1/3)*5^(2/3))/(sin(theta_tube)^(2/3)*cos(theta_tube)))).^3;
+% plot(R,P,'linestyle','--')
+% 
+% % For n=12 & R=0.1
+% n = 12;
+% P = (w(3)./K.cyl./R./muM.cyl./muN.cyl./muTheta.cyl).^2;
+% % P = (5*sqrt(pi*E*n)*w(1)) ./ (4*R*rho*sin(pi/n)*(10*cot(theta_solid) + sqrt(10)/(sin(theta_solid)*cos(theta_solid)))).^2;
+% plot(R,P,'linestyle','-')
+% P = (w(3)./K.tube./(R.^(2/3))./muM.tube./muN.tube./muTheta.tube).^3;
+% % P = (5*(E*n)^(1/3)*w(1)) ./ (2*(R*t_min*sin(pi/n)).^(2/3)*(5*2^(2/3)*cot(theta_tube) + (2^(1/3)*5^(2/3))/(sin(theta_tube)^(2/3)*cos(theta_tube)))).^3;
+% plot(R,P,'linestyle','--')
+% 
+% % For n=12 & R=0.1
+% n = 12;
+% P = (w(4)./K.cyl./R./muM.cyl./muN.cyl./muTheta.cyl).^2;
+% % P = (5*sqrt(pi*E*n)*w(1)) ./ (4*R*rho*sin(pi/n)*(10*cot(theta_solid) + sqrt(10)/(sin(theta_solid)*cos(theta_solid)))).^2;
+% plot(R,P,'linestyle','-')
+% P = (w(4)./K.tube./(R.^(2/3))./muM.tube./muN.tube./muTheta.tube).^3;
+% % P = (5*(E*n)^(1/3)*w(1)) ./ (2*(R*t_min*sin(pi/n)).^(2/3)*(5*2^(2/3)*cot(theta_tube) + (2^(1/3)*5^(2/3))/(sin(theta_tube)^(2/3)*cos(theta_tube)))).^3;
+% plot(R,P,'linestyle','--')
 set(gca, 'XScale', 'log', 'YScale', 'log')
 
 % Plot of the longeron and diagonal radius as a function of P or R
