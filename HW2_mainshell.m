@@ -200,10 +200,23 @@ legend('Cyl, n=3','Tube, n=3','Cyl, n=6','Tube, n=6','Cyl, n=12','Tube, n=12')
 % For this we know the load from the first plot and we know the Euler
 % buckling equation based on the radius of the longerons/diagonals.
 % cylinder truss
-% P = 
-% n = 3;
-% rl = ((16*R.^2*P) / (E*n*pi^3*csc(pi/n)^2*tan(theta_solid)^2)).^(1/4);
-% rd = ((8*R.^2*P) / (5*E*n*pi^3*csc(pi/n)^2*sin(theta_solid)^2)).^(1/4);
+P = store.intersects.x;
+P(P == 0) = [];
+n = 3;
+
+figure
+hold on
+grid on
+title('r_l & r_d as a Function of Global Truss Radius R')
+xlabel('Global Truss Radius R, m');ylabel('Radius, m')
+rl = ((16*R.^2*P) / (E*n*pi^3*csc(pi/n)^2*tan(theta_solid)^2)).^(1/4);
+plot(R,rl,'linestyle','-','color','#42d4f4')
+rd = ((8*R.^2*P) / (5*E*n*pi^3*csc(pi/n)^2*sin(theta_solid)^2)).^(1/4);
+plot(R,rd,'linestyle','--','color','#42d4f4')
+rl = ((4*P*R.^2) / (E*n*pi^3*t_min*csc(pi/n)^2*tan(theta_tube)^2)).^(1/3);
+plot(R,rl,'linestyle','-','color','#4363d8')
+rd = ((2*P*R.^2) / (5*E*n*pi^3*t_min*csc(pi/n)^2*sin(theta_tube)^2)).^(1/3);
+plot(R,rd,'linestyle','--','color','#4363d8')
 %%
 % Question 4 is a derivation
 
