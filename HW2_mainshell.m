@@ -197,6 +197,8 @@ set(gca, 'XScale', 'log', 'YScale', 'log')
 legend('Cyl, n=3','Tube, n=3','Cyl, n=6','Tube, n=6','Cyl, n=12','Tube, n=12')
 
 % Plot of the longeron and diagonal radius as a function of P or R
+% For this we know the load from the first plot and we know the Euler
+% buckling equation based on the radius of the longerons/diagonals.
 
 %%
 % Question 4 is a derivation
