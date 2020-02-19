@@ -123,7 +123,7 @@ disp('45 Degree Twist Node Displacements');disp(p45distab)
 %make a table for the bar stresses
 bar_num = 1:1:size(twobay.a0.bars,1);
 bar_num = bar_num';
-stress_1 = twobay.a45.W(end,:)';
+stress_1 = twobay.a45.W(:,end);
 p45strtab = table(bar_num,stress_1);
 disp('45 Degree Twist Bar Stresses');disp(p45strtab)
 
@@ -158,8 +158,8 @@ disp('-45 Degree Twist Node Displacements');disp(n45distab)
 %make a table for the bar stresses
 bar_num = 1:1:size(twobay.a0.bars,1);
 bar_num = bar_num';
-stress_1 = twobay.na45.W(end-1,:)';
-stress_2 = twobay.na45.W(end,:)';
+stress_1 = twobay.na45.W(:,end-1);
+stress_2 = twobay.na45.W(:,end);
 n45strtab = table(bar_num,stress_1,stress_2);
 disp('-45 Degree Twist Bar Stresses');disp(n45strtab)
 
