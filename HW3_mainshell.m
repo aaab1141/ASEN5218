@@ -15,7 +15,7 @@ polarplot(theta,R)
 title('Bending Efficiency: Square-on-Square 2 Layer Lattice')
 
 %   b) square-on-square lattice
-R = 3/4 ; R = repelem(R,length(theta));
+R = 2/3 ; R = repelem(R,length(theta));
 figure
 polarplot(theta,R)
 title('Bending Efficiency: Triangle-on-Triangle 2 Layer Lattice')
@@ -50,5 +50,5 @@ title('Surface Plot of Natural Frequency')
 
 % Functions:
 function [f] = natfreq(EE,rho,A,Nr,d,eta)
-f = (3^0.25*(1)*sqrt(EE)*sqrt(d)) / (3*pi*sqrt(192)*(2*Nr-1)^(5/2)*sqrt(A)*sqrt(rho)*sqrt(1+eta));
+f = (3^0.25*(1)*sqrt(EE)*sqrt(d)) / (3*pi*sqrt(192)*(2*Nr+1)^(5/2)*sqrt(A)*sqrt(rho)*sqrt(1+eta));
 end
