@@ -13,7 +13,7 @@ HomeworkDocs/*
 *.asv
 
 # Ignore the Textbooks folder
-Textbooks/*
+Textbooks and Papers/*
 
 # Ignore the Figures folder
 Figures/*
