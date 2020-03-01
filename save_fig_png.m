@@ -13,18 +13,28 @@ function [] = save_fig_png(filename)
 
 curfol = cd;
 
-if ~exist([curfol,'\Figs'], 'dir')
-    mkdir([curfol,'\Figs'])
+if ~exist([curfol,'\Plots'],'dir')
+    mkdir([curfol,'\Plots'])
 end
-if ~exist([curfol,'\PNGs'], 'dir')
-    mkdir([curfol,'\PNGs'])
+if ~exist([curfol,'\Plots\Figs'],'dir')
+    mkdir([curfol,'\Plots\Figs'])
+end
+if ~exist([curfol,'\Plots\PNGs'], 'dir')
+    mkdir([curfol,'\Plots\PNGs'])
+end
+if ~exist([curfol,'\Plots\PDFs'], 'dir')
+    mkdir([curfol,'\Plots\PDFs'])
 end
 
-cd([curfol,'\Figs'])
+cd([curfol,'\Plots\Figs'])
 saveas(gcf,[filename,'.fig'])
 
-cd([curfol,'\PNGs'])
+cd([curfol,'\Plots\PNGs'])
 print(gcf,[filename,'.png'],'-dpng','-r300')
+
+cd([curfol,'\Plots\PDFs'])
+saveas(gcf,[filename,'.pdf'])
+
 
 cd(curfol)
 end
