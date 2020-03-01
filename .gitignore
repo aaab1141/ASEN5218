@@ -21,8 +21,5 @@ Figures/*
 # Ignore the Documents folder inside the FinalProject folder
 FinalProject/Documents/*
 
-# Ignore the Figs folder
-Figs/*
-
-# Ignore the PNGs folder
-PNGs/*
+# Ignore the Plots folder
+Plots/*
