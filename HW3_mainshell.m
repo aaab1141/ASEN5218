@@ -55,11 +55,18 @@ l = .01; %10cm
 r_0 = 1;
 oor = linspace(1/100,10,50);
 theta = linspace(0,pi,50);
+U = zeros(length(oor),length(theta));
 for i = 1:length(oor)
     for j = 1:length(theta)
         U(i,j) = strainenergy(d,A,EE,l,theta(i),theta_0,oor(j),r_0);
     end
 end
+
+% Find the bi stable minimums
+[~,Imin] = mink(U(:,end),2);
+disp('Bistable Strain Energy minimums occur when theta is:')
+disp([num2str(theta(Imin(1))*180/pi),' degrees and ',num2str(theta(Imin(2))*180/pi),' degrees'])
+
 [oor,theta] = meshgrid(oor,theta);
 
 figure
