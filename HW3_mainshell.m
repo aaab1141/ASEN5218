@@ -13,12 +13,14 @@ R = 2/3*(cos(theta).^4 + sin(theta).^4);
 figure
 polarplot(theta,R)
 title('Bending Efficiency: Square-on-Square 2 Layer Lattice')
+save_fig_png('3.1.a')
 
 %   b) square-on-square lattice
 R = 2/3 ; R = repelem(R,length(theta));
 figure
 polarplot(theta,R)
 title('Bending Efficiency: Triangle-on-Triangle 2 Layer Lattice')
+save_fig_png('3.1.b')
 
 % Question 2
 EE = 105e9; %Pa
@@ -46,13 +48,13 @@ surf(Nr,eta,nf)
 xlabel('Number of Rings, N_r');ylabel('Parasitc Mass Ratio, \eta');zlabel('Natural Frequency, Hz')
 title('Surface Plot of Natural Frequency')
 
-% Question 3
+% Question 4
 % assume same values as Q2 for E and A
 theta_0 = pi/4;
 % choose reasonable values for d (thickness), l (length of bars), and r_0
 d = .01; %10cm
 l = .01; %10cm
-r_0 = 1;
+r_0 = 1; %m
 oor = linspace(1/100,10,50);
 theta = linspace(0,pi,50);
 U = zeros(length(oor),length(theta));

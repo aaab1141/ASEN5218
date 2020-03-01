@@ -24,7 +24,7 @@ cd([curfol,'\Figs'])
 saveas(gcf,[filename,'.fig'])
 
 cd([curfol,'\PNGs'])
-saveas(gcf,[filename,'.png'])
+print(gcf,[filename,'.png'],'-dpng','-r300')
 
 cd(curfol)
 end
