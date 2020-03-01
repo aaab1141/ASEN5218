@@ -69,7 +69,7 @@ end
 % Find the bi stable minimums
 [~,Imin] = mink(U(:,end),2);
 disp('Bistable Strain Energy minimums occur when theta is:')
-disp([num2str(theta(Imin(1))*180/pi),' degrees and ',num2str(theta(Imin(2))*180/pi),' degrees'])
+disp([num2str(theta(Imin(1))*180/pi),' degrees and ',num2str(theta(Imin(2))*180/pi),' degrees at a low resolution'])
 
 [oor,theta] = meshgrid(oor,theta);
 
