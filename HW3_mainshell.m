@@ -42,11 +42,13 @@ contour(Nr,eta,nf)
 xlabel('Number of Rings, N_r');ylabel('Parasitc Mass Ratio, \eta')
 colorbar; grid on
 title('Contour Plot of Natural Frequency')
+save_fig_png('3.2.a1')
 
 figure
 surf(Nr,eta,nf)
 xlabel('Number of Rings, N_r');ylabel('Parasitc Mass Ratio, \eta');zlabel('Natural Frequency, Hz')
 title('Surface Plot of Natural Frequency')
+save_fig_png('3.2.a2')
 
 % Question 4
 % assume same values as Q2 for E and A
@@ -76,11 +78,13 @@ contour(oor,theta,U)
 xlabel('1/r');ylabel('\theta, radians')
 title('Countour Plot of Strain Energy')
 colorbar; grid on
+save_fig_png('3.4.a1')
 
 figure
 surf(oor,theta,U)
 xlabel('1/r');ylabel('\theta, radians');zlabel('Strain Energy, J')
 title('Surface Plot of Strain Energy')
+save_fig_png('3.4.a2')
 
 % Functions:
 function [f] = natfreq(EE,rho,A,Nr,d,eta)
