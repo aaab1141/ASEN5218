@@ -23,3 +23,6 @@ FinalProject/Documents/*
 
 # Ignore the Plots folder
 Plots/*
+
+# Ignore the Exams Folder
+Exams/*
