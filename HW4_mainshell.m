@@ -16,7 +16,7 @@ d = 10; %m aperture diameter
 al = [-2*f,0,0]; %aperture location (center of aperture)
 
 %% define the grid of rays to simulate
-n = 50; %number of gridpoints per side
+n = 5; %number of gridpoints per side
 appgrid = zeros(n,n,3);
 appgrid(:,:,1) = al(1,1); %all the x coordinates are at the aperture (2*f)
 linvec = linspace(-d/2,d/2,n);
@@ -28,8 +28,11 @@ end
 % seemygrid(appgrid)
 
 %% Define the direction of the incoming ray at each gridpoint
-rayunitvecs = raydirection(10e-2,appgrid,paxis);
+rayunitvecs = raydirection(45,appgrid,paxis);
 
+% seemyrays(rayunitvecs,appgrid)
+
+%% 
 
 % Question 2: Countour plot of optical path difference
 
@@ -37,15 +40,36 @@ rayunitvecs = raydirection(10e-2,appgrid,paxis);
 
 % Question 4: Effect of the reference sphere
 
-function [] = seemygrid(threelayer)
+%% functions
+function [] = seemygrid(gridpoint3layer)
 % reshape the three layer matrix into things that are plottable
-x = reshape(threelayer(:,:,1),1,size(threelayer,1)*size(threelayer,2));
-y = reshape(threelayer(:,:,2),1,size(threelayer,1)*size(threelayer,2));
-z = reshape(threelayer(:,:,3),1,size(threelayer,1)*size(threelayer,2));
+x = reshape(gridpoint3layer(:,:,1),1,size(gridpoint3layer,1)*size(gridpoint3layer,2));
+y = reshape(gridpoint3layer(:,:,2),1,size(gridpoint3layer,1)*size(gridpoint3layer,2));
+z = reshape(gridpoint3layer(:,:,3),1,size(gridpoint3layer,1)*size(gridpoint3layer,2));
 
 % make a plot
 plot3(x,y,z,'*');
 xlabel('x');ylabel('y');zlabel('z')
+end
+
+function [] = seemyrays(rayvecs,gridpoint3layer)
+% reshape the three layer matrix into things that are plottable
+x = reshape(gridpoint3layer(:,:,1),1,size(gridpoint3layer,1)*size(gridpoint3layer,2));
+y = reshape(gridpoint3layer(:,:,2),1,size(gridpoint3layer,1)*size(gridpoint3layer,2));
+z = reshape(gridpoint3layer(:,:,3),1,size(gridpoint3layer,1)*size(gridpoint3layer,2));
+
+figure; hold on
+for i = 1:1:size(rayvecs,2)
+    % get the gridpoint for the ray vector
+    X = [x(i), x(i) + rayvecs(1,i)];
+    Y = [y(i), y(i) + rayvecs(2,i)];
+    Z = [z(i), z(i) + rayvecs(3,9)];
+    
+    % plot the vector
+    plot3(X,Y,Z,'-b*')
+end
+xlabel('x');ylabel('y');zlabel('z')
+axis equal
 end
 
 function [rayunitvecs] = raydirection(tiltangle,gridpoint3layer,psi)
