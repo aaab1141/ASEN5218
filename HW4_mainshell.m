@@ -47,8 +47,8 @@ y = reshape(appgrid(:,:,2),1,size(appgrid,1)*size(appgrid,2));
 z = reshape(appgrid(:,:,3),1,size(appgrid,1)*size(appgrid,2));
 P = [x;y;z];
 
-%% Calculate L for each incident ray
-rts = zeros(1,size(rayunitvecs,2));
+%% Calculate path lengths for each incident ray
+point2mirror = zeros(1,size(rayunitvecs,2));
 flags = false(1,size(rayunitvecs,2));
 % for each node
 for ind = 1:1:size(rayunitvecs,2)
@@ -62,25 +62,46 @@ for ind = 1:1:size(rayunitvecs,2)
     three = PP'*(M*PP + 2*N0);
     temp = roots([one,two,three]);
     if numel(temp) == 1
-        rts(1,ind) = temp;
+        point2mirror(1,ind) = temp;
         flags(1,ind) = false; %false flag indicates there was only one solution and there was no problem
     else
         if sign(temp(1)) ~= sign(temp(2)) %means it hit the parabola going forward and way far away going backwards
             flags(1,ind) = false;
             if temp(1) > 0
-                rts(1,ind) = temp(1);
+                point2mirror(1,ind) = temp(1);
             else
-                rts(1,ind) = temp(2);
+                point2mirror(1,ind) = temp(2);
             end
         else
             flags(1,ind) = true;
         end
     end
+    
+    % find the point where the ray hit the mirrow
+    
+    
+    % find the reflected vector direction
+    
+    
+    % find the path length of the reflected ray to the reference sphere
+    % use the same thing as ray hitting the parabola except this time f = radius and e = 0
+    % or maybe there is a simpler geometric way since the sphere is easily defined and we dont care about reflectance
+    
+    
+    % find the path length of the reflected ray to the plane of the focus that is tangent to the vertex of the mirror
+    % I have a feeling there is an easier geometric way here knowing where the plane is defined and that we dont care about reflectance
+    
+    
 end
 
-seemyroots(rts,n)
+seemyroots(point2mirror,n)
 
-%% Determine which Ls are outside the circular aperture
+
+
+%% Add the contributions to the path length of each ray
+
+
+%% Determine which Ls are outside the circular aperture and set L = 0
 
 
 % Question 2: Countour plot of optical path difference
