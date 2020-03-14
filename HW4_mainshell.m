@@ -32,7 +32,9 @@ rayunitvecs = raydirection(45,appgrid,paxis);
 
 % seemyrays(rayunitvecs,appgrid)
 
-%% 
+%% Calculate M and P for each gridpoint
+% M is the same for each gridpoint
+M = eye(3) - ecc^2*(paxis*paxis');
 
 % Question 2: Countour plot of optical path difference
 
@@ -72,14 +74,14 @@ xlabel('x');ylabel('y');zlabel('z')
 axis equal
 end
 
-function [rayunitvecs] = raydirection(tiltangle,gridpoint3layer,psi)
+function [rayunitvecs] = raydirection(tiltangle,gridpoint3layer,paxis)
 % set aside space for all the unit vectors
 rayunitvecs = zeros(3,size(gridpoint3layer,1)*size(gridpoint3layer,2));
 
 if tiltangle == 0
     % establish the nominal direction of the rays (antiparallel to principal axis
     for i = 1:1:size(rayunitvecs,2)
-        rayunitvecs(:,i) = -psi;
+        rayunitvecs(:,i) = -paxis;
     end
 else
     % Tilt the unit vectors by the specified angle
