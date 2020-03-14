@@ -36,6 +36,17 @@ rayunitvecs = raydirection(45,appgrid,paxis);
 % M is the same for each gridpoint
 M = eye(3) - ecc^2*(paxis*paxis');
 
+% P is different for each gridpoint so we will define P for each gridpoint
+% because of the way we defined our coordinate system P is the gridpoint coordinate
+% reshape the three layer matrix into things that are plottable
+x = reshape(appgrid(:,:,1),1,size(appgrid,1)*size(appgrid,2));
+y = reshape(appgrid(:,:,2),1,size(appgrid,1)*size(appgrid,2));
+z = reshape(appgrid(:,:,3),1,size(appgrid,1)*size(appgrid,2));
+P = [x;y;z];
+
+%%
+
+
 % Question 2: Countour plot of optical path difference
 
 % Question 3: Coma - the plot of optical path difference as a function of a
