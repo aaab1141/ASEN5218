@@ -28,7 +28,7 @@ end
 % seemygrid(appgrid)
 
 %% Define the direction of the incoming ray at each gridpoint
-rayunitvecs = raydirection(45,appgrid,paxis);
+rayunitvecs = raydirection(0,appgrid,paxis);
 
 % seemyrays(rayunitvecs,appgrid)
 
@@ -49,8 +49,7 @@ P = [x;y;z];
 
 %% Calculate L for each incident ray
 rts = zeros(1,size(rayunitvecs,2));
-flags = zeros(1,size(rayunitvecs,2));
-flags = logical(flags);
+flags = false(1,size(rayunitvecs,2));
 % for each node
 for ind = 1:1:size(rayunitvecs,2)
     % get P, and i for the gridpoint
