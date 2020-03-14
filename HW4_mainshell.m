@@ -32,7 +32,10 @@ rayunitvecs = raydirection(45,appgrid,paxis);
 
 % seemyrays(rayunitvecs,appgrid)
 
-%% Calculate M and P for each gridpoint
+%% Calculate N0, M, and P for each gridpoint
+% N0 is the same for each gridpoint
+N0 = -f*(1+ecc)*paxis;
+
 % M is the same for each gridpoint
 M = eye(3) - ecc^2*(paxis*paxis');
 
@@ -44,7 +47,41 @@ y = reshape(appgrid(:,:,2),1,size(appgrid,1)*size(appgrid,2));
 z = reshape(appgrid(:,:,3),1,size(appgrid,1)*size(appgrid,2));
 P = [x;y;z];
 
-%%
+%% Calculate L for each incident ray
+rts = zeros(1,size(rayunitvecs,2));
+flags = zeros(1,size(rayunitvecs,2));
+flags = logical(flags);
+% for each node
+for ind = 1:1:size(rayunitvecs,2)
+    % get P, and i for the gridpoint
+    PP = P(:,ind);
+    i = rayunitvecs(:,ind);
+    
+    % set up the equation and solve (basically solve the polynomial)
+    one = i'*M*i;
+    two = 2*i'*(M*PP + N0);
+    three = PP'*(M*PP + 2*N0);
+    temp = roots([one,two,three]);
+    if numel(temp) == 1
+        rts(1,ind) = temp;
+        flags(1,ind) = false; %false flag indicates there was only one solution and there was no problem
+    else
+        if sign(temp(1)) ~= sign(temp(2)) %means it hit the parabola going forward and way far away going backwards
+            flags(1,ind) = false;
+            if temp(1) > 0
+                rts(1,ind) = temp(1);
+            else
+                rts(1,ind) = temp(2);
+            end
+        else
+            flags(1,ind) = true;
+        end
+    end
+end
+
+seemyroots(rts,n)
+
+%% Determine which Ls are outside the circular aperture
 
 
 % Question 2: Countour plot of optical path difference
@@ -61,6 +98,7 @@ y = reshape(gridpoint3layer(:,:,2),1,size(gridpoint3layer,1)*size(gridpoint3laye
 z = reshape(gridpoint3layer(:,:,3),1,size(gridpoint3layer,1)*size(gridpoint3layer,2));
 
 % make a plot
+figure
 plot3(x,y,z,'*');
 xlabel('x');ylabel('y');zlabel('z')
 end
@@ -83,6 +121,14 @@ for i = 1:1:size(rayvecs,2)
 end
 xlabel('x');ylabel('y');zlabel('z')
 axis equal
+end
+
+function [] = seemyroots(rts,n)
+mygrid = reshape(rts,n,n);
+
+figure
+contour(mygrid)
+colorbar
 end
 
 function [rayunitvecs] = raydirection(tiltangle,gridpoint3layer,paxis)
