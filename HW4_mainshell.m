@@ -141,7 +141,10 @@ end
 % Undo the coordinate transformation to figure out when it hits the reference sphere
 newspherepoints = undomovemypoints_sphere(spherepoints,sphere);
 
-seemysphere(newspherepoints)
+% seemysphere(newspherepoints)
+% seemyraypathstosphere(newspherepoints,reflectpoint,appgrid)
+
+
 % find the path length of the reflected ray to the plane of the focus that is tangent to the vertex of the mirror
 % I have a feeling there is an easier geometric way here knowing where the plane is defined and that we dont care about reflectance
 
@@ -228,6 +231,25 @@ for i = 1:1:size(reflectvec,2)
     X = [x(i), reflectpoints(1,i), reflectpoints(1,i) + m*reflectvec(1,i)];
     Y = [y(i), reflectpoints(2,i), reflectpoints(2,i) + m*reflectvec(2,i)];
     Z = [z(i), reflectpoints(3,i), reflectpoints(3,i) + m*reflectvec(3,i)];
+    
+    % plot the vector
+    plot3(X,Y,Z,'-b*')
+end
+xlabel('x');ylabel('y');zlabel('z')
+axis equal
+end
+
+function [] = seemyraypathstosphere(spherepoints,reflectpoints,gridpoint3layer)
+% reshape the three layer matrix into things that are plottable
+x = reshape(gridpoint3layer(:,:,1),1,size(gridpoint3layer,1)*size(gridpoint3layer,2));
+y = reshape(gridpoint3layer(:,:,2),1,size(gridpoint3layer,1)*size(gridpoint3layer,2));
+z = reshape(gridpoint3layer(:,:,3),1,size(gridpoint3layer,1)*size(gridpoint3layer,2));
+
+figure; hold on
+for i = 1:1:size(spherepoints,2)
+    X = [x(i), reflectpoints(1,i), spherepoints(1,i)];
+    Y = [y(i), reflectpoints(2,i), spherepoints(2,i)];
+    Z = [z(i), reflectpoints(3,i), spherepoints(3,i)];
     
     % plot the vector
     plot3(X,Y,Z,'-b*')
