@@ -1,6 +1,6 @@
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % This is the main shell script for ASEN 5218 Homework #4. It facilitates
-% running the problems in the homework. To check this homework, the only 
+% running the problems in the homework. To check this homework, the only
 % thing that is required is to run this script.
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 clear
@@ -16,7 +16,7 @@ d = 10; %m aperture diameter
 al = [-2*f,0,0]; %aperture location (center of aperture)
 
 %% define the grid of rays to simulate
-n = 5; %number of gridpoints per side
+n = 50; %number of gridpoints per side
 appgrid = zeros(n,n,3);
 appgrid(:,:,1) = al(1,1); %all the x coordinates are at the aperture (2*f)
 linvec = linspace(-d/2,d/2,n);
@@ -49,6 +49,8 @@ P = [x;y;z];
 
 %% Calculate path lengths for each incident ray
 point2mirror = zeros(1,size(rayunitvecs,2));
+reflectpoint = zeros(size(rayunitvecs,1),size(rayunitvecs,2));
+reflectvec = zeros(size(rayunitvecs,1),size(rayunitvecs,2));
 flags = false(1,size(rayunitvecs,2));
 % for each node
 for ind = 1:1:size(rayunitvecs,2)
@@ -77,11 +79,15 @@ for ind = 1:1:size(rayunitvecs,2)
         end
     end
     
-    % find the point where the ray hit the mirrow
+    % find the point where the ray hit the mirror
+    reflectpoint(:,ind) = [x(ind);y(ind);z(ind)] + point2mirror(ind)*rayunitvecs(:,ind);
     
+    % calculate the normal at the reflection point
+    N = norm(N0 + M*reflectpoint(:,ind));
     
     % find the reflected vector direction
-    
+    R = eye(3) - 2*(N'*N);
+    reflectvec(:,ind) = norm(R*rayunitvecs(:,ind));
     
     % find the path length of the reflected ray to the reference sphere
     % use the same thing as ray hitting the parabola except this time f = radius and e = 0
@@ -94,9 +100,9 @@ for ind = 1:1:size(rayunitvecs,2)
     
 end
 
-seemyroots(point2mirror,n)
-
-
+% seemyroots(point2mirror,n)
+seemymirror(reflectpoint)
+% seemyreflectvecs(reflectvec,reflectpoint,appgrid)
 
 %% Add the contributions to the path length of each ray
 
@@ -131,7 +137,6 @@ z = reshape(gridpoint3layer(:,:,3),1,size(gridpoint3layer,1)*size(gridpoint3laye
 
 figure; hold on
 for i = 1:1:size(rayvecs,2)
-    % get the gridpoint for the ray vector
     X = [x(i), x(i) + rayvecs(1,i)];
     Y = [y(i), y(i) + rayvecs(2,i)];
     Z = [z(i), z(i) + rayvecs(3,9)];
@@ -149,6 +154,35 @@ mygrid = reshape(rts,n,n);
 figure
 contour(mygrid)
 colorbar
+end
+
+function [] = seemymirror(reflectpoint)
+% make the plot
+figure
+plot3(reflectpoint(1,:),reflectpoint(2,:),reflectpoint(3,:),'*b')
+xlabel('x');ylabel('y');zlabel('z')
+axis equal
+end
+
+function [] = seemyreflectvecs(reflectvec,reflectpoints,gridpoint3layer)
+% reshape the three layer matrix into things that are plottable
+x = reshape(gridpoint3layer(:,:,1),1,size(gridpoint3layer,1)*size(gridpoint3layer,2));
+y = reshape(gridpoint3layer(:,:,2),1,size(gridpoint3layer,1)*size(gridpoint3layer,2));
+z = reshape(gridpoint3layer(:,:,3),1,size(gridpoint3layer,1)*size(gridpoint3layer,2));
+
+m = 1; %arbitrary multiplier for visual ease
+
+figure; hold on
+for i = 1:1:size(reflectvec,2)
+    X = [x(i), reflectpoints(1,i), reflectpoints(1,i) + m*reflectvec(1,i)];
+    Y = [y(i), reflectpoints(2,i), reflectpoints(2,i) + m*reflectvec(2,i)];
+    Z = [z(i), reflectpoints(3,i), reflectpoints(3,i) + m*reflectvec(3,i)];
+    
+    % plot the vector
+    plot3(X,Y,Z,'-b*')
+end
+xlabel('x');ylabel('y');zlabel('z')
+axis equal
 end
 
 function [rayunitvecs] = raydirection(tiltangle,gridpoint3layer,paxis)
