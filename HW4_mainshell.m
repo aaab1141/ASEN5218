@@ -222,7 +222,7 @@ grid on
 title('Optical Path Difference RMS over Tilt Angle')
 
 % plot the spot diagram when alpha is 0.01
-
+spotdiagram(0.01);
 
 %% Question 4: Effect of moving the reference sphere
 
@@ -806,3 +806,115 @@ newspherepoints = undomovemypoints_sphere(spherepoints,sphere);
 % seemyraypathstosphere(newspherepoints,reflectpoint,appgrid) %%%%%%%%%%%%%
 end
 
+function [] = spotdiagram(alph)
+% Set up variables to make this easily modular
+f = 20; %m focal length
+ecc = 1; %eccentricity
+% p0 = [0,0,0]; %vertex of the mirror
+paxis = [-1;0;0]; %principle axis of the mirror
+d = 10; %m aperture diameter
+al = [-2*f,0,0]; %aperture location (center of aperture)
+
+% define the grid of rays to simulate
+n = 50; %number of gridpoints per side
+appgrid = zeros(n,n,3);
+appgrid(:,:,1) = al(1,1); %all the x coordinates are at the aperture (2*f)
+linvec = linspace(-d/2,d/2,n);
+for i = 1:1:n
+    appgrid(:,i,2) = linvec; %change x values
+    appgrid(i,:,3) = linvec; %change y values
+end
+
+% seemygrid(appgrid)
+
+% Define the direction of the incoming ray at each gridpoint
+rayunitvecs = raydirection(alph,appgrid,paxis);
+
+% seemyrays(rayunitvecs,appgrid) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Calculate N0, M, and P for each gridpoint
+% N0 is the same for each gridpoint
+N0 = -f*(1+ecc)*paxis;
+
+% M is the same for each gridpoint
+M = eye(3) - ecc^2*(paxis*paxis');
+
+% P is different for each gridpoint so we will define P for each gridpoint
+% because of the way we defined our coordinate system P is the gridpoint coordinate
+% reshape the three layer matrix into things that are plottable
+x = reshape(appgrid(:,:,1),1,size(appgrid,1)*size(appgrid,2));
+y = reshape(appgrid(:,:,2),1,size(appgrid,1)*size(appgrid,2));
+z = reshape(appgrid(:,:,3),1,size(appgrid,1)*size(appgrid,2));
+P = [x;y;z];
+
+% Calculate path lengths for each incident ray
+point2mirror = zeros(1,size(rayunitvecs,2));
+reflectpoint = zeros(size(rayunitvecs,1),size(rayunitvecs,2));
+reflectvec = zeros(size(rayunitvecs,1),size(rayunitvecs,2));
+flags = false(1,size(rayunitvecs,2));
+% for each node
+for ind = 1:1:size(rayunitvecs,2)
+    % get P, and i for the gridpoint
+    PP = P(:,ind);
+    i = rayunitvecs(:,ind);
+    
+    % set up the equation and solve (basically solve the polynomial)
+    one = i'*M*i;
+    two = 2*i'*(M*PP + N0);
+    three = PP'*(M*PP + 2*N0);
+    temp = roots([one,two,three]);
+    if numel(temp) == 1
+        point2mirror(1,ind) = temp;
+        flags(1,ind) = false; %false flag indicates there was only one solution and there was no problem
+    else
+        if sign(temp(1)) ~= sign(temp(2)) %means it hit the parabola going forward and way far away going backwards
+            flags(1,ind) = false;
+            if temp(1) > 0
+                point2mirror(1,ind) = temp(1);
+            else
+                point2mirror(1,ind) = temp(2);
+            end
+        else
+            flags(1,ind) = true;
+        end
+    end
+    
+    % find the point where the ray hit the mirror
+    reflectpoint(:,ind) = [x(ind);y(ind);z(ind)] + point2mirror(ind)*rayunitvecs(:,ind);
+    
+    % calculate the normal at the reflection point
+    N = N0 + M*reflectpoint(:,ind);
+    Nhat = -sign(rayunitvecs(:,ind)'*N)*N/norm(N);
+    
+    % find the reflected vector direction
+    R = eye(3) - 2*(Nhat*Nhat');
+    reflectvec(:,ind) = R*rayunitvecs(:,ind);
+end
+
+% seemyroots(point2mirror,n) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% seemymirror(reflectpoint) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% seemyreflectvecs(reflectvec,reflectpoint,appgrid) %%%%%%%%%%%%%%%%%%%%%%%
+
+% Find the path lengths to the plane of the focus for a spot diagram
+% For this we can just use a multiplier defined by the x coordinate of the reflection point
+% and the location of the focus plane to find the point where that vector would hit the plane
+spot = zeros(size(reflectpoint,1),size(reflectpoint,2));
+for ind = 1:1:size(reflectvec,2)
+    % identify the point we are starting at
+    p = reflectpoint(:,ind);
+    
+    % calculate the proper multiplier
+    dtogo = -f - p(1,1);
+    m = dtogo/reflectvec(1,ind);
+    
+    % calculate the point in the focus plane where that vector crosses
+    spot(:,ind) = p + m*reflectvec(:,ind);
+end
+
+% plot the spot diagram
+figure
+plot(spot(2,:),spot(3,:),'bx')
+title(['Spot Diagram for \alpha=',num2str(alph),'^o'])
+xlabel('Y, m');ylabel('Z, m')
+grid on
+end
