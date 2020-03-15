@@ -225,6 +225,14 @@ title('Optical Path Difference RMS over Tilt Angle')
 spotdiagram(0.01);
 
 %% Question 4: Effect of moving the reference sphere
+% moving the reference sphere along the X axis
+
+
+% moving the reference sphere along the Y axis
+
+
+% moving the reference sphere along the Z axis
+
 
 %% functions
 function [] = seemygrid(gridpoint3layer)
@@ -912,9 +920,20 @@ for ind = 1:1:size(reflectvec,2)
 end
 
 % plot the spot diagram
-figure
+figure; hold on
 plot(spot(2,:),spot(3,:),'bx')
 title(['Spot Diagram for \alpha=',num2str(alph),'^o'])
 xlabel('Y, m');ylabel('Z, m')
 grid on
+axis equal
+axis square
+
+[dist,indexes] = pdist2([spot(2,:)',spot(3,:)'],[spot(2,:)',spot(3,:)'],'euclidean','largest',1); %https://www.mathworks.com/matlabcentral/answers/349856-calculating-the-distance-between-every-two-points-of-a-list
+[maxdist,ind2] = max(dist);
+ind1 = indexes(ind2);
+
+% plot the line of max distance
+plot([spot(2,ind1),spot(2,ind2)],[spot(3,ind1),spot(3,ind2)],'mo-','LineWidth',2,'MarkerSize',9);
+text(spot(2,ind2),spot(3,ind2),['Max Distance is ',num2str(maxdist),' m  '],'horizontalalignment','right')
+
 end
