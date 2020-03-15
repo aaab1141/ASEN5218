@@ -115,7 +115,7 @@ sphere.N0 = -sphere.p*sphere.paxis;
 sphere.M = eye(3); %since e is zero then the principle axis doesnt matter
 
 % move the reflect points such that they match our new CS where the vertex of the sphere is [0,0,0]
-newreflectpoints = movemypoints_sphere(reflectpoint,sphere);
+newreflectpoints = movemypoints_sphere(reflectpoint,sphere,0,0,0);
 
 % find the path length of the reflected ray to the reference sphere
 mirror2sphere = zeros(1,size(rayunitvecs,2));
@@ -141,7 +141,7 @@ end
 % seemysphere(spherepoints) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Undo the coordinate transformation to figure out when it hits the reference sphere
-newspherepoints = undomovemypoints_sphere(spherepoints,sphere);
+newspherepoints = undomovemypoints_sphere(spherepoints,sphere,0,0,0);
 
 % seemysphere(newspherepoints) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % seemyraypathstosphere(newspherepoints,reflectpoint,appgrid) %%%%%%%%%%%%%
@@ -225,8 +225,22 @@ title('Optical Path Difference RMS over Tilt Angle')
 spotdiagram(0.01);
 
 %% Question 4: Effect of moving the reference sphere
+% we will cosider error to be rms deviation from the average optical path length
 % moving the reference sphere along the X axis
-
+% % % delta = -1:-1:-9;
+% % % delta = 10.^delta;
+% % % pathRMS = zeros(1,size(delta,2));
+% % % 
+% % % for ind = 1:1:size(delta,2)
+% % %     [seg1,seg2,P] = changerefsphere((1,ind));
+% % %     
+% % %     Ltotal = seg1 + seg2;
+% % %     
+% % %     % remove the path lengths for the paths that are outside the cirular aperture
+% % %     [~,~,~,pathRMS(1,ind)] = aperturetrim(Ltotal,P);
+% % % end
+% % % 
+% % % figure
 
 % moving the reference sphere along the Y axis
 
@@ -348,12 +362,12 @@ else
 end
 end
 
-function [newpoints] = movemypoints_sphere(reflectpoint,sphere)
-newpoints = reflectpoint - [sphere.x + sphere.r;sphere.y;sphere.z];
+function [newpoints] = movemypoints_sphere(reflectpoint,sphere,deltax,deltay,deltaz)
+newpoints = reflectpoint - [sphere.x + sphere.r + deltax;sphere.y + deltay;sphere.z + deltaz];
 end
 
-function [newpoints] = undomovemypoints_sphere(spherepoints,sphere)
-newpoints = spherepoints + [sphere.x + sphere.r;sphere.y;sphere.z];
+function [newpoints] = undomovemypoints_sphere(spherepoints,sphere,deltax,deltay,deltaz)
+newpoints = spherepoints + [sphere.x + sphere.r + deltax;sphere.y + deltay;sphere.z + deltaz];
 end
 
 function [X,Y,Z,pathRMS] = aperturetrim(pathlengths,P)
@@ -504,7 +518,7 @@ sphere.N0 = -sphere.p*sphere.paxis;
 sphere.M = eye(3); %since e is zero then the principle axis doesnt matter
 
 % move the reflect points such that they match our new CS where the vertex of the sphere is [0,0,0]
-newreflectpoints = movemypoints_sphere(reflectpoint,sphere);
+newreflectpoints = movemypoints_sphere(reflectpoint,sphere,0,0,0);
 
 % find the path length of the reflected ray to the reference sphere
 mirror2sphere = zeros(1,size(rayunitvecs,2));
@@ -530,7 +544,7 @@ end
 % seemysphere(spherepoints) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Undo the coordinate transformation to figure out when it hits the reference sphere
-newspherepoints = undomovemypoints_sphere(spherepoints,sphere);
+newspherepoints = undomovemypoints_sphere(spherepoints,sphere,0,0,0);
 
 % seemysphere(newspherepoints) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % seemyraypathstosphere(newspherepoints,reflectpoint,appgrid) %%%%%%%%%%%%%
@@ -643,7 +657,7 @@ sphere.N0 = -sphere.p*sphere.paxis;
 sphere.M = eye(3); %since e is zero then the principle axis doesnt matter
 
 % move the reflect points such that they match our new CS where the vertex of the sphere is [0,0,0]
-newreflectpoints = movemypoints_sphere(reflectpoint,sphere);
+newreflectpoints = movemypoints_sphere(reflectpoint,sphere,0,0,0);
 
 % find the path length of the reflected ray to the reference sphere
 mirror2sphere = zeros(1,size(rayunitvecs,2));
@@ -669,7 +683,7 @@ end
 % seemysphere(spherepoints) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Undo the coordinate transformation to figure out when it hits the reference sphere
-newspherepoints = undomovemypoints_sphere(spherepoints,sphere);
+newspherepoints = undomovemypoints_sphere(spherepoints,sphere,0,0,0);
 
 % seemysphere(newspherepoints) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % seemyraypathstosphere(newspherepoints,reflectpoint,appgrid) %%%%%%%%%%%%%
@@ -782,7 +796,7 @@ sphere.N0 = -sphere.p*sphere.paxis;
 sphere.M = eye(3); %since e is zero then the principle axis doesnt matter
 
 % move the reflect points such that they match our new CS where the vertex of the sphere is [0,0,0]
-newreflectpoints = movemypoints_sphere(reflectpoint,sphere);
+newreflectpoints = movemypoints_sphere(reflectpoint,sphere,0,0,0);
 
 % find the path length of the reflected ray to the reference sphere
 mirror2sphere = zeros(1,size(rayunitvecs,2));
@@ -808,7 +822,7 @@ end
 % seemysphere(spherepoints) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Undo the coordinate transformation to figure out when it hits the reference sphere
-newspherepoints = undomovemypoints_sphere(spherepoints,sphere);
+newspherepoints = undomovemypoints_sphere(spherepoints,sphere,0,0,0);
 
 % seemysphere(newspherepoints) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % seemyraypathstosphere(newspherepoints,reflectpoint,appgrid) %%%%%%%%%%%%%
@@ -935,5 +949,143 @@ ind1 = indexes(ind2);
 % plot the line of max distance
 plot([spot(2,ind1),spot(2,ind2)],[spot(3,ind1),spot(3,ind2)],'mo-','LineWidth',2,'MarkerSize',9);
 text(spot(2,ind2),spot(3,ind2),['Max Distance is ',num2str(maxdist),' m  '],'horizontalalignment','right')
+end
 
+function [point2mirror,mirror2sphere,P] = changerefsphere(deltax,deltay,deltaz)
+% Set up variables to make this easily modular
+f = 20; %m focal length
+ecc = 1; %eccentricity
+% p0 = [0,0,0]; %vertex of the mirror
+paxis = [-1;0;0]; %principle axis of the mirror
+d = 10; %m aperture diameter
+al = [-2*f,0,0]; %aperture location (center of aperture)
+
+% define the grid of rays to simulate
+n = 50; %number of gridpoints per side
+appgrid = zeros(n,n,3);
+appgrid(:,:,1) = al(1,1); %all the x coordinates are at the aperture (2*f)
+linvec = linspace(-d/2,d/2,n);
+for i = 1:1:n
+    appgrid(:,i,2) = linvec; %change x values
+    appgrid(i,:,3) = linvec; %change y values
+end
+
+% seemygrid(appgrid)
+
+% Define the direction of the incoming ray at each gridpoint
+rayunitvecs = raydirection(alph,appgrid,paxis);
+
+% seemyrays(rayunitvecs,appgrid) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Calculate N0, M, and P for each gridpoint
+% N0 is the same for each gridpoint
+N0 = -f*(1+ecc)*paxis;
+
+% M is the same for each gridpoint
+M = eye(3) - ecc^2*(paxis*paxis');
+
+% P is different for each gridpoint so we will define P for each gridpoint
+% because of the way we defined our coordinate system P is the gridpoint coordinate
+% reshape the three layer matrix into things that are plottable
+x = reshape(appgrid(:,:,1),1,size(appgrid,1)*size(appgrid,2));
+y = reshape(appgrid(:,:,2),1,size(appgrid,1)*size(appgrid,2));
+z = reshape(appgrid(:,:,3),1,size(appgrid,1)*size(appgrid,2));
+P = [x;y;z];
+
+% Calculate path lengths for each incident ray
+point2mirror = zeros(1,size(rayunitvecs,2));
+reflectpoint = zeros(size(rayunitvecs,1),size(rayunitvecs,2));
+reflectvec = zeros(size(rayunitvecs,1),size(rayunitvecs,2));
+flags = false(1,size(rayunitvecs,2));
+% for each node
+for ind = 1:1:size(rayunitvecs,2)
+    % get P, and i for the gridpoint
+    PP = P(:,ind);
+    i = rayunitvecs(:,ind);
+    
+    % set up the equation and solve (basically solve the polynomial)
+    one = i'*M*i;
+    two = 2*i'*(M*PP + N0);
+    three = PP'*(M*PP + 2*N0);
+    temp = roots([one,two,three]);
+    if numel(temp) == 1
+        point2mirror(1,ind) = temp;
+        flags(1,ind) = false; %false flag indicates there was only one solution and there was no problem
+    else
+        if sign(temp(1)) ~= sign(temp(2)) %means it hit the parabola going forward and way far away going backwards
+            flags(1,ind) = false;
+            if temp(1) > 0
+                point2mirror(1,ind) = temp(1);
+            else
+                point2mirror(1,ind) = temp(2);
+            end
+        else
+            flags(1,ind) = true;
+        end
+    end
+    
+    % find the point where the ray hit the mirror
+    reflectpoint(:,ind) = [x(ind);y(ind);z(ind)] + point2mirror(ind)*rayunitvecs(:,ind);
+    
+    % calculate the normal at the reflection point
+    N = N0 + M*reflectpoint(:,ind);
+    Nhat = -sign(rayunitvecs(:,ind)'*N)*N/norm(N);
+    
+    % find the reflected vector direction
+    R = eye(3) - 2*(Nhat*Nhat');
+    reflectvec(:,ind) = R*rayunitvecs(:,ind);
+end
+
+% seemyroots(point2mirror,n) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% seemymirror(reflectpoint) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% seemyreflectvecs(reflectvec,reflectpoint,appgrid) %%%%%%%%%%%%%%%%%%%%%%%
+
+% Find the path lengths to the reference sphere
+% for this to work we have to pretend that the sphere vertex is at [0,0,0]
+% Define the reference sphere
+sphere.r = 1; %m sphere radius
+sphere.x = -20;
+sphere.y = 0;
+sphere.z = 0;
+sphere.ecc = 0; %define sphere eccentricity
+sphere.f = sphere.r; %define the focus of the sphere which we know is at the center 1 radius away
+% sphere.vertex = sphere.center + [sphere.f;0;0];
+sphere.paxis = paxis; %should be the same as the mirror axis
+sphere.p = sphere.f*(1 + sphere.ecc);
+
+% define N0 and M for the reference sphere
+sphere.N0 = -sphere.p*sphere.paxis;
+sphere.M = eye(3); %since e is zero then the principle axis doesnt matter
+
+% move the reflect points such that they match our new CS where the vertex of the sphere is [0,0,0]
+newreflectpoints = movemypoints_sphere(reflectpoint,sphere);
+
+% find the path length of the reflected ray to the reference sphere
+mirror2sphere = zeros(1,size(rayunitvecs,2));
+spherepoints = zeros(size(rayunitvecs,1),size(rayunitvecs,2));
+for ind = 1:1:size(rayunitvecs,2)
+    % get P and i for the reflected vector
+    PP = newreflectpoints(:,ind); %the origin point is the reflected point on the mirror
+    i = reflectvec(:,ind); %the unit vector direction of the reflected ray is the unit vector of the incident ray
+    
+    % set up the equation to solve the polynomial
+    one = i'*sphere.M*i;
+    two = 2*i'*(sphere.M*PP + sphere.N0);
+    three = PP'*(sphere.M*PP + 2*sphere.N0);
+    temp = roots([one,two,three]);
+    mirror2sphere(1,ind) = min(temp);
+    
+    % find the point where the ray hit the reference sphere
+    spherepoints(:,ind) = newreflectpoints(:,ind) + mirror2sphere(ind)*reflectvec(:,ind);
+    
+    
+end
+
+% seemysphere(spherepoints) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Undo the coordinate transformation to figure out when it hits the reference sphere
+newspherepoints = undomovemypoints_sphere(spherepoints,sphere);
+
+% seemysphere(newspherepoints) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% seemyraypathstosphere(newspherepoints,reflectpoint,appgrid) %%%%%%%%%%%%%
 end
