@@ -16,7 +16,7 @@ d = 10; %m aperture diameter
 al = [-2*f,0,0]; %aperture location (center of aperture)
 
 %% define the grid of rays to simulate
-n = 50; %number of gridpoints per side
+n = 5; %number of gridpoints per side
 appgrid = zeros(n,n,3);
 appgrid(:,:,1) = al(1,1); %all the x coordinates are at the aperture (2*f)
 linvec = linspace(-d/2,d/2,n);
@@ -83,11 +83,12 @@ for ind = 1:1:size(rayunitvecs,2)
     reflectpoint(:,ind) = [x(ind);y(ind);z(ind)] + point2mirror(ind)*rayunitvecs(:,ind);
     
     % calculate the normal at the reflection point
-    N = norm(N0 + M*reflectpoint(:,ind));
+    N = N0 + M*reflectpoint(:,ind);
+    Nhat = -sign(rayunitvecs(:,ind)'*N)*N/norm(N);
     
     % find the reflected vector direction
-    R = eye(3) - 2*(N'*N);
-    reflectvec(:,ind) = norm(R*rayunitvecs(:,ind));
+    R = eye(3) - 2*(Nhat*Nhat');
+    reflectvec(:,ind) = R*rayunitvecs(:,ind);
     
     % find the path length of the reflected ray to the reference sphere
     % use the same thing as ray hitting the parabola except this time f = radius and e = 0
@@ -102,7 +103,7 @@ end
 
 % seemyroots(point2mirror,n)
 seemymirror(reflectpoint)
-% seemyreflectvecs(reflectvec,reflectpoint,appgrid)
+seemyreflectvecs(reflectvec,reflectpoint,appgrid)
 
 %% Add the contributions to the path length of each ray
 
@@ -170,7 +171,7 @@ x = reshape(gridpoint3layer(:,:,1),1,size(gridpoint3layer,1)*size(gridpoint3laye
 y = reshape(gridpoint3layer(:,:,2),1,size(gridpoint3layer,1)*size(gridpoint3layer,2));
 z = reshape(gridpoint3layer(:,:,3),1,size(gridpoint3layer,1)*size(gridpoint3layer,2));
 
-m = 1; %arbitrary multiplier for visual ease
+m = 25; %arbitrary multiplier for visual ease
 
 figure; hold on
 for i = 1:1:size(reflectvec,2)
