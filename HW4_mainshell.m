@@ -10,7 +10,7 @@ close all
 %% Set up variables to make this easily modular
 f = 20; %m focal length
 ecc = 1; %eccentricity
-p0 = [0,0,0]; %vertex of the mirror
+% p0 = [0,0,0]; %vertex of the mirror
 paxis = [-1;0;0]; %principle axis of the mirror
 d = 10; %m aperture diameter
 al = [-2*f,0,0]; %aperture location (center of aperture)
@@ -89,21 +89,61 @@ for ind = 1:1:size(rayunitvecs,2)
     % find the reflected vector direction
     R = eye(3) - 2*(Nhat*Nhat');
     reflectvec(:,ind) = R*rayunitvecs(:,ind);
-    
-    % find the path length of the reflected ray to the reference sphere
-    % use the same thing as ray hitting the parabola except this time f = radius and e = 0
-    % or maybe there is a simpler geometric way since the sphere is easily defined and we dont care about reflectance
-    
-    
-    % find the path length of the reflected ray to the plane of the focus that is tangent to the vertex of the mirror
-    % I have a feeling there is an easier geometric way here knowing where the plane is defined and that we dont care about reflectance
-    
-    
 end
 
 % seemyroots(point2mirror,n)
-seemymirror(reflectpoint)
-seemyreflectvecs(reflectvec,reflectpoint,appgrid)
+% seemymirror(reflectpoint)
+% seemyreflectvecs(reflectvec,reflectpoint,appgrid)
+
+%% Find the path lengths to the reference sphere
+% for this to work we have to pretend that the sphere vertex is at [0,0,0]
+% Define the reference sphere
+sphere.r = 1; %m sphere radius
+sphere.x = -20;
+sphere.y = 0;
+sphere.z = 0;
+sphere.ecc = 0; %define sphere eccentricity
+sphere.f = sphere.r; %define the focus of the sphere which we know is at the center 1 radius away
+% sphere.vertex = sphere.center + [sphere.f;0;0];
+sphere.paxis = paxis; %should be the same as the mirror axis
+sphere.p = sphere.f*(1 + sphere.ecc); 
+
+% define N0 and M for the reference sphere
+sphere.N0 = -sphere.p*sphere.paxis;
+sphere.M = eye(3); %since e is zero then the principle axis doesnt matter
+
+% move the reflect points such that they match our new CS where the vertex of the sphere is [0,0,0]
+newreflectpoints = movemypoints(reflectpoint,sphere);
+
+% find the path length of the reflected ray to the reference sphere
+% use the same thing as ray hitting the parabola except this time f = radius and e = 0
+% or maybe there is a simpler geometric way since the sphere is easily defined and we dont care about reflectance
+mirror2sphere = zeros(1,size(rayunitvecs,2));
+spherepoints = zeros(size(rayunitvecs,1),size(rayunitvecs,2));
+for ind = 1:1:size(rayunitvecs,2)
+    % get P and i for the reflected vector
+    PP = newreflectpoints(:,ind); %the origin point is the reflected point on the mirror
+    i = reflectvec(:,ind); %the unit vector direction of the reflected ray is the unit vector of the incident ray
+    
+    % set up the equation to solve the polynomial
+    one = i'*sphere.M*i;
+    two = 2*i'*(sphere.M*PP + sphere.N0);
+    three = PP'*(sphere.M*PP + 2*sphere.N0);
+    temp = roots([one,two,three]);
+    mirror2sphere(1,ind) = max(temp);
+    
+    % find the point where the ray hit the mirror
+    spherepoints(:,ind) = newreflectpoints(:,ind) + mirror2sphere(ind)*reflectvec(:,ind);
+   
+    
+end
+
+seemysphere(spherepoints)
+
+% find the path length of the reflected ray to the plane of the focus that is tangent to the vertex of the mirror
+% I have a feeling there is an easier geometric way here knowing where the plane is defined and that we dont care about reflectance
+
+
 
 %% Add the contributions to the path length of each ray
 
@@ -140,7 +180,7 @@ figure; hold on
 for i = 1:1:size(rayvecs,2)
     X = [x(i), x(i) + rayvecs(1,i)];
     Y = [y(i), y(i) + rayvecs(2,i)];
-    Z = [z(i), z(i) + rayvecs(3,9)];
+    Z = [z(i), z(i) + rayvecs(3,i)];
     
     % plot the vector
     plot3(X,Y,Z,'-b*')
@@ -161,6 +201,14 @@ function [] = seemymirror(reflectpoint)
 % make the plot
 figure
 plot3(reflectpoint(1,:),reflectpoint(2,:),reflectpoint(3,:),'*b')
+xlabel('x');ylabel('y');zlabel('z')
+axis equal
+end
+
+function [] = seemysphere(spherepoints)
+% make the plot
+figure
+plot3(spherepoints(1,:),spherepoints(2,:),spherepoints(3,:),'*b')
 xlabel('x');ylabel('y');zlabel('z')
 axis equal
 end
@@ -202,4 +250,8 @@ else
         rayunitvecs(1,i) = cosd(tiltangle);
     end
 end
+end
+
+function [newpoints] = movemypoints(reflectpoint,sphere)
+newpoints = reflectpoint - [sphere.x + sphere.r;sphere.y;sphere.z];
 end
