@@ -113,11 +113,9 @@ sphere.N0 = -sphere.p*sphere.paxis;
 sphere.M = eye(3); %since e is zero then the principle axis doesnt matter
 
 % move the reflect points such that they match our new CS where the vertex of the sphere is [0,0,0]
-newreflectpoints = movemypoints(reflectpoint,sphere);
+newreflectpoints = movemypoints_sphere(reflectpoint,sphere);
 
 % find the path length of the reflected ray to the reference sphere
-% use the same thing as ray hitting the parabola except this time f = radius and e = 0
-% or maybe there is a simpler geometric way since the sphere is easily defined and we dont care about reflectance
 mirror2sphere = zeros(1,size(rayunitvecs,2));
 spherepoints = zeros(size(rayunitvecs,1),size(rayunitvecs,2));
 for ind = 1:1:size(rayunitvecs,2)
@@ -130,16 +128,20 @@ for ind = 1:1:size(rayunitvecs,2)
     two = 2*i'*(sphere.M*PP + sphere.N0);
     three = PP'*(sphere.M*PP + 2*sphere.N0);
     temp = roots([one,two,three]);
-    mirror2sphere(1,ind) = max(temp);
+    mirror2sphere(1,ind) = min(temp);
     
-    % find the point where the ray hit the mirror
+    % find the point where the ray hit the reference sphere
     spherepoints(:,ind) = newreflectpoints(:,ind) + mirror2sphere(ind)*reflectvec(:,ind);
    
     
 end
 
-seemysphere(spherepoints)
+% seemysphere(spherepoints)
 
+% Undo the coordinate transformation to figure out when it hits the reference sphere
+newspherepoints = undomovemypoints_sphere(spherepoints,sphere);
+
+seemysphere(newspherepoints)
 % find the path length of the reflected ray to the plane of the focus that is tangent to the vertex of the mirror
 % I have a feeling there is an easier geometric way here knowing where the plane is defined and that we dont care about reflectance
 
@@ -252,6 +254,10 @@ else
 end
 end
 
-function [newpoints] = movemypoints(reflectpoint,sphere)
+function [newpoints] = movemypoints_sphere(reflectpoint,sphere)
 newpoints = reflectpoint - [sphere.x + sphere.r;sphere.y;sphere.z];
+end
+
+function [newpoints] = undomovemypoints_sphere(spherepoints,sphere)
+newpoints = spherepoints + [sphere.x + sphere.r;sphere.y;sphere.z];
 end
