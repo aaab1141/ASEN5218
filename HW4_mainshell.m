@@ -182,6 +182,7 @@ xlabel('Y, m');ylabel('Z, m')
 c = colorbar;
 c.Label.String = 'Path Length Deviation, m';
 title({'Path Length of Aligned Rays at the Aligned Reference Sphere';'Tolerance: 2nm'})
+save_fig_png('4.2a')
 
 % tilt set to 0.01 degrees. same style contour plot
 [seg1,seg2,P] = changealph(0.01);
@@ -198,6 +199,7 @@ xlabel('Y, m');ylabel('Z, m')
 c = colorbar;
 c.Label.String = 'Path Length Deviation, m';
 title({'Average Path Length of 0.01^o Tilted Rays','at the Aligned Reference Sphere'})
+save_fig_png('4.2b')
 
 %% Question 3: Coma - the plot of optical path difference as a function of a
 ns = -1:-1:-4;
@@ -220,9 +222,11 @@ set(gca,'Xscale','log')
 set(gca,'Yscale','log')
 grid on
 title('Optical Path Difference RMS over Tilt Angle')
+save_fig_png('4.3a')
 
 % plot the spot diagram when alpha is 0.01
 spotdiagram(0.01);
+save_fig_png('4.3b')
 
 %% Question 4: Effect of moving the reference sphere
 % we will cosider error to be rms deviation from the average optical path length
@@ -246,7 +250,29 @@ xlabel('\delta, m');ylabel('Optical Path Difference RMS, m')
 title('Optical Path Difference RMS over X Axis Reference Sphere Delta')
 set(gca,'Xscale','log')
 set(gca,'Yscale','log')
+axis square
 grid on
+save_fig_png('4.4a')
+
+delta = -fliplr(delta);
+for ind = 1:1:size(delta,2)
+    [seg1,seg2,P] = changerefsphere(delta(1,ind),0,0);
+    
+    Ltotal = seg1 + seg2;
+    
+    % remove the path lengths for the paths that are outside the cirular aperture
+    [~,~,~,pathRMS(1,ind)] = aperturetrim(Ltotal,P);
+end
+
+figure
+plot(delta,pathRMS,'-o')
+xlabel('\delta, m');ylabel('Optical Path Difference RMS, m')
+title('Optical Path Difference RMS over X Axis Reference Sphere Delta')
+set(gca,'Xscale','log')
+set(gca,'Yscale','log')
+axis square
+grid on
+save_fig_png('4.4b')
 
 % moving the reference sphere along the Y axis
 delta = -1:-1:-9;
@@ -268,7 +294,29 @@ xlabel('\delta, m');ylabel('Optical Path Difference RMS, m')
 title('Optical Path Difference RMS over Y Axis Reference Sphere Delta')
 set(gca,'Xscale','log')
 set(gca,'Yscale','log')
+axis square
 grid on
+save_fig_png('4.4c')
+
+delta = -fliplr(delta);
+for ind = 1:1:size(delta,2)
+    [seg1,seg2,P] = changerefsphere(0,delta(1,ind),0);
+    
+    Ltotal = seg1 + seg2;
+    
+    % remove the path lengths for the paths that are outside the cirular aperture
+    [~,~,~,pathRMS(1,ind)] = aperturetrim(Ltotal,P);
+end
+
+figure
+plot(delta,pathRMS,'-o')
+xlabel('\delta, m');ylabel('Optical Path Difference RMS, m')
+title('Optical Path Difference RMS over Y Axis Reference Sphere Delta')
+set(gca,'Xscale','log')
+set(gca,'Yscale','log')
+axis square
+grid on
+save_fig_png('4.4d')
 
 % moving the reference sphere along the Z axis
 delta = -1:-1:-9;
@@ -290,7 +338,29 @@ xlabel('\delta, m');ylabel('Optical Path Difference RMS, m')
 title('Optical Path Difference RMS over Z Axis Reference Sphere Delta')
 set(gca,'Xscale','log')
 set(gca,'Yscale','log')
+axis square
 grid on
+save_fig_png('4.4e')
+
+delta = -fliplr(delta);
+for ind = 1:1:size(delta,2)
+    [seg1,seg2,P] = changerefsphere(0,0,delta(1,ind));
+    
+    Ltotal = seg1 + seg2;
+    
+    % remove the path lengths for the paths that are outside the cirular aperture
+    [~,~,~,pathRMS(1,ind)] = aperturetrim(Ltotal,P);
+end
+
+figure
+plot(delta,pathRMS,'-o')
+xlabel('\delta, m');ylabel('Optical Path Difference RMS, m')
+title('Optical Path Difference RMS over Z Axis Reference Sphere Delta')
+set(gca,'Xscale','log')
+set(gca,'Yscale','log')
+axis square
+grid on
+save_fig_png('4.4f')
 
 %% functions
 function [] = seemygrid(gridpoint3layer)
