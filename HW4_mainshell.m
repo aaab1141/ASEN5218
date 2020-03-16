@@ -227,26 +227,70 @@ spotdiagram(0.01);
 %% Question 4: Effect of moving the reference sphere
 % we will cosider error to be rms deviation from the average optical path length
 % moving the reference sphere along the X axis
-% % % delta = -1:-1:-9;
-% % % delta = 10.^delta;
-% % % pathRMS = zeros(1,size(delta,2));
-% % % 
-% % % for ind = 1:1:size(delta,2)
-% % %     [seg1,seg2,P] = changerefsphere((1,ind));
-% % %     
-% % %     Ltotal = seg1 + seg2;
-% % %     
-% % %     % remove the path lengths for the paths that are outside the cirular aperture
-% % %     [~,~,~,pathRMS(1,ind)] = aperturetrim(Ltotal,P);
-% % % end
-% % % 
-% % % figure
+delta = -1:-1:-9;
+delta = 10.^delta;
+pathRMS = zeros(1,size(delta,2));
+
+for ind = 1:1:size(delta,2)
+    [seg1,seg2,P] = changerefsphere(delta(1,ind),0,0);
+    
+    Ltotal = seg1 + seg2;
+    
+    % remove the path lengths for the paths that are outside the cirular aperture
+    [~,~,~,pathRMS(1,ind)] = aperturetrim(Ltotal,P);
+end
+
+figure
+plot(delta,pathRMS,'-o')
+xlabel('\delta, m');ylabel('Optical Path Difference RMS, m')
+title('Optical Path Difference RMS over X Axis Reference Sphere Delta')
+set(gca,'Xscale','log')
+set(gca,'Yscale','log')
+grid on
 
 % moving the reference sphere along the Y axis
+delta = -1:-1:-9;
+delta = 10.^delta;
+pathRMS = zeros(1,size(delta,2));
 
+for ind = 1:1:size(delta,2)
+    [seg1,seg2,P] = changerefsphere(0,delta(1,ind),0);
+    
+    Ltotal = seg1 + seg2;
+    
+    % remove the path lengths for the paths that are outside the cirular aperture
+    [~,~,~,pathRMS(1,ind)] = aperturetrim(Ltotal,P);
+end
+
+figure
+plot(delta,pathRMS,'-o')
+xlabel('\delta, m');ylabel('Optical Path Difference RMS, m')
+title('Optical Path Difference RMS over Y Axis Reference Sphere Delta')
+set(gca,'Xscale','log')
+set(gca,'Yscale','log')
+grid on
 
 % moving the reference sphere along the Z axis
+delta = -1:-1:-9;
+delta = 10.^delta;
+pathRMS = zeros(1,size(delta,2));
 
+for ind = 1:1:size(delta,2)
+    [seg1,seg2,P] = changerefsphere(0,0,delta(1,ind));
+    
+    Ltotal = seg1 + seg2;
+    
+    % remove the path lengths for the paths that are outside the cirular aperture
+    [~,~,~,pathRMS(1,ind)] = aperturetrim(Ltotal,P);
+end
+
+figure
+plot(delta,pathRMS,'-o')
+xlabel('\delta, m');ylabel('Optical Path Difference RMS, m')
+title('Optical Path Difference RMS over Z Axis Reference Sphere Delta')
+set(gca,'Xscale','log')
+set(gca,'Yscale','log')
+grid on
 
 %% functions
 function [] = seemygrid(gridpoint3layer)
@@ -973,7 +1017,7 @@ end
 % seemygrid(appgrid)
 
 % Define the direction of the incoming ray at each gridpoint
-rayunitvecs = raydirection(alph,appgrid,paxis);
+rayunitvecs = raydirection(0,appgrid,paxis);
 
 % seemyrays(rayunitvecs,appgrid) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1058,7 +1102,7 @@ sphere.N0 = -sphere.p*sphere.paxis;
 sphere.M = eye(3); %since e is zero then the principle axis doesnt matter
 
 % move the reflect points such that they match our new CS where the vertex of the sphere is [0,0,0]
-newreflectpoints = movemypoints_sphere(reflectpoint,sphere);
+newreflectpoints = movemypoints_sphere(reflectpoint,sphere,deltax,deltay,deltaz);
 
 % find the path length of the reflected ray to the reference sphere
 mirror2sphere = zeros(1,size(rayunitvecs,2));
@@ -1084,7 +1128,7 @@ end
 % seemysphere(spherepoints) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Undo the coordinate transformation to figure out when it hits the reference sphere
-newspherepoints = undomovemypoints_sphere(spherepoints,sphere);
+newspherepoints = undomovemypoints_sphere(spherepoints,sphere,deltax,deltay,deltaz);
 
 % seemysphere(newspherepoints) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % seemyraypathstosphere(newspherepoints,reflectpoint,appgrid) %%%%%%%%%%%%%
