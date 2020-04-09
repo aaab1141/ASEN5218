@@ -15,3 +15,6 @@ Easy, just run the MATLAB script called *HW3_mainshell.m*.
 
 ## Running HW4
 Easy, just run the MATLAB script called *HW4_mainshell.m*. Make sure you also have the *save_fig_png.m* function available.
+
+## Running HW5
+Easy, just run the MATLAB script called *HW5_mainshell.m*. Make sure you also have the *save_fig_png.m* function available.
