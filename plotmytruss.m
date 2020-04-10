@@ -7,7 +7,8 @@ function [] = plotmytruss(nodes,bars,plottitle,units)
 % nodes = j x 6 matrix where j is the number of nodes in the truss. Each
 %         row represents one node and columns 1,2,3 are the x,y,z
 %         coordinate and columns 4,5,6 are either 0 or 1 where 0 indicates
-%         that DOF is free and 1 indicates that DOF is fixed.
+%         that DOF is free and 1 indicates that DOF is fixed. The DOF is not
+%         used in the plotting.
 % bars  = b x 2 matrix where b is the number of bars. The first column is
 %         the first node number of bar b and the second column is the
 %         second node number of bar b.
@@ -38,12 +39,12 @@ for i = 1:size(bars,1)
     midz = mean(z);
     
     % Add the text on the plot
-    text(midx,midy,midz,num2str(i),'fontsize',14,'fontangle','italic','color','b')
+    text(midx,midy,midz,num2str(i),'fontsize',10,'fontangle','italic','color','b')
 end
 
 % Add the node numbers
 for i = 1:size(nodes,1)
-    text(nodes(i,1),nodes(i,2),nodes(i,3),num2str(i),'fontsize',14,'fontweight','bold','color','k')
+    text(nodes(i,1),nodes(i,2),nodes(i,3),num2str(i),'fontsize',12,'fontweight','bold','color','k')
 end
 
 % Label the plot and change the viewing angle

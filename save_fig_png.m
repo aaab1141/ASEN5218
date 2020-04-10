@@ -30,7 +30,7 @@ cd([curfol,'\Plots\Figs'])
 saveas(gcf,[filename,'.fig'])
 
 cd([curfol,'\Plots\PNGs'])
-print(gcf,[filename,'.png'],'-dpng','-r300')
+print(gcf,[filename,'.png'],'-dpng','-r350')
 
 cd([curfol,'\Plots\PDFs'])
 saveas(gcf,[filename,'.pdf'])
