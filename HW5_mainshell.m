@@ -116,8 +116,8 @@ disp(['T0 = ',num2str(round(T0,2))])
 % Transient response
 tspan = [0,1000]; %s
 sol = ode45(@(t,T) -2*sig*e*T^4/rho/c/r,tspan,T0);
-t = sol.x;
-T = sol.y;
+t = 1:1:1000;
+T = deval(sol,t);
 
 figure
 plot(t,T,t,T0*ones(size(T)))
@@ -136,11 +136,28 @@ xlabel('Time, s');ylabel('L_{left}, m')
 grid on
 save_fig_png('Length_of_L')
 
-l = [L0*(1+alph*(deval(sol,10)-T0)),L0*(1+alph*(deval(sol,100)-T0)),L0*(1+alph*(deval(sol,1000)-T0))];;
+l = L0*(1+alph*(deval(sol,[10,100,1000])-T0));
 
 disp(['Length at 10s = ',num2str(l(1)),' m'])
 disp(['Length at 100s = ',num2str(l(2)),' m'])
 disp(['Length at 1000s = ',num2str(l(3)),' m'])
+
+% Estimate the curvature based on the length of the bars
+roc = L*L0./(L0-L)-L/2;
+figure
+plot(t,roc)
+title('Radius of Curvature After Maneuver')
+xlabel('Time, s');ylabel('Radius of Curvature, m')
+set(gca,'Yscale','log')
+set(gca,'Xscale','log')
+grid on
+save_fig_png('Radius_of_Curvature')
+
+ll = l*L0./(L0-l)-l/2;
+
+disp(['Radius of Curvature at 10s = ',num2str(ll(1)),' m'])
+disp(['Radius of Curvature at 100s = ',num2str(ll(2)),' m'])
+disp(['Radius of Curvature at 1000s = ',num2str(ll(3)),' m'])
 
 % N = 10; %number of bays
 
