@@ -7,6 +7,7 @@ clear
 close all
 
 %% Question 1
+disp('Question 1')
 % some constants
 diameter = 20; %m
 numoutnodes = 12;
@@ -87,12 +88,32 @@ plot(b1lengths,defori,b1lengths,definn)
 title('Origin and Inner Nodes Angular Defect')
 xlabel('Length of b1, m');ylabel('Angular Defect, rad')
 grid on
+legend('Origin node','Inner Circle Node','location','northwest')
 save_fig_png('Q1 Angular Defect')
 
 % plot the reflector
 [nodes,bars] = makereflect(b1projlengths(minin),outnodes,numinnnodes,inalph);
 plotmytruss(nodes,bars,'Reflector Truss','m')
 save_fig_png('Q1 Reflector')
+
+%% Question 3
+disp('Question 3')
+qr = 1350; %w/m^2 radiation from the sun
+a = .9; %absortivity
+e = .8; %emissivity
+c = 700; %J/K/kg specifig heat
+alph = 7e-6; %m/m/K coefficient of thermal expansion
+rho = 1800; %kg/m^3 density of bars
+E = 50e9; %Pa modulus of elasticity
+L0 = .5; %m length of battens
+r = .01; %m radius of solid cylinder bars
+sig = 5.670374419e-8; %Stephan - Boltzman constant
+
+% Find T0
+T0 = (a*2*qr/sig/e/pi)^(1/4);
+disp(['T0 = ',num2str(round(T0,2))])
+
+% N = 10; %number of bays
 
 % Functions
 function [nodes,bars] = makereflect(b1proj,outnodes,numinnnodes,inalph)
