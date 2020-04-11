@@ -115,20 +115,32 @@ disp(['T0 = ',num2str(round(T0,2))])
 
 % Transient response
 tspan = [0,1000]; %s
-[t,T] = ode45(@(t,T) -2*sig*e*T^4/rho/c/r,tspan,T0);
+sol = ode45(@(t,T) -2*sig*e*T^4/rho/c/r,tspan,T0);
+t = sol.x;
+T = sol.y;
 
 figure
-plot(t,T,'-*',t,T0*ones(size(T)),'-*')
+plot(t,T,t,T0*ones(size(T)))
 title('Temperature of Truss Bars After Maneuver')
 xlabel('Time, s');ylabel('Temperature, K')
 grid on
-legend('L_{left} & L_{diag}','L_{right}','location','east')
+legend('L_{left}, L_{batt} & L_{diag}','L_{right}','location','east')
 save_fig_png('Transient_Response')
 
 % calculate the change in lengths of the left bars
+L = L0*(1+alph*(T-T0));
+figure
+plot(t,L)
+title('Length of L_{left} After Maneuver')
+xlabel('Time, s');ylabel('L_{left}, m')
+grid on
+save_fig_png('Length_of_L')
 
+l = [L0*(1+alph*(deval(sol,10)-T0)),L0*(1+alph*(deval(sol,100)-T0)),L0*(1+alph*(deval(sol,1000)-T0))];;
 
-
+disp(['Length at 10s = ',num2str(l(1)),' m'])
+disp(['Length at 100s = ',num2str(l(2)),' m'])
+disp(['Length at 1000s = ',num2str(l(3)),' m'])
 
 % N = 10; %number of bays
 
