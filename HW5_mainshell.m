@@ -113,6 +113,23 @@ sig = 5.670374419e-8; %Stephan - Boltzman constant
 T0 = (a*2*qr/sig/e/pi)^(1/4);
 disp(['T0 = ',num2str(round(T0,2))])
 
+% Transient response
+tspan = [0,1000]; %s
+[t,T] = ode45(@(t,T) -2*sig*e*T^4/rho/c/r,tspan,T0);
+
+figure
+plot(t,T,'-*',t,T0*ones(size(T)),'-*')
+title('Temperature of Truss Bars After Maneuver')
+xlabel('Time, s');ylabel('Temperature, K')
+grid on
+legend('L_{left} & L_{diag}','L_{right}','location','east')
+save_fig_png('Transient_Response')
+
+% calculate the change in lengths of the left bars
+
+
+
+
 % N = 10; %number of bays
 
 % Functions
