@@ -110,7 +110,7 @@ r = .01; %m radius of solid cylinder bars
 sig = 5.670374419e-8; %Stephan - Boltzman constant
 
 % Find T0
-T0 = (a*2*qr/sig/e/pi)^(1/4);
+T0 = (a*qr/sig/e/pi)^(1/4);
 disp(['T0 = ',num2str(round(T0,2))])
 
 % Transient response
