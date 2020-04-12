@@ -159,7 +159,33 @@ disp(['Radius of Curvature at 10s = ',num2str(ll(1)),' m'])
 disp(['Radius of Curvature at 100s = ',num2str(ll(2)),' m'])
 disp(['Radius of Curvature at 1000s = ',num2str(ll(3)),' m'])
 
-% N = 10; %number of bays
+N = 10:1:100; %number of bays
+Nl = L0*N; %length of the truss based on the number of bays
+
+deflection = [Nl;Nl;Nl]./ll';
+
+figure
+plot(N,deflection)
+title('Truss Deflection')
+xlabel('Number of Bays N');ylabel('Deflection at Tip, m')
+set(gca,'Yscale','log')
+legend('After 10s','After 100s','After 1000s','location','southeast')
+grid on
+save_fig_png('Truss Deflection')
+
+% Maximum stress in the bay
+L0diag = sqrt(2)*L0; %length the diagonal should be due to thermal expansion
+Ldiag = sqrt(l.^2 + L0*l);
+diagstrain = (Ldiag-L0diag)/L0diag;
+diagstress = E*diagstrain;
+
+disp(['Maximum Stress at 10s = ',num2str(diagstress(1)/1e3),' kPa'])
+disp(['Maximum Stress at 100s = ',num2str(diagstress(2)/1e6),' MPa'])
+disp(['Maximum Stress at 1000s = ',num2str(diagstress(3)/1e6),' MPa'])
+
+
+
+
 
 % Functions
 function [nodes,bars] = makereflect(b1proj,outnodes,numinnnodes,inalph)
