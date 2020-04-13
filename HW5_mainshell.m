@@ -3,6 +3,7 @@
 % running the problems in the homework. To check this homework, the only
 % thing that is required is to run this script.
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+clc
 clear
 close all
 
@@ -184,20 +185,27 @@ disp(['Maximum Stress at 100s = ',num2str(diagstress(2)/1e6),' MPa'])
 disp(['Maximum Stress at 1000s = ',num2str(diagstress(3)/1e6),' MPa'])
 
 %% Question 4
+disp('Question 4')
 n = 3:1:100;
 alph = 2*pi./n;
 % Lln = (cos(alph./2) + sin(alph./2).^2 - sin(alph./2).*sqrt(1+2*cos(alph./2)))./cos(alph./2).^2;
 pb = (cos(alph./2) + sin(alph./2).^2 + sin(alph./2).*sqrt(1+2*cos(alph./2)))./cos(alph./2).^2; %pantograph b
 pa = (1+sin(alph./2))./(1-sin(alph./2)); %pantograph a
 
+syms x al
+ro = solve(x == (sin(al/2)*sqrt(1+2*x)+1)/(cos(al/2)+1),x);
+pretty(ro(1))
+% pc = (cos(alph./2) + sin(alph./2).^2 + sin(alph./2).*(4.*cos(alph./2) + cos(alph./2).^2 + sin(alph./2).^2 + 3).^(1/2) + 1)./(2.*cos(alph./2) + cos(alph./2).^2 + 1);
+pc = (cos(alph./2) + sin(alph./2).^2 - sin(alph./2).*(4.*cos(alph./2) + cos(alph./2).^2 + sin(alph./2).^2 + 3).^(1/2) + 1)./(2.*cos(alph./2) + cos(alph./2).^2 + 1);
+
 figure
-plot(n,pa,n,pb)
-legend('Pantograph a)','Pantograph b)')
-set(gca,'Yscale','log')
+plot(n,pa,n,pb,n,pc)
+legend('Pantograph a)','Pantograph b)','Pantograph c)')
+% set(gca,'Yscale','log')
 title('Pantograph Length Ratios')
 xlabel('Number of Inner Pantographs');ylabel('L/l ratio')
 grid on
-
+save_fig_png('Ll ratio')
 
 %% Functions
 function [nodes,bars] = makereflect(b1proj,outnodes,numinnnodes,inalph)
