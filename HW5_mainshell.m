@@ -183,11 +183,23 @@ disp(['Maximum Stress at 10s = ',num2str(diagstress(1)/1e3),' kPa'])
 disp(['Maximum Stress at 100s = ',num2str(diagstress(2)/1e6),' MPa'])
 disp(['Maximum Stress at 1000s = ',num2str(diagstress(3)/1e6),' MPa'])
 
+%% Question 4
+n = 3:1:100;
+alph = 2*pi./n;
+% Lln = (cos(alph./2) + sin(alph./2).^2 - sin(alph./2).*sqrt(1+2*cos(alph./2)))./cos(alph./2).^2;
+pb = (cos(alph./2) + sin(alph./2).^2 + sin(alph./2).*sqrt(1+2*cos(alph./2)))./cos(alph./2).^2; %pantograph b
+pa = (1+sin(alph./2))./(1-sin(alph./2)); %pantograph a
+
+figure
+plot(n,pa,n,pb)
+legend('Pantograph a)','Pantograph b)')
+set(gca,'Yscale','log')
+title('Pantograph Length Ratios')
+xlabel('Number of Inner Pantographs');ylabel('L/l ratio')
+grid on
 
 
-
-
-% Functions
+%% Functions
 function [nodes,bars] = makereflect(b1proj,outnodes,numinnnodes,inalph)
 % calcualte inner circle nodes
 for n = 0:1:numinnnodes-1
