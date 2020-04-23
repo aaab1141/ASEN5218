@@ -5,6 +5,7 @@
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 clear
 close all
+clc
 
 %% Question 1
 % -pi/4 structure
@@ -35,8 +36,19 @@ disp(['Rank = ',num2str(r),' | m = ',num2str(m),' | s = ',num2str(s)])
 
 stresses = w(:,end);
 highlightmytruss(nodes,bars,'Structure 1 Bar Stresses','m',stresses)
+displs = u(:,end);
 
-% Build G and D matrices to test the kind of mechanism we have
+% Set the displacements of the fixed nodes to zero and add to displacmeents vector
+displs = [zeros(size(displs));displs];
+
+% Build the B matrix
+B = makeB(displs,bars);
+
+% get little g
+g = B*stresses;
+
+GtD = g'*displs;
+disp(['GtD = ',num2str(GtD),' which is positive thus we have an infinitesimal mechanism that can be stabilized.'])
 
 
 %% +pi/4 structure
@@ -67,7 +79,19 @@ disp(['Rank = ',num2str(r),' | m = ',num2str(m),' | s = ',num2str(s)])
 
 stresses = w(:,end);
 highlightmytruss(nodes,bars,'Structure 2 Bar Stresses','m',stresses)
+displs = u(:,end);
 
+% Set the displacements of the fixed nodes to zero and add to displacmeents vector
+displs = [zeros(size(displs));displs];
+
+% Build the B matrix
+B = makeB(displs,bars);
+
+% get little g
+g = B*stresses;
+
+GtD = g'*displs;
+disp(['GtD = ',num2str(round(GtD,4),'%f'),' which means we have an inextensional mechanism that cannot be stabilized.'])
 
 
 %% Functions
@@ -115,4 +139,38 @@ zlabel(['Z, ',units])
 view(45,35.264)
 axis equal
 grid on
+end
+
+function [B] = makeB(displs,bars)
+% reshape the mechanisms vector to work with the algo
+displs = reshape(displs,3,length(displs)/3)';
+
+% Get the size of the B matrix
+nr = size(displs,1)*3; %there are 3 DOF for each node (3 equations)
+nc = size(bars,1); %there is a column for each bar because there is a bar force
+
+% Allocate the A matrix
+B = zeros(nr,nc);
+
+% Go through each bar and get the information into the A matrix
+for b = 1:1:size(bars,1) %b is the bar number
+    % Node geometery of bar
+    fromnode = bars(b,1); 
+    tonode = bars(b,2);
+    
+    % Coordinates of nodes
+    fromnodepos = displs(fromnode,1:3);
+    tonodepos = displs(tonode,1:3);
+    
+    % Unit vector of the bar
+    barunitvec = (tonodepos' - fromnodepos');
+    barunitvec = barunitvec/norm(barunitvec,2);
+    
+    % Add the contribution of each bar to the appropriate node locations in A
+    % The appropriate row location is a set of rows corresponding to the
+    % two nodes attached to the particular bar force, and the appropriate
+    % column location is the column associated with the bar force in question
+    B(fromnode*3-2:fromnode*3,b) = B(fromnode*3-2:fromnode*3,b) - barunitvec;
+    B(tonode*3-2:tonode*3,b) = B(tonode*3-2:tonode*3,b) + barunitvec;    
+end
 end
