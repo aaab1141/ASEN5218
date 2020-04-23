@@ -3,7 +3,7 @@
 % running the problems in the homework. To check this homework, the only
 % thing that is required is to run this script.
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-clear
+clear all
 close all
 clc
 
@@ -96,9 +96,19 @@ GtD = g'*displs;
 disp(['GtD = ',num2str(round(GtD,4),'%f'),' which means we have an inextensional mechanism that cannot be stabilized.'])
 
 %% Question 2
+A = 1;
+H = 10;
+rc = .2;
+n = 25;
 
+% opts = odeset('RelTol',1e-6,'AbsTol',1e-10);
+% [z,drdz] = ode45(@(z,drdz) balloon(z,drdz,A,H,rc,n),[0,H],[.02;10000],opts);
+opts = odeset('RelTol',1e-3,'AbsTol',1e-6); %default
+[z,drdz] = ode45(@(z,drdz) balloon(z,drdz,A,H,rc,n),[0,H],[.02;10000],opts);
 
-
+figure
+plot(z,drdz(:,1))
+xlabel('z coordinate, m');ylabel('Radius, m')
 
 
 
@@ -181,4 +191,15 @@ for b = 1:1:size(bars,1) %b is the bar number
     B(fromnode*3-2:fromnode*3,b) = B(fromnode*3-2:fromnode*3,b) - barunitvec;
     B(tonode*3-2:tonode*3,b) = B(tonode*3-2:tonode*3,b) + barunitvec;    
 end
+end
+
+function [drdz] = balloon(z,drdz,A,H,rc,n)
+r = drdz(1);
+rp = drdz(2); %rprime
+
+r1 = rp;
+r2 =((1+rp^2)^(3/2))/H*((H*(1-A*sqrt(r/H)))/(r*sqrt(1+rp^2)) - 2/rc*(H-z)*exp(2*A*sqrt(r/H)));
+% r2 = ((1-rp^2)*(1-A*r^n))/r - 2/rc*(1+rp^2)^(3/2)*(1-z)*exp(A*r^n/n);
+
+drdz = [r1;r2];
 end
