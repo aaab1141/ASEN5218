@@ -36,6 +36,7 @@ disp(['Rank = ',num2str(r),' | m = ',num2str(m),' | s = ',num2str(s)])
 
 stresses = w(:,end);
 highlightmytruss(nodes,bars,'Structure 1 Bar Stresses','m',stresses)
+save_fig_png('Q1.Structure 1 Tensegrity')
 displs = u(:,end);
 
 % Set the displacements of the fixed nodes to zero and add to displacmeents vector
@@ -79,6 +80,7 @@ disp(['Rank = ',num2str(r),' | m = ',num2str(m),' | s = ',num2str(s)])
 
 stresses = w(:,end);
 highlightmytruss(nodes,bars,'Structure 2 Bar Stresses','m',stresses)
+save_fig_png('Q1.Structure 2 Tensegrity')
 displs = u(:,end);
 
 % Set the displacements of the fixed nodes to zero and add to displacmeents vector
@@ -92,6 +94,12 @@ g = B*stresses;
 
 GtD = g'*displs;
 disp(['GtD = ',num2str(round(GtD,4),'%f'),' which means we have an inextensional mechanism that cannot be stabilized.'])
+
+%% Question 2
+
+
+
+
 
 
 %% Functions
