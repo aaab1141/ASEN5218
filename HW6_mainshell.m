@@ -3,25 +3,26 @@
 % running the problems in the homework. To check this homework, the only
 % thing that is required is to run this script.
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-clear all
+clear
 close all
 clc
 
 %% Question 1
+disp("Question 1")
 % -pi/4 structure
 a = -pi/4;
 nodes = [.5  .5  0 1 1 1;
-         -.5 .5  0 1 1 1;
-         -.5 -.5 0 1 1 1;
-         .5  -.5 0 1 1 1;
-         (cos(a)*.5-sin(a)*.5)   (sin(a)*.5+cos(a)*.5)   1 0 0 0;
-         (cos(a)*-.5-sin(a)*.5)  (sin(a)*-.5+cos(a)*.5)  1 0 0 0;
-         (cos(a)*-.5-sin(a)*-.5) (sin(a)*-.5+cos(a)*-.5) 1 0 0 0;
-         (cos(a)*.5-sin(a)*-.5)  (sin(a)*.5+cos(a)*-.5)  1 0 0 0];
+    -.5 .5  0 1 1 1;
+    -.5 -.5 0 1 1 1;
+    .5  -.5 0 1 1 1;
+    (cos(a)*.5-sin(a)*.5)   (sin(a)*.5+cos(a)*.5)   1 0 0 0;
+    (cos(a)*-.5-sin(a)*.5)  (sin(a)*-.5+cos(a)*.5)  1 0 0 0;
+    (cos(a)*-.5-sin(a)*-.5) (sin(a)*-.5+cos(a)*-.5) 1 0 0 0;
+    (cos(a)*.5-sin(a)*-.5)  (sin(a)*.5+cos(a)*-.5)  1 0 0 0];
 bars = [3 6;3 7;2 5;2 6;
-        1 8;1 5;4 7;4 8;
-        8 7;7 6;6 5;5 8];
-    
+    1 8;1 5;4 7;4 8;
+    8 7;7 6;6 5;5 8];
+
 plotmytruss(nodes,bars,'Structure 1','m')
 save_fig_png('Q1.Structure 1')
 
@@ -55,17 +56,17 @@ disp(['GtD = ',num2str(GtD),' which is positive thus we have an infinitesimal me
 %% +pi/4 structure
 a = pi/4;
 nodes = [.5  .5  0 1 1 1;
-         -.5 .5  0 1 1 1;
-         -.5 -.5 0 1 1 1;
-         .5  -.5 0 1 1 1;
-         (cos(a)*.5-sin(a)*.5)   (sin(a)*.5+cos(a)*.5)   1 0 0 0;
-         (cos(a)*-.5-sin(a)*.5)  (sin(a)*-.5+cos(a)*.5)  1 0 0 0;
-         (cos(a)*-.5-sin(a)*-.5) (sin(a)*-.5+cos(a)*-.5) 1 0 0 0;
-         (cos(a)*.5-sin(a)*-.5)  (sin(a)*.5+cos(a)*-.5)  1 0 0 0];
+    -.5 .5  0 1 1 1;
+    -.5 -.5 0 1 1 1;
+    .5  -.5 0 1 1 1;
+    (cos(a)*.5-sin(a)*.5)   (sin(a)*.5+cos(a)*.5)   1 0 0 0;
+    (cos(a)*-.5-sin(a)*.5)  (sin(a)*-.5+cos(a)*.5)  1 0 0 0;
+    (cos(a)*-.5-sin(a)*-.5) (sin(a)*-.5+cos(a)*-.5) 1 0 0 0;
+    (cos(a)*.5-sin(a)*-.5)  (sin(a)*.5+cos(a)*-.5)  1 0 0 0];
 bars = [3 6;3 7;2 5;2 6;
-        1 8;1 5;4 7;4 8;
-        8 7;7 6;6 5;5 8];
-    
+    1 8;1 5;4 7;4 8;
+    8 7;7 6;6 5;5 8];
+
 plotmytruss(nodes,bars,'Structure 2','m')
 save_fig_png('Q1.Structure 2')
 
@@ -96,21 +97,74 @@ GtD = g'*displs;
 disp(['GtD = ',num2str(round(GtD,4),'%f'),' which means we have an inextensional mechanism that cannot be stabilized.'])
 
 %% Question 2
-A = 1.5;
-H = 1;
-rc = .4;
+disp("Question 2")
+warning('off','MATLAB:ode45:IntegrationTolNotMet')
+% A = 1.5;
+Amin = .5; Amax = 4;
+% H = 2;
+Hmin = .5; Hmax = 3;
+% rc = .4;
+rcmin = .2; rcmax = .5;
 
 % opts = odeset('RelTol',1e-3,'AbsTol',1e-6); %default
 % [z,drdz] = ode45(@(z,drdz) balloon(z,drdz,A,H,rc),[0,H],[.02;10000],opts);
 
-[z,r,rt,l,vol] = balloonvolume(rc,A,H);
+disp('If we don''t set a threshold on the throat radius:')
+divs = 20; rtthresh = 0;
+allA = linspace(Amin,Amax,divs);
+allH = linspace(Hmin,Hmax,divs);
+allrc = linspace(rcmin,rcmax,divs);
+V = zeros(divs,divs,divs);
+for i = 1:1:divs
+    for j = 1:1:divs
+        for k = 1:1:divs
+            V(i,j,k) = balloonvolumeonly(allrc(i),allA(j),allH(k),rtthresh);
+        end
+    end
+end
 
-% get only the points from the crown to the throat
+[~,in] = min(V(:));
+[i,j,k] = ind2sub(size(V),in);
+
+[z,r,rt,l,vol] = balloonvolume(allrc(i),allA(j),allH(k));
+
 figure
 plot(z,r)
 xlabel('z coordinate, m');ylabel('Radius, m')
-title('Balloon Profile')
+title(['Optimal Balloon Profile if Rt > ',num2str(rtthresh)])
 axis equal; grid on
+disp(['Balloon Throat = ',num2str(rt),' m | Balloon Arclength = ',num2str(l),' m | Crown Radius = ',num2str(r(1)),' m'])
+disp(['Balloon Volume = ',num2str(vol),' m^3'])
+
+rtthresh = .010;
+disp(['If we set a threshold that the throat radius >',num2str(rtthresh)])
+divs = 20; 
+allA = linspace(Amin,Amax,divs);
+allH = linspace(Hmin,Hmax,divs);
+allrc = linspace(rcmin,rcmax,divs);
+V = zeros(divs,divs,divs);
+for i = 1:1:divs
+    for j = 1:1:divs
+        for k = 1:1:divs
+            V(i,j,k) = balloonvolumeonly(allrc(i),allA(j),allH(k),rtthresh);
+        end
+    end
+end
+
+[~,in] = min(V(:));
+[i,j,k] = ind2sub(size(V),in);
+
+[z,r,rt,l,vol] = balloonvolume(allrc(i),allA(j),allH(k));
+
+figure
+plot(z,r)
+xlabel('z coordinate, m');ylabel('Radius, m')
+title(['Optimal Balloon Profile if Rt > ',num2str(rtthresh)])
+axis equal; grid on
+disp(['Balloon Throat = ',num2str(rt),' m | Balloon Arclength = ',num2str(l),' m | Crown Radius = ',num2str(r(1)),' m'])
+disp(['Balloon Volume = ',num2str(vol),' m^3'])
+
+disp('There is no optimal balloon profile above a Rt = ~.0105 m')
 
 % % figure
 % % plot(drdz(:,1),-z)
@@ -180,7 +234,7 @@ B = zeros(nr,nc);
 % Go through each bar and get the information into the A matrix
 for b = 1:1:size(bars,1) %b is the bar number
     % Node geometery of bar
-    fromnode = bars(b,1); 
+    fromnode = bars(b,1);
     tonode = bars(b,2);
     
     % Coordinates of nodes
@@ -196,7 +250,7 @@ for b = 1:1:size(bars,1) %b is the bar number
     % two nodes attached to the particular bar force, and the appropriate
     % column location is the column associated with the bar force in question
     B(fromnode*3-2:fromnode*3,b) = B(fromnode*3-2:fromnode*3,b) - barunitvec;
-    B(tonode*3-2:tonode*3,b) = B(tonode*3-2:tonode*3,b) + barunitvec;    
+    B(tonode*3-2:tonode*3,b) = B(tonode*3-2:tonode*3,b) + barunitvec;
 end
 end
 
@@ -230,7 +284,7 @@ nummin = length(lm);
 if nummin > 1
     % find the index of the local minima
     minindex = find(copylm == 1);
-
+    
     % crop to the first minimum
     z = z(1:minindex(1),1);
     r = drdz(1:minindex(1),1);
@@ -263,4 +317,64 @@ else
     l = 0;
     rt = 0;
 end
+end
+
+function [vol] = balloonvolumeonly(rc,A,H,rtthresh)
+% integrate balloon shape
+[z,drdz] = ode45(@(z,drdz) balloon(z,drdz,A,H,rc),[0,H],[.02;10000]);
+
+% check if its valid by searching for that local minimum
+checkreal = isreal(drdz(:,1));
+if checkreal == 1
+    lm = islocalmin(drdz(:,1)); %find the local mins of the balloon profile to find the throat
+    copylm = lm;
+    lm(lm == 0) = [];
+    nummin = length(lm);
+    
+    if nummin > 1
+        % find the index of the local minima
+        minindex = find(copylm == 1);
+        
+        % crop to the first minimum
+        z = z(1:minindex(1),1);
+        r = drdz(1:minindex(1),1);
+        
+        % find the throat radius
+        rt = r(end);
+        
+        % find the arclength
+        l = getarclength(z,r);
+        
+        % set the valid flag so that volume is calculated
+        validflag = 1;
+    else
+        % we have an invalid balloon shape
+        validflag = 0;
+    end
+    
+    % determine volume
+    if validflag == 1
+        if l > .27
+            vol = 0;
+        elseif rt < rtthresh
+            vol = 0;
+        else
+            vol = 0;
+            % calculate the volume numerically by method of rings
+            for i = 2:1:length(z)
+                rmid = (r(i-1) + r(i))/2; %midpoint radius of ring
+                thickness = z(i) - z(i-1); %thickness of ring
+                vol = vol + pi*rmid^2*thickness; %add volume of ring
+            end
+        end
+    else
+        % say everything is zero
+        vol = 0;
+        %     l = 0;
+        %     rt = 0;
+    end
+else
+    vol = 0;
+end
+vol = -vol; %make it negative so the biggest volume is the minumum
 end
