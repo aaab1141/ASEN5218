@@ -135,6 +135,18 @@ title(['Optimal Balloon Profile if Rt > ',num2str(rtthresh)])
 axis equal; grid on
 disp(['Balloon Throat = ',num2str(rt),' m | Balloon Arclength = ',num2str(l),' m | Crown Radius = ',num2str(r(1)),' m'])
 disp(['Balloon Volume = ',num2str(vol),' m^3'])
+save_fig_png('Q2.Balloon small rt')
+
+n = 10;
+[tphi,ttheta] = balloonstress(z,r,allA(j),allH(k),n);
+
+figure
+plot(z,tphi,'k',z,ttheta,'--r')
+title('Pressure Differential Normalized Stresses Along Balloon Surface')
+xlabel('Z Position Along Balloon Axis, m');ylabel('Stress')
+legend('T_\phi','T_\theta') 
+grid on
+save_fig_png('Q2.Balloon small rt stress')
 
 rtthresh = .010;
 disp(['If we set a threshold that the throat radius >',num2str(rtthresh)])
@@ -163,15 +175,29 @@ title(['Optimal Balloon Profile if Rt > ',num2str(rtthresh)])
 axis equal; grid on
 disp(['Balloon Throat = ',num2str(rt),' m | Balloon Arclength = ',num2str(l),' m | Crown Radius = ',num2str(r(1)),' m'])
 disp(['Balloon Volume = ',num2str(vol),' m^3'])
+save_fig_png('Q2.Balloon big rt')
+
+n = 10;
+[tphi,ttheta] = balloonstress(z,r,allA(j),allH(k),n);
+
+figure
+plot(z,tphi,'k',z,ttheta,'--r')
+title('Pressure Differential Normalized Stresses Along Balloon Surface')
+xlabel('Z Position Along Balloon Axis, m');ylabel('Stress')
+legend('T_\phi','T_\theta')
+grid on
+save_fig_png('Q1.balloon big rt stress')
+
+
 
 disp('There is no optimal balloon profile above a Rt = ~.0105 m')
+
 
 % % figure
 % % plot(drdz(:,1),-z)
 % % ylabel('z coordinate, m');xlabel('Radius, m')
 % % title('Balloon Profile')
 % % axis equal
-
 
 %% Functions
 function [] = highlightmytruss(nodes,bars,plottitle,units,stresses)
@@ -377,4 +403,15 @@ else
     vol = 0;
 end
 vol = -vol; %make it negative so the biggest volume is the minumum
+end
+
+function [Tphi,Ttheta] = balloonstress(z,r,A,H,n)
+dp = 1;
+for i = 1:1:length(z)
+    R = r(i);
+    ra = R*H;
+    C = dp/(H+z(i))*H*ra/2;
+    Tphi(i) = C*exp(-A*R^n/n);
+    Ttheta(i) =  C*(1-A*R^n)*exp(-A*R^n/n);
+end
 end
