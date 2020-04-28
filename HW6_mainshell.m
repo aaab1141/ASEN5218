@@ -96,20 +96,27 @@ GtD = g'*displs;
 disp(['GtD = ',num2str(round(GtD,4),'%f'),' which means we have an inextensional mechanism that cannot be stabilized.'])
 
 %% Question 2
-A = 1;
-H = 10;
-rc = .2;
-n = 25;
+A = 1.5;
+H = 1;
+rc = .4;
 
-% opts = odeset('RelTol',1e-6,'AbsTol',1e-10);
-% [z,drdz] = ode45(@(z,drdz) balloon(z,drdz,A,H,rc,n),[0,H],[.02;10000],opts);
-opts = odeset('RelTol',1e-3,'AbsTol',1e-6); %default
-[z,drdz] = ode45(@(z,drdz) balloon(z,drdz,A,H,rc,n),[0,H],[.02;10000],opts);
+% opts = odeset('RelTol',1e-3,'AbsTol',1e-6); %default
+% [z,drdz] = ode45(@(z,drdz) balloon(z,drdz,A,H,rc),[0,H],[.02;10000],opts);
 
+[z,r,rt,l,vol] = balloonvolume(rc,A,H);
+
+% get only the points from the crown to the throat
 figure
-plot(z,drdz(:,1))
+plot(z,r)
 xlabel('z coordinate, m');ylabel('Radius, m')
+title('Balloon Profile')
+axis equal; grid on
 
+% % figure
+% % plot(drdz(:,1),-z)
+% % ylabel('z coordinate, m');xlabel('Radius, m')
+% % title('Balloon Profile')
+% % axis equal
 
 
 %% Functions
@@ -193,13 +200,67 @@ for b = 1:1:size(bars,1) %b is the bar number
 end
 end
 
-function [drdz] = balloon(z,drdz,A,H,rc,n)
+function [drdz] = balloon(z,drdz,A,H,rc)
 r = drdz(1);
 rp = drdz(2); %rprime
 
 r1 = rp;
 r2 =((1+rp^2)^(3/2))/H*((H*(1-A*sqrt(r/H)))/(r*sqrt(1+rp^2)) - 2/rc*(H-z)*exp(2*A*sqrt(r/H)));
-% r2 = ((1-rp^2)*(1-A*r^n))/r - 2/rc*(1+rp^2)^(3/2)*(1-z)*exp(A*r^n/n);
 
 drdz = [r1;r2];
+end
+
+function [l] = getarclength(x,y)
+l = 0;
+for i = 2:1:length(x)
+    l = l+norm([x(i-1);y(i-1);0]-[x(i);y(i);0]);
+end
+end
+
+function [z,r,rt,l,vol] = balloonvolume(rc,A,H)
+% integrate balloon shape
+[z,drdz] = ode45(@(z,drdz) balloon(z,drdz,A,H,rc),[0,H],[.02;10000]);
+
+% check if its valid by searching for that local minimum
+lm = islocalmin(drdz(:,1)); %find the local mins of the balloon profile to find the throat
+copylm = lm;
+lm(lm == 0) = [];
+nummin = length(lm);
+
+if nummin > 1
+    % find the index of the local minima
+    minindex = find(copylm == 1);
+
+    % crop to the first minimum
+    z = z(1:minindex(1),1);
+    r = drdz(1:minindex(1),1);
+    
+    % find the throat radius
+    rt = r(end);
+    
+    % find the arclength
+    l = getarclength(z,r);
+    
+    % set the valid flag so that volume is calculated
+    validflag = 1;
+else
+    % we have an invalid balloon shape
+    validflag = 0;
+end
+
+% determine volume
+if validflag == 1
+    vol = 0;
+    % calculate the volume numerically by method of rings
+    for i = 2:1:length(z)
+        rmid = (r(i-1) + r(i))/2; %midpoint radius of ring
+        thickness = z(i) - z(i-1); %thickness of ring
+        vol = vol + pi*rmid^2*thickness; %add volume of ring
+    end
+else
+    % say everything is zero
+    vol = 0;
+    l = 0;
+    rt = 0;
+end
 end
