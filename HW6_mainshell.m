@@ -188,16 +188,26 @@ legend('T_\phi','T_\theta')
 grid on
 save_fig_png('Q1.balloon big rt stress')
 
-
-
 disp('There is no optimal balloon profile above a Rt = ~.0105 m')
 
+%% Question 4
+theta = linspace(0,pi/2,100);
+a = 1; b = a;
 
-% % figure
-% % plot(drdz(:,1),-z)
-% % ylabel('z coordinate, m');xlabel('Radius, m')
-% % title('Balloon Profile')
-% % axis equal
+for gam = [pi/3,pi/4,2*pi/3]
+    H = a*sin(gam).*sin(theta);
+    twoL = 2*sqrt((a*cos(gam))^2 + (a*sin(gam).*cos(theta)).^2);
+    squiggly = tan((a*sin(gam).*cos(theta))./(a*cos(gam)));
+    twoS = 2*cos(pi/2 - squiggly);
+    
+    figure
+    plot(theta,H,theta,twoL,theta,twoS)
+    xlabel('\Theta, radians');ylabel('Length, units')
+    title(['Lengths assuming a = b & \gamma = ',num2str(round(gam,2))])
+    legend('H','2L','2S')
+    grid on
+    save_fig_png(['Q4.gam is ',num2str(round(gam,2))])
+end
 
 %% Functions
 function [] = highlightmytruss(nodes,bars,plottitle,units,stresses)
