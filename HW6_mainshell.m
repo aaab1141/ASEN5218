@@ -207,8 +207,9 @@ a = 1; b = a;
 for gam = [pi/3,pi/4,2*pi/3]
     H = a*sin(gam).*sin(theta);
     twoL = 2*sqrt((a*cos(gam))^2 + (a*sin(gam).*cos(theta)).^2);
-    squiggly = tan((a*sin(gam).*cos(theta))./(a*cos(gam)));
-    twoS = 2*cos(pi/2 - squiggly);
+%     squiggly = tan((a*sin(gam).*cos(theta))./(a*cos(gam)));
+    squiggly = sin((a*sin(gam).*cos(theta))./(twoL/2));
+    twoS = 2*b*cos(pi/2 - squiggly);
     
     figure
     plot(theta,H,theta,twoL,theta,twoS)
