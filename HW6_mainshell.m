@@ -115,6 +115,7 @@ allA = linspace(Amin,Amax,divs);
 allH = linspace(Hmin,Hmax,divs);
 allrc = linspace(rcmin,rcmax,divs);
 V = zeros(divs,divs,divs);
+tic
 for i = 1:1:divs
     for j = 1:1:divs
         for k = 1:1:divs
@@ -122,7 +123,7 @@ for i = 1:1:divs
         end
     end
 end
-
+toc
 [~,in] = min(V(:));
 [i,j,k] = ind2sub(size(V),in);
 
@@ -140,11 +141,15 @@ save_fig_png('Q2.Balloon small rt')
 n = 10;
 [tphi,ttheta] = balloonstress(z,r,allA(j),allH(k),n);
 
+% find the maximum stress
+[maxstress,inms] = max(tphi);
+
 figure
 plot(z,tphi,'k',z,ttheta,'--r')
 title('Pressure Differential Normalized Stresses Along Balloon Surface')
 xlabel('Z Position Along Balloon Axis, m');ylabel('Stress')
 legend('T_\phi','T_\theta') 
+text(z(inms),tphi(inms),['\leftarrow Maximum Stress at z = ',num2str(round(z(inms),3)),' r = ',num2str(round(r(inms),4))])
 grid on
 save_fig_png('Q2.Balloon small rt stress')
 
@@ -155,6 +160,7 @@ allA = linspace(Amin,Amax,divs);
 allH = linspace(Hmin,Hmax,divs);
 allrc = linspace(rcmin,rcmax,divs);
 V = zeros(divs,divs,divs);
+tic
 for i = 1:1:divs
     for j = 1:1:divs
         for k = 1:1:divs
@@ -162,7 +168,7 @@ for i = 1:1:divs
         end
     end
 end
-
+toc
 [~,in] = min(V(:));
 [i,j,k] = ind2sub(size(V),in);
 
@@ -180,13 +186,17 @@ save_fig_png('Q2.Balloon big rt')
 n = 10;
 [tphi,ttheta] = balloonstress(z,r,allA(j),allH(k),n);
 
+% find the maximum stress
+[maxstress,inms] = max(tphi);
+
 figure
 plot(z,tphi,'k',z,ttheta,'--r')
 title('Pressure Differential Normalized Stresses Along Balloon Surface')
 xlabel('Z Position Along Balloon Axis, m');ylabel('Stress')
 legend('T_\phi','T_\theta')
+text(z(inms),tphi(inms),['\leftarrow Maximum Stress at z = ',num2str(round(z(inms),3)),' r = ',num2str(round(r(inms),4))])
 grid on
-save_fig_png('Q1.balloon big rt stress')
+save_fig_png('Q2.balloon big rt stress')
 
 disp('There is no optimal balloon profile above a Rt = ~.0105 m')
 
