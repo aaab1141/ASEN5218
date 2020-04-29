@@ -208,13 +208,13 @@ for gam = [pi/3,pi/4,2*pi/3]
     H = a*sin(gam).*sin(theta);
     twoL = 2*sqrt((a*cos(gam))^2 + (a*sin(gam).*cos(theta)).^2);
 %     squiggly = tan((a*sin(gam).*cos(theta))./(a*cos(gam)));
-    squiggly = sin((a*sin(gam).*cos(theta))./(twoL/2));
+    squiggly = asin((a*sin(gam).*cos(theta))./(twoL/2));
     twoS = 2*b*cos(pi/2 - squiggly);
     
     figure
     plot(theta,H,theta,twoL,theta,twoS)
     xlabel('\Theta, radians');ylabel('Length, units')
-    title(['Lengths assuming a = b & \gamma = ',num2str(round(gam,2))])
+    title(['Lengths assuming a = b = 1 & \gamma = ',num2str(round(gam,2))])
     legend('H','2L','2S')
     grid on
     save_fig_png(['Q4.gam is ',num2str(round(gam,2))])
