@@ -204,7 +204,7 @@ disp('There is no optimal balloon profile above a Rt = ~.0105 m')
 theta = linspace(0,pi/2,100);
 a = 1; b = a;
 
-for gam = [pi/3,pi/4,2*pi/3]
+for gam = [pi/3,pi/4,pi/6]
     H = a*sin(gam).*sin(theta);
     twoL = 2*sqrt((a*cos(gam))^2 + (a*sin(gam).*cos(theta)).^2);
 %     squiggly = tan((a*sin(gam).*cos(theta))./(a*cos(gam)));
