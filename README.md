@@ -18,3 +18,6 @@ Easy, just run the MATLAB script called *HW4_mainshell.m*. Make sure you also ha
 
 ## Running HW5
 Easy, just run the MATLAB script called *HW5_mainshell.m*. Make sure you also have the *save_fig_png.m* function available.
+
+## Running HW6
+Easy, just run the MATLAB script called *HW6_mainshell.m*. Make sure you also have the *save_fig_png.m* and *equilibrium_matrix.m* function available.
